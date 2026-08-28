@@ -29,8 +29,8 @@
     line-height: 1.6;
   }
   .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
-  header { padding: 96px 0 64px; }
-  .hero { display: flex; gap: 48px; align-items: center; }
+  header { padding: 72px 0 56px; }
+  .hero { display: flex; gap: 56px; align-items: flex-start; }
   .hero-text { flex: 1; min-width: 0; }
   .badge {
     display: inline-block; font-size: 13px; color: var(--accent);
@@ -70,7 +70,7 @@
   /* Portrait */
   .portrait { flex-shrink: 0; position: relative; }
   .portrait-frame {
-    width: 230px; aspect-ratio: 1; border-radius: 22px; padding: 3px;
+    width: 260px; aspect-ratio: 1; border-radius: 22px; padding: 3px;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     box-shadow: 0 12px 40px rgba(79, 143, 247, .18);
   }
@@ -196,25 +196,6 @@
 <body>
 
 <header class="wrap hero">
-  <div class="hero-text">
-    <span class="badge">NOUVEAU · VERSION 2.0</span>
-    <h1><span class="grad">Alexandre Tostivint</span> est disponible.</h1>
-    <p class="sub">Un modèle entraîné sur plus de dix ans de production cloud.
-       Actuellement en sous-charge&nbsp;: posez-lui vos questions techniques,
-       il vous répond lui-même. Promis, pas de hallucinations.</p>
-    <p class="ai-note">Cette page a été générée par une intelligence artificielle.
-       L'architecte derrière, lui, n'a rien d'artificiel.</p>
-    <div class="chips">
-      <span class="chip"><b>Contexte</b> multicloud · AWS, Azure, GCP</span>
-      <span class="chip"><b>Latence</b> quelques heures</span>
-      <span class="chip"><b>Hallucinations</b> non</span>
-      <span class="chip"><b>Coût</b> un café</span>
-    </div>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="#ask">Poser une question 💬</a>
-      <a class="btn btn-ghost" href="#contact">Voir les coordonnées</a>
-    </div>
-  </div>
   <div class="portrait">
     <div class="portrait-frame">
       <div class="portrait-inner">
@@ -225,6 +206,31 @@
         </picture>
         <span class="portrait-status">● disponible pour échanger</span>
       </div>
+    </div>
+  </div>
+  <div class="hero-text">
+    <div class="prompt-box" style="margin-bottom:28px">
+      <div class="prompt-head">💬 Posez-moi votre question</div>
+      <textarea id="q-input" rows="2" aria-label="Votre question"
+                placeholder="Écrivez votre question ici… (Entrée pour envoyer)"></textarea>
+      <div class="prompt-foot">
+        <span class="hint">Je réponds en personne, sous quelques heures.</span>
+        <button id="q-send" class="btn btn-primary" type="button">Envoyer ➤</button>
+      </div>
+      <p class="q-warning" id="q-warning" role="alert">
+        ⚠️ Notre outil de chat est bloqué par votre navigateur.
+        <a href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">Passez par LinkedIn</a>.
+      </p>
+    </div>
+    <h1><span class="grad">Alexandre Tostivint</span><br>est disponible.</h1>
+    <p class="sub">Architecte cloud senior, 10 ans de production, ex-DoiT International.
+       Neuf certifications (3× Azure, 6× AWS), 300+ clients accompagnés.</p>
+    <p class="ai-note">Page co-construite avec Atlas, mon assistant IA.
+       Savoir orchestrer une IA, c'est aussi le métier.</p>
+    <div class="suggestions" style="margin-top:14px">
+      <button class="suggestion" type="button">Comment réduire ma facture AWS sans casser la prod&nbsp;?</button>
+      <button class="suggestion" type="button">Quelles certifs viser pour devenir architecte cloud&nbsp;?</button>
+      <button class="suggestion" type="button">Vous êtes ouvert aux opportunités&nbsp;? 👀</button>
     </div>
   </div>
 </header>
@@ -263,57 +269,7 @@
 
 <section class="wrap" id="ask">
   <h2>Posez votre question <small>Comme un prompt&nbsp;: écrivez, envoyez. Alexandre répond en personne.</small></h2>
-  <div class="prompt-box">
-    <div class="prompt-head">💬 Message à Alexandre</div>
-    <textarea id="q-input" rows="3" aria-label="Votre question"
-              placeholder="Écrivez votre question ici… (Entrée pour envoyer, Maj+Entrée pour aller à la ligne)"></textarea>
-    <div class="prompt-foot">
-      <span class="hint">Votre message arrive directement dans la boîte de réception d'Alexandre. Réponse humaine, sous quelques heures.</span>
-      <button id="q-send" class="btn btn-primary" type="button">Envoyer ➤</button>
-    </div>
-    <p class="q-warning" id="q-warning" role="alert">
-      ⚠️ Impossible de remettre ce message&nbsp;: notre outil de chat est bloqué par votre navigateur.
-      <a href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">Passez par LinkedIn</a>,
-      ou <a href="#contact">utilisez les autres contacts</a>.
-    </p>
-  </div>
-  <p class="suggest-label">Pas d'inspiration&nbsp;? Essayez&nbsp;:</p>
-  <div class="suggestions">
-    <button class="suggestion" type="button">Comment réduire ma facture AWS sans casser la prod&nbsp;?</button>
-    <button class="suggestion" type="button">Quelles certifs viser pour devenir architecte cloud&nbsp;?</button>
-    <button class="suggestion" type="button">Comment structurer une landing zone multi-comptes&nbsp;?</button>
-    <button class="suggestion" type="button">Vous êtes ouvert aux opportunités&nbsp;? 👀</button>
-  </div>
-</section>
-
-<section class="wrap" id="chat">
-  <h2>Session interactive <small>Votre conversation s'ouvre ici, directement dans la page.</small></h2>
-  <div class="terminal">
-    <div class="term-bar">
-      <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
-      <span class="term-title">alexandre@tostivint: ~/questions — nouvelle session</span>
-      <span class="term-status">en ligne</span>
-    </div>
-    <div class="term-body">
-      <iframe
-        id="chat-frame"
-        src="https://go.crisp.chat/chat/embed/?website_id=-K4rlGkym4Yw7OXHl99n"
-        title="Chat avec Alexandre Tostivint"
-        loading="lazy"
-        allow="clipboard-write">
-      </iframe>
-      <div class="chat-fallback" id="chat-fallback">
-        <h3>⚠️ Le chat ne s'affiche pas&nbsp;?</h3>
-        <p>Votre bloqueur de publicités ou votre navigateur masque probablement
-           notre outil de messagerie. Rassurez-vous&nbsp;: Alexandre répond aussi ailleurs.</p>
-        <div class="fallback-actions">
-          <a class="btn btn-primary" href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">Continuer sur LinkedIn</a>
-          <a class="btn btn-ghost" href="#contact">Voir les autres contacts</a>
-        </div>
-      </div>
-    </div>
-    <p class="term-note">Fenêtre vide ou bloquée&nbsp;? Les contacts alternatifs s'affichent directement dans le cadre ci-dessus.</p>
-  </div>
+  <p class="sub" style="max-width:640px">Le champ ci-dessus ouvre directement la conversation. Pas d'inspiration&nbsp;? Les boutons suggérés lancent tout de suite.</p>
 </section>
 
 <section class="wrap" id="contact">
@@ -372,9 +328,7 @@
   var pendingMessage = null;
 
   function hideFallbacks() {
-    var fb = document.getElementById("chat-fallback");
     var qw = document.getElementById("q-warning");
-    if (fb && fb.classList.contains("show")) fb.classList.remove("show");
     if (qw && qw.classList.contains("show")) qw.classList.remove("show");
   }
 
@@ -397,9 +351,7 @@
     var loaded = crispReady || document.querySelector(".crisp-client") !== null;
     if (!loaded) {
       crispBlocked = true;
-      var fb = document.getElementById("chat-fallback");
       var qw = document.getElementById("q-warning");
-      if (fb) fb.classList.add("show");
       if (qw) qw.classList.add("show");
     }
   }, 4000);
@@ -415,19 +367,6 @@
       pendingMessage = text; /* sera envoyé dès que Crisp aura fini de charger */
     }
     openChat();
-    /* Synchronise la fenêtre embarquée sur CETTE conversation :
-       on récupère le session_id et on recharge l'iframe avec crisp_sid. */
-    setTimeout(function () {
-      try {
-        var sid = $crisp.get && $crisp.get("session:id");
-        if (sid) {
-          var frame = document.getElementById("chat-frame");
-          frame.src = "https://go.crisp.chat/chat/embed/?website_id=" +
-            encodeURIComponent(window.CRISP_WEBSITE_ID) + "&crisp_sid=" +
-            encodeURIComponent(sid);
-        }
-      } catch (e) {}
-    }, 1200);
   }
 
   function submitQuestion() {
@@ -444,7 +383,7 @@
     input.value = "";
     sendBtn.textContent = "Envoyé ✓";
     setTimeout(function () { sendBtn.textContent = "Envoyer ➤"; }, 2200);
-    document.getElementById("chat").scrollIntoView({ behavior: "smooth" });
+    document.getElementById("ask").scrollIntoView({ behavior: "smooth" });
   }
 
   sendBtn.addEventListener("click", submitQuestion);
