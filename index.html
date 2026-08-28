@@ -30,8 +30,9 @@
   }
   .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
   header { padding: 72px 0 56px; }
-  .hero { display: flex; gap: 56px; align-items: flex-start; }
-  .hero-text { flex: 1; min-width: 0; }
+  .hero { display: block; }
+  .hero-top { display: flex; gap: 32px; align-items: center; }
+  .hero-id { flex: 1; min-width: 0; }
   .badge {
     display: inline-block; font-size: 13px; color: var(--accent);
     border: 1px solid var(--accent); border-radius: 999px;
@@ -92,11 +93,10 @@
     border-radius: 999px; padding: 2px 10px; backdrop-filter: blur(4px);
   }
   @media (max-width: 720px) {
-    header.hero { flex-direction: column-reverse; gap: 32px; padding-top: 64px; }
-    .portrait-frame { width: 170px; }
-    .hero-text { text-align: center; }
-    .ai-note, .chips, .cta-row { margin-left: auto; margin-right: auto; justify-content: center; }
-    .ai-note { text-align: left; }
+    header.hero { padding-top: 56px; }
+    .hero-top { flex-direction: column; text-align: center; gap: 20px; }
+    .portrait-frame { width: 150px; }
+    .suggestions { justify-content: flex-start; }
   }
   section { padding: 48px 0; border-top: 1px solid var(--border); }
   h2 { font-size: 24px; margin-bottom: 28px; }
@@ -147,7 +147,8 @@
   }
   .q-warning.show { display: block; }
   .q-warning a { color: var(--accent); font-weight: 600; }
-  .suggest-label { margin: 20px 0 10px; font-size: 13px; color: var(--muted); }
+  .hero-prompt { max-width: 760px; margin: 32px auto 0; }
+  .suggestions { max-width: 760px; margin: 14px auto 0; justify-content: center; }
   .suggestions { display: flex; flex-wrap: wrap; gap: 8px; max-width: 760px; }
   .suggestion {
     font-family: inherit; font-size: 13.5px; color: var(--text);
@@ -196,42 +197,45 @@
 <body>
 
 <header class="wrap hero">
-  <div class="portrait">
-    <div class="portrait-frame">
-      <div class="portrait-inner">
-        <picture>
-          <source srcset="alexandre-portrait-a.webp" type="image/webp">
-          <img src="alexandre-portrait-a.jpg" alt="Alexandre Tostivint, architecte cloud senior"
-               width="600" height="600">
-        </picture>
-        <span class="portrait-status">● disponible pour échanger</span>
+  <div class="hero-top">
+    <div class="portrait">
+      <div class="portrait-frame">
+        <div class="portrait-inner">
+          <picture>
+            <source srcset="alexandre-portrait-a.webp" type="image/webp">
+            <img src="alexandre-portrait-a.jpg" alt="Alexandre Tostivint, architecte cloud senior"
+                 width="600" height="600">
+          </picture>
+        </div>
       </div>
+    </div>
+    <div class="hero-id">
+      <h1><span class="grad">Alexandre Tostivint</span><br>est disponible.</h1>
+      <p class="sub">Architecte cloud senior, 10 ans de production, ex-DoiT International.
+         Neuf certifications (3× Azure, 6× AWS), 300+ clients accompagnés.</p>
+      <p class="ai-note">Page co-construite avec Atlas, mon assistant IA.
+         Savoir orchestrer une IA, c'est aussi le métier.</p>
     </div>
   </div>
-  <div class="hero-text">
-    <div class="prompt-box" style="margin-bottom:28px">
-      <div class="prompt-head">💬 Posez-moi votre question</div>
-      <textarea id="q-input" rows="2" aria-label="Votre question"
-                placeholder="Écrivez votre question ici… (Entrée pour envoyer)"></textarea>
-      <div class="prompt-foot">
-        <span class="hint">Je réponds en personne, sous quelques heures.</span>
-        <button id="q-send" class="btn btn-primary" type="button">Envoyer ➤</button>
-      </div>
-      <p class="q-warning" id="q-warning" role="alert">
-        ⚠️ Notre outil de chat est bloqué par votre navigateur.
-        <a href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">Passez par LinkedIn</a>.
-      </p>
+
+  <div class="prompt-box hero-prompt">
+    <div class="prompt-head">💬 Posez-moi votre question</div>
+    <textarea id="q-input" rows="2" aria-label="Votre question"
+              placeholder="Écrivez votre question ici… (Entrée pour envoyer)"></textarea>
+    <div class="prompt-foot">
+      <span class="hint">Je réponds en personne, sous quelques heures.</span>
+      <button id="q-send" class="btn btn-primary" type="button">Envoyer ➤</button>
     </div>
-    <h1><span class="grad">Alexandre Tostivint</span><br>est disponible.</h1>
-    <p class="sub">Architecte cloud senior, 10 ans de production, ex-DoiT International.
-       Neuf certifications (3× Azure, 6× AWS), 300+ clients accompagnés.</p>
-    <p class="ai-note">Page co-construite avec Atlas, mon assistant IA.
-       Savoir orchestrer une IA, c'est aussi le métier.</p>
-    <div class="suggestions" style="margin-top:14px">
-      <button class="suggestion" type="button">Comment réduire ma facture AWS sans casser la prod&nbsp;?</button>
-      <button class="suggestion" type="button">Quelles certifs viser pour devenir architecte cloud&nbsp;?</button>
-      <button class="suggestion" type="button">Vous êtes ouvert aux opportunités&nbsp;? 👀</button>
-    </div>
+    <p class="q-warning" id="q-warning" role="alert">
+      ⚠️ Notre outil de chat est bloqué par votre navigateur.
+      <a href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">Passez par LinkedIn</a>.
+    </p>
+  </div>
+
+  <div class="suggestions">
+    <button class="suggestion" type="button">Comment réduire ma facture AWS sans casser la prod&nbsp;?</button>
+    <button class="suggestion" type="button">Quelles certifs viser pour devenir architecte cloud&nbsp;?</button>
+    <button class="suggestion" type="button">Vous êtes ouvert aux opportunités&nbsp;? 👀</button>
   </div>
 </header>
 
