@@ -3,24 +3,32 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Alexandre Tostivint — Senior Cloud Architect</title>
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0d1117">
+<title>Alexandre Tostivint, Senior Cloud Architect</title>
 <meta name="description" content="Architecte cloud senior (AWS, Azure, GCP). FinOps, Well-Architected, pre-sales. Posez-moi vos questions techniques, je réponds vraiment.">
-<meta property="og:title" content="Alexandre Tostivint — Architecte cloud senior">
+<meta property="og:title" content="Alexandre Tostivint, architecte cloud senior">
 <meta property="og:description" content="Architecte cloud senior (AWS, Azure, GCP). FinOps, Well-Architected, pre-sales. Posez-moi vos questions techniques, je réponds vraiment.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ask.alexandre.tostivint.bzh/">
+<meta property="og:image" content="https://ask.alexandre.tostivint.bzh/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Alexandre Tostivint, architecte cloud senior, Toasty-20-A">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥖</text></svg>">
+<link rel="preconnect" href="https://client.crisp.chat" crossorigin>
+<link rel="preconnect" href="https://calendar.app.google" crossorigin>
 <link rel="stylesheet" href="styles.css">
 <script src="app.js"></script>
+<script src="bg-network.js" defer></script>
 <script src="vendor/alpine.min.js" defer></script>
 </head>
 <body x-data="portfolio()" x-init="init()" :class="'view-' + view">
 
 <div class="bg-glow" aria-hidden="true"></div>
-<div class="bg-particles" aria-hidden="true">
-  <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-  <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-</div>
+<canvas id="bg-network" aria-hidden="true"></canvas>
 
 <nav class="nav wrap">
   <a class="brand" href="#" @click.prevent="setView('home')">AT<span class="brand-dot">.</span><span class="brand-toast" title="Toasty-20-A">🍞</span></a>
@@ -41,29 +49,38 @@
 
     <div class="hero">
       <div class="portrait">
-        <div class="portrait-frame">
+        <div class="portrait-frame" id="portrait-frame">
           <div class="portrait-inner">
-            <picture id="hero-picture">
-              <source id="hero-source" srcset="alexandre-portrait-a.webp" type="image/webp">
-              <img id="hero-img" src="alexandre-portrait-a.jpg" alt="Alexandre Tostivint, architecte cloud senior" width="600" height="600">
-            </picture>
+            <img id="img-real" src="alexandre-portrait-a.jpg" alt="Alexandre Tostivint, architecte cloud senior" width="600" height="600">
+            <img id="img-ai" src="avatar-ai.png" alt="Avatar généré par IA du modèle Toasty-20-A" width="600" height="600" style="display:none">
             <span class="portrait-model" aria-hidden="true">Toasty-20-A</span>
           </div>
         </div>
+        <p class="portrait-hint" id="portrait-hint" hidden></p>
       </div>
 
       <div class="hero-id">
-        <h1><span class="grad">Alexandre Tostivint</span><br>est disponible.</h1>
-        <p class="sub">Architecte cloud senior, 10 ans de production, ex-DoiT International.</p>
+        <h1><span class="grad">Alexandre Tostivint</span> est disponible.</h1>
+        <p class="sub">Architecte cloud senior. AWS, Azure, GCP. 300+ clients, 9 certifications. Une question ? Pose-la ici, j'y réponds moi-même.</p>
 
         <div class="prompt-box">
-          <textarea id="q-input" x-ref="qInput" x-model="input" rows="2"
-                    @keydown.enter.prevent="!$event.shiftKey && submit('qInput')"
-                    aria-label="Votre question"
-                    placeholder="Écrivez votre question ici… (Entrée pour envoyer)"></textarea>
-          <div class="prompt-foot">
-            <button class="btn btn-primary" type="button" @click="submit('qInput')">Envoyer ➤</button>
+          <div class="input-row">
+            <textarea id="q-input" x-ref="qInput" x-model="input" rows="1"
+                      aria-label="Votre question"
+                      @keydown.enter.prevent="!$event.shiftKey && submit('qInput')"
+                      placeholder="Posez votre question…"></textarea>
+            <!-- Icône flèche : Feather "arrow-up" (MIT), rendue inline pour éviter une dépendance -->
+            <button class="btn-send" :class="{ 'is-empty': !input.trim() }" type="button"
+                    @click="submit('qInput')" aria-label="Envoyer la question">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                   stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="19" x2="12" y2="5"></line>
+                <polyline points="5 12 12 5 19 12"></polyline>
+              </svg>
+            </button>
           </div>
+          <p class="sent-confirm" aria-live="polite"></p>
           <p class="q-warning" role="alert">
             ⚠️ Notre outil de chat est bloqué par votre navigateur.
             <a href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">Passez par LinkedIn</a>.
@@ -74,13 +91,6 @@
           <template x-for="s in suggestions" :key="s">
             <button class="suggestion" type="button" @click="useSuggestion(s)" x-text="s"></button>
           </template>
-        </div>
-
-        <div class="model-card" role="note">
-          <span class="model-kicker">MODELE</span>
-          <h3 class="model-name">Toasty-20-A</h3>
-          <p class="model-spec">Architecte cloud senior · 10 ans de prod · 9 certifs</p>
-          <a class="btn btn-primary" href="https://cv.alexandre.tostivint.bzh" target="_blank" rel="noopener">Voir le CV ➤</a>
         </div>
       </div>
     </div>
@@ -110,55 +120,55 @@
             <span class="cert-badge badge-pro">Pro</span>
             <span class="cert-logo"><img src="assets/logos/aws.svg" alt="AWS" loading="lazy"></span>
             <span class="cert-name">AWS Certified Solutions Architect – Professional</span>
-            <span class="cert-valid">Depuis Mar 2022 — valide jusqu'en Fév 2028</span>
+            <span class="cert-valid">Depuis Mar 2022, valide jusqu'en Fév 2028</span>
           </a>
           <a class="cert cert-aws" href="https://cp.certmetrics.com/amazon/en/public/verify/credential/0QCVWRNLFM141Z5D" target="_blank" rel="noopener">
             <span class="cert-badge badge-pro">Pro</span>
             <span class="cert-logo"><img src="assets/logos/aws.svg" alt="AWS" loading="lazy"></span>
             <span class="cert-name">AWS Certified DevOps Engineer – Professional</span>
-            <span class="cert-valid">Depuis May 2022 — valide jusqu'en Mar 2028</span>
+            <span class="cert-valid">Depuis May 2022, valide jusqu'en Mar 2028</span>
           </a>
           <a class="cert cert-aws" href="https://cp.certmetrics.com/amazon/en/public/verify/credential/VRZ4RKX1M2R41NWG" target="_blank" rel="noopener">
             <span class="cert-badge badge-specialty">Specialty</span>
             <span class="cert-logo"><img src="assets/logos/aws.svg" alt="AWS" loading="lazy"></span>
             <span class="cert-name">AWS Certified Security – Specialty</span>
-            <span class="cert-valid">Depuis Aoû 2023 — valide jusqu'en Aoû 2026</span>
+            <span class="cert-valid">Depuis Aoû 2023, valide jusqu'en Aoû 2026</span>
           </a>
           <a class="cert cert-aws" href="https://cp.certmetrics.com/amazon/en/public/verify/credential/MPTVQZV2EJV1QB57" target="_blank" rel="noopener">
             <span class="cert-badge badge-specialty">Specialty</span>
             <span class="cert-logo"><img src="assets/logos/aws.svg" alt="AWS" loading="lazy"></span>
             <span class="cert-name">AWS Certified Advanced Networking – Specialty</span>
-            <span class="cert-valid">Depuis May 2023 — valide jusqu'en Mai 2026</span>
+            <span class="cert-valid">Depuis May 2023, valide jusqu'en Mai 2026</span>
           </a>
           <a class="cert cert-aws" href="https://cp.certmetrics.com/amazon/en/public/verify/credential/C1KCZ8T2KBRQ1H97" target="_blank" rel="noopener">
             <span class="cert-badge badge-associate">Associate</span>
             <span class="cert-logo"><img src="assets/logos/aws.svg" alt="AWS" loading="lazy"></span>
             <span class="cert-name">AWS Certified Developer – Associate</span>
-            <span class="cert-valid">Depuis Jan 2025 — valide jusqu'en Mar 2028</span>
+            <span class="cert-valid">Depuis Jan 2025, valide jusqu'en Mar 2028</span>
           </a>
           <a class="cert cert-aws" href="https://cp.certmetrics.com/amazon/en/public/verify/credential/9f99ed898f704784b63ffdaff54bc3ab" target="_blank" rel="noopener">
             <span class="cert-badge badge-associate">Associate</span>
             <span class="cert-logo"><img src="assets/logos/aws.svg" alt="AWS" loading="lazy"></span>
             <span class="cert-name">AWS Certified AI – Practitioner</span>
-            <span class="cert-valid">Depuis Sep 2024 — valide jusqu'en Sep 2027</span>
+            <span class="cert-valid">Depuis Sep 2024, valide jusqu'en Sep 2027</span>
           </a>
           <a class="cert cert-azure" href="https://learn.microsoft.com/api/credentials/share/fr-fr/atostivint/77C74539156AF86D?sharingId=AA1D7245678CBBD5" target="_blank" rel="noopener">
             <span class="cert-badge badge-pro">Pro</span>
             <span class="cert-logo"><img src="assets/logos/azure.svg" alt="Azure" loading="lazy"></span>
             <span class="cert-name">Microsoft Certified: Azure Solutions Architect Expert</span>
-            <span class="cert-valid">Depuis Aoû 2020 — valide jusqu'en Aoû 2026</span>
+            <span class="cert-valid">Depuis Aoû 2020, valide jusqu'en Aoû 2026</span>
           </a>
           <a class="cert cert-azure" href="https://learn.microsoft.com/fr-fr/users/atostivint/credentials/aa018fbfbd69c281" target="_blank" rel="noopener">
             <span class="cert-badge badge-pro">Pro</span>
             <span class="cert-logo"><img src="assets/logos/azure.svg" alt="Azure" loading="lazy"></span>
             <span class="cert-name">Microsoft Certified: Azure DevOps Engineer Expert</span>
-            <span class="cert-valid">Depuis Fév 2020 — valide jusqu'en Fév 2027</span>
+            <span class="cert-valid">Depuis Fév 2020, valide jusqu'en Fév 2027</span>
           </a>
           <a class="cert cert-azure" href="https://learn.microsoft.com/api/credentials/share/fr-fr/atostivint/AE1E15066B027E25?sharingId=AA1D7245678CBBD5" target="_blank" rel="noopener">
             <span class="cert-badge badge-associate">Associate</span>
             <span class="cert-logo"><img src="assets/logos/azure.svg" alt="Azure" loading="lazy"></span>
             <span class="cert-name">Microsoft Certified: Azure Security Engineer Associate</span>
-            <span class="cert-valid">Depuis Mar 2020 — valide jusqu'en Mar 2027</span>
+            <span class="cert-valid">Depuis Mar 2020, valide jusqu'en Mar 2027</span>
           </a>
         </div>
       </div>
@@ -170,7 +180,7 @@
           <div class="cert blueprint">
             <span class="cert-badge badge-vise">Vise</span>
             <span class="cert-target">🎯</span>
-            <span class="cert-name">CKA — Certified Kubernetes Administrator</span>
+            <span class="cert-name">CKA, Certified Kubernetes Administrator</span>
             <span class="cert-valid">En cours / vise</span>
           </div>
           <div class="cert blueprint">
@@ -183,12 +193,6 @@
             <span class="cert-badge badge-vise">Vise</span>
             <span class="cert-target">🎯</span>
             <span class="cert-name">AWS Certified Machine Learning – Specialty</span>
-            <span class="cert-valid">En cours / vise</span>
-          </div>
-          <div class="cert blueprint">
-            <span class="cert-badge badge-roadmap">Roadmap</span>
-            <span class="cert-target">🎯</span>
-            <span class="cert-name">+ d'autres à venir</span>
             <span class="cert-valid">En cours / vise</span>
           </div>
         </div>
@@ -233,7 +237,7 @@
       </div>
       <div class="project">
         <h4 class="project-name">Pipeline data AWS</h4>
-        <p class="project-desc">Mise en place de pipelines data complexes (ingestion, orchestration, qualite) — vers la certification AWS Data Engineer.</p>
+        <p class="project-desc">Mise en place de pipelines data complexes (ingestion, orchestration, qualite), vers la certification AWS Data Engineer.</p>
       </div>
     </div>
 
@@ -241,7 +245,7 @@
       <span class="model-kicker">MODELE</span>
       <h3 class="model-name">Toasty-20-A</h3>
       <p class="model-spec">Architecte cloud senior · 10 ans de prod · 9 certifs</p>
-      <a class="btn btn-primary" href="https://cv.alexandre.tostivint.bzh" target="_blank" rel="noopener">Voir le CV ➤</a>
+      <a class="btn btn-primary" href="https://cv.alexandre.tostivint.bzh" target="_blank" rel="noopener">Voir le CV</a>
     </div>
   </section>
 
@@ -256,23 +260,14 @@
     <div class="testi-grid">
       <figure class="testi">
         <blockquote>« Alexandre est le seul architecte que je connaisse qui lit une facture AWS comme un roman et en sort un plan d'économies. »</blockquote>
-        <figcaption>— Ex-collègue, DoiT International</figcaption>
+        <figcaption>Ex-collègue, DoiT International</figcaption>
       </figure>
       <figure class="testi">
         <blockquote>« En pre-sales, il dessine l'architecture avant de vendre. Ça change tout. »</blockquote>
-        <figcaption>— Client, secteur retail</figcaption>
-      </figure>
-      <figure class="testi testi-empty">
-        <blockquote>Votre retour ici</blockquote>
-        <figcaption>Espace réservé — Alexandre collecte des retours honnêtes de collègues.</figcaption>
+        <figcaption>Client, secteur retail</figcaption>
       </figure>
     </div>
-
-    <div class="model-banner" role="note">
-      <span class="model-kicker">NOUVEAU MODÈLE</span>
-      <h3 class="model-name">Toasty-20-A</h3>
-      <p class="model-desc">Le modèle qui lit votre facture AWS avant que vous ayez bu votre café. Fine-tune sur 10 ans de prod cloud, distillé par Alexandre Tostivint.</p>
-    </div>
+    <p class="testi-note">Je collecte des retours honnêtes de collègues et clients. Le vôtre est bienvenu : <a href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">écrivez-moi sur LinkedIn</a>.</p>
   </section>
 
   <!-- ============ CONTACT ============ -->
@@ -281,12 +276,12 @@
            x-transition:leave="fade-out" x-transition:leave-start="fade-up-end" x-transition:leave-end="fade-out-end">
 
     <h2 class="view-title">Contact</h2>
-    <p class="view-lead">Deux façons d'ouvrir une session.</p>
+    <p class="view-lead">Le plus simple : écrivez-moi. Le plus formel : LinkedIn ou un créneau en visio.</p>
 
     <div class="grid">
-      <div class="card">
+      <div class="card card-primary">
         <h3>💬 Chat</h3>
-        <p>Messagerie instantanée, réponse sous quelques heures. Une question technique, une candidature, un projet&nbsp;?</p>
+        <p>Réponse sous quelques heures. Une question technique, une candidature, un projet&nbsp;?</p>
         <p style="margin-top:14px"><button class="btn btn-primary" type="button" @click="openChatBtn()">Ouvrir le chat</button></p>
         <p class="q-warning" role="alert">
           ⚠️ Le chat est bloqué par votre navigateur.
@@ -295,13 +290,13 @@
       </div>
       <div class="card">
         <h3>🔗 LinkedIn</h3>
-        <p>Le profil détaillé, les recommandations et les articles.</p>
+        <p>Le profil détaillé, les recommandations et les articles. Pour une première prise de contact formelle.</p>
         <p style="margin-top:14px"><a class="btn btn-ghost" href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">Voir le profil</a></p>
       </div>
       <div class="card">
         <h3>📅 Prendre RDV</h3>
-        <p>Un créneau en visio&nbsp;? Le calendrier ci-dessous, c'est ouvert.</p>
-        <p style="margin-top:14px"><a class="btn btn-ghost" href="https://calendar.app.google/bvAn3Tc2iEFjc5uX7" target="_blank" rel="noopener">Calendrier</a></p>
+        <p>Un créneau en visio, sans aller-retour de mails. Mon calendrier est ouvert.</p>
+        <p style="margin-top:14px"><a class="btn btn-ghost" href="https://calendar.app.google/bvAn3Tc2iEFjc5uX7" target="_blank" rel="noopener">Réserver un créneau</a></p>
       </div>
     </div>
   </section>
