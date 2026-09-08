@@ -30,7 +30,7 @@
 <div class="bg-glow" aria-hidden="true"></div>
 <canvas id="bg-network" aria-hidden="true"></canvas>
 
-<nav class="nav wrap">
+<nav class="nav wrap" aria-label="Navigation principale">
   <a class="brand" href="#" @click.prevent="setView('home')">AT<span class="brand-dot">.</span><span class="brand-toast" title="Toasty-20-A">🍞</span></a>
   <ul class="nav-links">
     <li><button :class="{active: view==='home'}" @click="setView('home')">Accueil</button></li>
@@ -73,21 +73,22 @@
             <button class="btn-send" :class="{ 'is-empty': !input.trim() }" type="button"
                     @click="submit('qInput')" aria-label="Envoyer la question">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                   stroke-linejoin="round" aria-hidden="true">
+                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <line x1="12" y1="19" x2="12" y2="5"></line>
                 <polyline points="5 12 12 5 19 12"></polyline>
               </svg>
             </button>
           </div>
           <p class="sent-confirm" aria-live="polite"></p>
+          <button id="route-hint" class="route-hint" type="button" role="status" aria-live="polite"></button>
+          <pre id="terminal-out" class="terminal-out" role="log" aria-live="polite" hidden></pre>
           <p class="q-warning" role="alert">
             ⚠️ Notre outil de chat est bloqué par votre navigateur.
             <a href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">Passez par LinkedIn</a>.
           </p>
         </div>
 
-        <div class="suggestions">
+        <div class="suggestions" role="group" aria-label="Suggestions de questions">
           <template x-for="s in suggestions" :key="s">
             <button class="suggestion" type="button" @click="useSuggestion(s)" x-text="s"></button>
           </template>
@@ -111,7 +112,7 @@
     </p>
 
     <h3 class="section-label">Certifications</h3>
-    <div class="cert-cols">
+    <div class="cert-cols" id="certs">
       <!-- (A) Obtenues -->
       <div class="cert-group">
         <h4 class="cert-group-title">Certifications</h4>
@@ -174,7 +175,7 @@
       </div>
 
       <!-- (B) Objectifs -->
-      <div class="cert-group">
+      <div class="cert-group" id="objectifs">
         <h4 class="cert-group-title">Objectifs</h4>
         <div class="certs">
           <div class="cert blueprint">
@@ -200,7 +201,7 @@
     </div>
 
     <h3 class="section-label">Parcours</h3>
-    <div class="companies">
+    <div class="companies" id="parcours">
       <div class="company mission">
         <img src="assets/logos/exaprobe.png" alt="Exaprobe-Econocom" loading="lazy">
         <span class="company-name">Exaprobe-Econocom</span>
@@ -210,7 +211,7 @@
       <div class="company mission">
         <img src="assets/logos/cloudreach.png" alt="Cloudreach" loading="lazy">
         <span class="company-name">Cloudreach</span>
-        <span class="company-desc">Cloud architect, AWS & GCP, 40+ clients</span>
+        <span class="company-desc">Cloud architect, AWS &amp; GCP, 40+ clients</span>
         <span class="company-period">Oct 2017 – Nov 2020</span>
       </div>
       <div class="company mission">
@@ -222,27 +223,27 @@
     </div>
 
     <div class="stats-strip">
-      <span>300+ clients</span><span>10 ans</span><span>9 certifs</span><span>3 clouds</span>
+      <span><b class="count" data-target="300">300</b>+ clients</span><span><b class="count" data-target="10">10</b> ans</span><span><b class="count" data-target="9">9</b> certifs</span><span><b class="count" data-target="3">3</b> clouds</span>
     </div>
 
-    <h3 class="section-label">Projets realises</h3>
+    <h3 class="section-label">Projets réalisés</h3>
     <div class="projects">
-      <div class="project">
+      <div class="project" id="project-finops">
         <h4 class="project-name">Refonte FinOps multi-cloud</h4>
-        <p class="project-desc">Accompagnement de 300+ clients chez DoiT International : audit de facturation, optimisation des architectures, -30% de cout moyen sans casser la prod.</p>
+        <p class="project-desc">Accompagnement de 300+ clients chez DoiT International : audit de facturation, optimisation des architectures, -30% de coût moyen sans casser la prod.</p>
       </div>
-      <div class="project">
+      <div class="project" id="project-retail">
         <h4 class="project-name">Architecture Well-Architected retail</h4>
-        <p class="project-desc">Conception de plateformes cloud pour 40+ clients chez Cloudreach (AWS &amp; GCP), du PoC a la prod sous contrainte retail.</p>
+        <p class="project-desc">Conception de plateformes cloud pour 40+ clients chez Cloudreach (AWS &amp; GCP), du PoC à la prod sous contrainte retail.</p>
       </div>
-      <div class="project">
+      <div class="project" id="project-data">
         <h4 class="project-name">Pipeline data AWS</h4>
-        <p class="project-desc">Mise en place de pipelines data complexes (ingestion, orchestration, qualite), vers la certification AWS Data Engineer.</p>
+        <p class="project-desc">Mise en place de pipelines data complexes (ingestion, orchestration, qualité), vers la certification AWS Data Engineer.</p>
       </div>
     </div>
 
     <div class="model-card model-card-wide" role="note">
-      <span class="model-kicker">MODELE</span>
+      <span class="model-kicker">MODÈLE</span>
       <h3 class="model-name">Toasty-20-A</h3>
       <p class="model-spec">Architecte cloud senior · 10 ans de prod · 9 certifs</p>
       <a class="btn btn-primary" href="https://cv.alexandre.tostivint.bzh" target="_blank" rel="noopener">Voir le CV</a>
