@@ -20,6 +20,9 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥖</text></svg>">
 <link rel="preconnect" href="https://client.crisp.chat" crossorigin>
 <link rel="preconnect" href="https://calendar.app.google" crossorigin>
+<link rel="alternate" hreflang="fr" href="https://ask.alexandre.tostivint.bzh/">
+<link rel="alternate" hreflang="en" href="https://ask.alexandre.tostivint.bzh/en/">
+<link rel="alternate" hreflang="x-default" href="https://ask.alexandre.tostivint.bzh/">
 <link rel="stylesheet" href="styles.css">
 <script src="app.js"></script>
 <script src="bg-network.js" defer></script>
@@ -37,6 +40,7 @@
     <li><button :class="{active: view==='about'}" @click="setView('about')">À propos</button></li>
     <li><button :class="{active: view==='testimonials'}" @click="setView('testimonials')">Témoignages</button></li>
     <li><button :class="{active: view==='contact'}" @click="setView('contact')">Contact</button></li>
+    <li><a class="lang-link" href="en/" lang="en" hreflang="en" aria-label="Switch to English">EN</a></li>
   </ul>
 </nav>
 
@@ -51,12 +55,12 @@
       <div class="portrait">
         <div class="portrait-frame" id="portrait-frame">
           <div class="portrait-inner">
-            <img id="img-real" src="alexandre-portrait-a.jpg" alt="Alexandre Tostivint, architecte cloud senior" width="600" height="600">
+            <img id="img-real" src="alexandre-coucou-aligne.jpg" alt="Alexandre Tostivint au naturel, en train de faire coucou" width="600" height="600" style="display:none">
             <img id="img-ai" src="avatar-ai.png" alt="Avatar généré par IA du modèle Toasty-20-A" width="600" height="600" style="display:none">
             <span class="portrait-model" aria-hidden="true">Toasty-20-A</span>
           </div>
         </div>
-        <p class="portrait-hint" id="portrait-hint" hidden></p>
+        <p class="portrait-hint is-hidden" id="portrait-hint"></p>
       </div>
 
       <div class="hero-id">

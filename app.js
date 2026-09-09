@@ -75,16 +75,91 @@
   /* ---------------------------------------------------------------------- */
   /* Composant Alpine — gestion des vues, saisie et extras.                 */
   /* ---------------------------------------------------------------------- */
-  window.portfolio = function () {
-    return {
-      view: "home",
-      input: "",
+  /* i18n : les libellés UI vivent ici. La page /en/ utilise la branche "en". */
+  window.ASK_I18N = {
+    fr: {
+      _base: "",
       suggestions: [
         "Ma facture AWS dérive. Tu regardes ou j'arrête la prod ?",
         "9 certifs et 10 ans de prod : ça se prouve ou c'est du marketing ?",
         "Vous recrutez ? Vous êtes au bon endroit. 👀",
         "kubectl get certifs"
       ],
+      hintHover: "Survolez-moi.",
+      hintTouch: "Touchez-moi.",
+      sentToast: "Message transmis. Alexandre répond sous quelques heures.",
+      eggTried: "essais : whoami · kubectl get certifs · kubectl get nodes",
+      eggFooter: "— easter egg, pas une IA. Pour une vraie réponse : le chat. 🙂",
+      whoami: [
+        "alexandre-tostivint",
+        "rôle       : Senior Cloud Architect",
+        "uptime     : 10+ ans en IT · 8+ en cloud",
+        "base       : Rennes, France · FR natif / EN C1",
+        "certifs    : 9 chargées (AWS 6 · Azure 3)",
+        "side-quest : FinOps, Well-Architected, agents IA"
+      ],
+      facture: [
+        "[sudo] mot de passe : accepté",
+        "audit FinOps terminé → plan d'économies livré",
+        "300+ clients déjà servis"
+      ],
+      keyroutes: [
+        { re: /\b(finops|factures?|co[uû]ts?|budget)/i, target: "parcours", label: "FinOps : le cœur du boulot chez DoiT — voir le parcours ?" },
+        { re: /\baws\b/i, target: "certs", label: "Les certifs AWS sont ici — voir ?" },
+        { re: /\bazure\b/i, target: "certs", label: "Les certifs Azure sont ici — voir ?" },
+        { re: /\b(certifs?|certifications?)\b/i, target: "certs", label: "Les 9 certifs sont ici — voir ?" },
+        { re: /\b(cka|kubernetes|k8s)\b/i, target: "objectifs", label: "Kubernetes est dans les objectifs — voir ?" },
+        { re: /\b(parcours|exp[eé]rience|carri[eè]re|doit)\b/i, target: "parcours", label: "Le parcours est ici — voir ?" },
+        { re: /\b(cv|curriculum)\b/i, target: "cv", label: "Le CV complet est là — ouvrir ?" },
+        { re: /\b(recrut|candidat|embauch|mission|postul)/i, target: "contact", label: "Pour un contact, c'est par ici — voir ?" }
+      ]
+    },
+    en: {
+      _base: "../",
+      suggestions: [
+        "My AWS bill is drifting. Want to look, or should I shut prod down?",
+        "9 certs and 10+ years: can you prove that, or is it marketing?",
+        "You're hiring? You're in the right place. 👀",
+        "kubectl get certifs"
+      ],
+      hintHover: "Hover me.",
+      hintTouch: "Tap me.",
+      sentToast: "Message sent. Alexandre replies within a few hours.",
+      eggTried: "try: whoami · kubectl get certifs · kubectl get nodes",
+      eggFooter: "- easter egg, not an AI. For a real answer: the chat. 🙂",
+      whoami: [
+        "alexandre-tostivint",
+        "role       : Senior Cloud Architect",
+        "uptime     : 10+ years in IT · 8+ in cloud",
+        "base       : Rennes, France · FR native / EN C1",
+        "certifs    : 9 loaded (AWS 6 · Azure 3)",
+        "side-quest : FinOps, Well-Architected, AI agents"
+      ],
+      facture: [
+        "[sudo] password: accepted",
+        "FinOps audit done → savings plan delivered",
+        "300+ customers served so far"
+      ],
+      keyroutes: [
+        { re: /\b(finops|invoices?|bills?|costs?|budget)/i, target: "parcours", label: "That's FinOps, the core of my DoiT work — see my career?" },
+        { re: /\baws\b/i, target: "certs", label: "AWS certifications live here — want to see?" },
+        { re: /\bazure\b/i, target: "certs", label: "Azure certifications live here — want to see?" },
+        { re: /\b(certifs?|certs|certifications?|certificates?)\b/i, target: "certs", label: "The 9 certifications are here — see?" },
+        { re: /\b(cka|kubernetes|k8s)\b/i, target: "objectifs", label: "Kubernetes is on the objectives list — see?" },
+        { re: /\b(career|journey|background|doit)\b/i, target: "parcours", label: "My career path is here — see?" },
+        { re: /\b(cv|resume|curriculum)\b/i, target: "cv", label: "The full resume opens here — see?" },
+        { re: /\b(recruit|hiring|candidates?|jobs?|apply|position)/i, target: "contact", label: "To get in touch, it's this way — see?" }
+      ]
+    }
+  };
+
+  window.portfolio = function () {
+    var T = window.ASK_I18N[(document.documentElement.getAttribute("lang") || "fr").slice(0, 2).toLowerCase()] || window.ASK_I18N.fr;
+    var BASE = T._base;
+    return {
+      view: "home",
+      input: "",
+      suggestions: T.suggestions,
 
       init: function () {
         var self = this;
@@ -124,15 +199,19 @@
           real.onerror = function () {
             self.setupSwap(false);
           };
-          real.src = "alexandre-coucou.jpg";
+          real.src = BASE + "alexandre-coucou-aligne.jpg";
         };
         probe.onerror = function () {
+          /* Pas d'avatar IA dispo : la vraie photo s'affiche, pas de faux IA. */
           var variants = ["alexandre-portrait-a", "alexandre-portrait-b"];
           var pick = variants[Math.floor(Math.random() * variants.length)];
-          realImg.src = pick + ".jpg";
-          if (hint) hint.hidden = true;
+          realImg.src = BASE + pick + ".jpg";
+          aiImg.style.display = "none";
+          realImg.style.display = "block";
+          realImg.classList.add("is-visible");
+          if (hint) hint.classList.add("is-hidden");
         };
-        probe.src = "avatar-ai.png";
+        probe.src = BASE + "avatar-ai.png";
       },
 
       setupSwap: function (hasCoucou) {
@@ -146,13 +225,14 @@
         var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
         aiImg.style.display = "block";
-        realImg.alt = "Alexandre Tostivint au naturel, en train de faire coucou";
+        realImg.alt = T.hintTouch === "Tap me." ? "Alexandre Tostivint, waving hello" : "Alexandre Tostivint au naturel, en train de faire coucou";
 
         var showReal = function (show) {
           if (isTouch) {
             frame.classList.toggle("is-flipped", show);
           }
-          if (hint) hint.hidden = show;
+          /* Le hint fond sans disparaître : place réservée, zéro saut de page */
+          if (hint) hint.classList.toggle("is-hidden", show);
           if (show && inner && !reduceMotion) self._emitParticles(inner);
         };
 
@@ -162,16 +242,16 @@
               showReal(!frame.classList.contains("is-flipped"));
             });
             if (hint) {
-              hint.hidden = false;
-              hint.textContent = "Touchez-moi.";
+              hint.classList.remove("is-hidden");
+              hint.textContent = T.hintTouch;
             }
           } else {
             frame.classList.add("has-swap");
             frame.addEventListener("mouseenter", function () { showReal(true); });
             frame.addEventListener("mouseleave", function () { showReal(false); });
             if (hint) {
-              hint.hidden = false;
-              hint.textContent = "Survolez-moi.";
+              hint.classList.remove("is-hidden");
+              hint.textContent = T.hintHover;
             }
           }
         }
@@ -179,17 +259,17 @@
 
       _emitParticles: function (inner) {
         var rect = inner.getBoundingClientRect();
-        for (var i = 0; i < 12; i++) {
+        for (var i = 0; i < 5; i++) {
           (function (idx) {
             var p = document.createElement("span");
             p.className = "swap-particle";
             var y = rect.height * (0.2 + Math.random() * 0.6);
             var ang = (Math.random() - 0.5) * 1.6;
-            var dist = 30 + Math.random() * 50;
+            var dist = 20 + Math.random() * 25;
             p.style.top = y + "px";
             p.style.right = (idx % 3) * 6 + "px";
             p.style.setProperty("--px", Math.cos(ang) * dist + "px");
-            p.style.setProperty("--py", Math.sin(ang) * dist - 20 + "px");
+            p.style.setProperty("--py", Math.sin(ang) * dist - 14 + "px");
             inner.appendChild(p);
             setTimeout(function () { p.remove(); }, 750);
           })(i);
@@ -207,16 +287,7 @@
       /* 2. Compteurs : chiffres montent de 0 au premier affichage.       */
       /* 3. Easter egg terminal : commandes en local, rien à Crisp.       */
       /* ---------------------------------------------------------------- */
-      KEYROUTES: [
-        { re: /\b(finops|factures?|co[uû]ts?|budget)/i, target: "parcours", label: "FinOps : le cœur du boulot chez DoiT — voir le parcours ?" },
-        { re: /\baws\b/i, target: "certs", label: "Les certifs AWS sont ici — voir ?" },
-        { re: /\bazure\b/i, target: "certs", label: "Les certifs Azure sont ici — voir ?" },
-        { re: /\b(certifs?|certifications?)/i, target: "certs", label: "Les 9 certifs sont ici — voir ?" },
-        { re: /\b(cka|kubernetes|k8s)\b/i, target: "objectifs", label: "Kubernetes est dans les objectifs — voir ?" },
-        { re: /\b(parcours|exp[eé]rience|carri[eè]re|doit)\b/i, target: "parcours", label: "Le parcours est ici — voir ?" },
-        { re: /\b(cv|curriculum)\b/i, target: "cv", label: "Le CV complet est là — ouvrir ?" },
-        { re: /\b(recrut|candidat|embauch|mission|postul)/i, target: "contact", label: "Pour un contact, c'est par ici — voir ?" }
-      ],
+      KEYROUTES: T.keyroutes,
 
       _wireExtras: function () {
         var self = this;
@@ -290,6 +361,7 @@
           else if (target === "objectifs") el = document.getElementById("objectifs");
           else if (target === "parcours") el = document.getElementById("parcours");
           else if (target === "project-finops") el = document.getElementById("project-finops");
+          else if (target === "projects") el = document.getElementById("projects");
           if (!el) return;
           el.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
           el.classList.add("flash");
@@ -326,14 +398,7 @@
         var c = cmd.toLowerCase();
         var lines;
         if (/^whoami$/.test(c)) {
-          lines = [
-            "alexandre-tostivint",
-            "rôle       : Senior Cloud Architect",
-            "uptime     : 10+ ans en IT · 8+ en cloud",
-            "base       : Rennes, France · FR natif / EN C1",
-            "certifs    : 9 chargées (AWS 6 · Azure 3)",
-            "side-quest : FinOps, Well-Architected, agents IA"
-          ];
+          lines = T.whoami;
         } else if (/^kubectl get certifs/.test(c)) {
           lines = [
             "NAME                                  AGE",
@@ -355,18 +420,14 @@
             "doit         Ready    4y"
           ];
         } else if (/^sudo (make|optimize) (une )?facture/.test(c)) {
-          lines = [
-            "[sudo] mot de passe : accepté",
-            "audit FinOps terminé → plan d'économies livré",
-            "300+ clients déjà servis"
-          ];
+          lines = T.facture;
         } else {
           lines = [
             "command not found: " + cmd.split(" ")[0],
-            "essais : whoami · kubectl get certifs · kubectl get nodes"
+            T.eggTried
           ];
         }
-        lines.push("— easter egg, pas une IA. Pour une vraie réponse : le chat. 🙂");
+        lines.push(T.eggFooter);
         out.textContent = "";
         var head = document.createElement("span");
         head.className = "t-prompt";
@@ -415,7 +476,7 @@
         if (ta) {
           autoGrow(ta);
         }
-        showSent("Message transmis. Alexandre répond sous quelques heures.");
+        showSent(T.sentToast);
       },
 
       useSuggestion: function (text) {

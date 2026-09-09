@@ -67,6 +67,13 @@ body {
   padding: 8px 14px; border-radius: 9px; transition: color .18s, background .18s;
 }
 .nav-links button:hover { color: var(--text); }
+.lang-link {
+  font-size: 12px; font-weight: 700; letter-spacing: .5px;
+  color: var(--muted); text-decoration: none;
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 4px 9px; transition: color .2s ease, border-color .2s ease;
+}
+.lang-link:hover { color: var(--text); border-color: var(--accent); }
 .nav-links button.active {
   color: var(--text);
   background: rgba(79,143,247,.12);
@@ -123,18 +130,18 @@ h1 .grad { color: #fff; }
   position: absolute; inset: 0;
   width: 100%; height: 100%; object-fit: cover;
   opacity: 0;
-  transform: scale(1.06);
-  transition: opacity .45s ease, transform .55s cubic-bezier(.22,1,.36,1);
+  transform: scale(1.02);
+  transition: opacity .35s ease, transform .45s ease;
   z-index: 2;
 }
-/* Avatar IA : se dématérialise au survol */
+/* Avatar IA : s'efface doucement au survol */
 #img-ai {
   transition: opacity .35s ease, transform .35s ease, filter .35s ease;
 }
 .portrait-frame.has-swap:hover #img-ai,
 .portrait-frame.is-flipped #img-ai {
   opacity: 0;
-  transform: scale(.97);
+  transform: scale(.985);
   filter: blur(3px);
 }
 .portrait-frame.has-swap:hover #img-real,
@@ -155,11 +162,11 @@ h1 .grad { color: #fff; }
 }
 .portrait-frame.has-swap:hover .portrait-inner::after,
 .portrait-frame.is-flipped .portrait-inner::after {
-  animation: scan 0.55s ease-out forwards;
+  animation: scan 0.45s ease-out forwards;
 }
 @keyframes scan {
-  0%   { transform: translateX(-120%); opacity: 1; }
-  60%  { opacity: 1; }
+  0%   { transform: translateX(-120%); opacity: .3; }
+  60%  { opacity: .3; }
   100% { transform: translateX(120%); opacity: 0; }
 }
 
@@ -186,11 +193,16 @@ h1 .grad { color: #fff; }
   .portrait-frame.is-flipped .portrait-inner::after { animation: none; }
   .swap-particle { display: none; }
 }
-/* Indication sous le portrait */
+/* Indication sous le portrait : place réservée, fondu (aucun saut de layout) */
 .portrait-hint {
   text-align: center; font-size: 12px; color: var(--muted);
   margin-top: 8px; opacity: .75;
+  min-height: 1.2em;
+  transition: opacity .25s ease;
 }
+.portrait-hint.is-hidden { opacity: 0; }
+/* Photo réelle affichée en direct (fallback si l'avatar IA ne charge pas) */
+#img-real.is-visible { opacity: 1; transform: scale(1); }
 .portrait-model {
   position: absolute; left: 8px; bottom: 8px; z-index: 2;
   font-size: 11px; letter-spacing: .5px; font-weight: 700;
