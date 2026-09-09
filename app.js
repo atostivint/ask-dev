@@ -208,14 +208,14 @@
       /* 3. Easter egg terminal : commandes en local, rien à Crisp.       */
       /* ---------------------------------------------------------------- */
       KEYROUTES: [
-        { re: /\b(finops|factures?|co[uû]ts?|budget)/i, target: "project-finops", label: "Ça parle FinOps — voir le projet ?" },
+        { re: /\b(finops|factures?|co[uû]ts?|budget)/i, target: "parcours", label: "FinOps : le cœur du boulot chez DoiT — voir le parcours ?" },
         { re: /\baws\b/i, target: "certs", label: "Les certifs AWS sont ici — voir ?" },
         { re: /\bazure\b/i, target: "certs", label: "Les certifs Azure sont ici — voir ?" },
         { re: /\b(certifs?|certifications?)/i, target: "certs", label: "Les 9 certifs sont ici — voir ?" },
         { re: /\b(cka|kubernetes|k8s)\b/i, target: "objectifs", label: "Kubernetes est dans les objectifs — voir ?" },
         { re: /\b(parcours|exp[eé]rience|carri[eè]re|doit)\b/i, target: "parcours", label: "Le parcours est ici — voir ?" },
         { re: /\b(cv|curriculum)\b/i, target: "cv", label: "Le CV complet est là — ouvrir ?" },
-        { re: /\b(recrut|candidat|embauch|mission)\b/i, target: "contact", label: "Pour un contact, c'est par ici — voir ?" }
+        { re: /\b(recrut|candidat|embauch|mission|postul)/i, target: "contact", label: "Pour un contact, c'est par ici — voir ?" }
       ],
 
       _wireExtras: function () {
@@ -329,7 +329,8 @@
           lines = [
             "alexandre-tostivint",
             "rôle       : Senior Cloud Architect",
-            "uptime     : 10 ans en production",
+            "uptime     : 10+ ans en IT · 8+ en cloud",
+            "base       : Rennes, France · FR natif / EN C1",
             "certifs    : 9 chargées (AWS 6 · Azure 3)",
             "side-quest : FinOps, Well-Architected, agents IA"
           ];
@@ -356,7 +357,7 @@
         } else if (/^sudo (make|optimize) (une )?facture/.test(c)) {
           lines = [
             "[sudo] mot de passe : accepté",
-            "audit FinOps terminé → -30 % de coût moyen",
+            "audit FinOps terminé → plan d'économies livré",
             "300+ clients déjà servis"
           ];
         } else {
