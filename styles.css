@@ -390,6 +390,7 @@ h1 .grad { color: #fff; }
 
 /* Projects (projets réalisés) */
 .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.videos-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; }
 .project {
   background: var(--card); border: 1px solid var(--border);
   border-radius: 14px; padding: 22px;
