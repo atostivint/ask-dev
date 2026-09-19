@@ -81,7 +81,7 @@
       _base: "",
       suggestions: [
         "Ma facture AWS dérive. Tu regardes ou j'arrête la prod ?",
-        "9 certifs et 10 ans de prod : ça se prouve ou c'est du marketing ?",
+        "6 certifs actives et 10 ans de prod : ça se prouve ou c'est du marketing ?",
         "Vous recrutez ? Vous êtes au bon endroit. 👀",
         "kubectl get certifs"
       ],
@@ -95,7 +95,7 @@
         "rôle       : Senior Cloud Architect",
         "uptime     : 10+ ans en IT · 8+ en cloud",
         "base       : Rennes, France · FR natif / EN C1",
-        "certifs    : 9 chargées (AWS 6 · Azure 3)",
+        "certifs    : 6 actives (AWS 4 · Azure 2)",
         "side-quest : FinOps, Well-Architected, agents IA"
       ],
       facture: [
@@ -107,8 +107,7 @@
         { re: /\b(finops|factures?|co[uû]ts?|budget)/i, target: "parcours", label: "FinOps : le cœur du boulot chez DoiT — voir le parcours ?" },
         { re: /\baws\b/i, target: "certs", label: "Les certifs AWS sont ici — voir ?" },
         { re: /\bazure\b/i, target: "certs", label: "Les certifs Azure sont ici — voir ?" },
-        { re: /\b(certifs?|certifications?)\b/i, target: "certs", label: "Les 9 certifs sont ici — voir ?" },
-        { re: /\b(cka|kubernetes|k8s)\b/i, target: "objectifs", label: "Kubernetes est dans les objectifs — voir ?" },
+        { re: /\b(certifs?|certifications?)\b/i, target: "certs", label: "Les 6 certifs actives sont ici — voir ?" },
         { re: /\b(parcours|exp[eé]rience|carri[eè]re|doit)\b/i, target: "parcours", label: "Le parcours est ici — voir ?" },
         { re: /\b(cv|curriculum)\b/i, target: "cv", label: "Le CV complet est là — ouvrir ?" },
         { re: /\b(recrut|candidat|embauch|mission|postul)/i, target: "contact", label: "Pour un contact, c'est par ici — voir ?" }
@@ -118,7 +117,7 @@
       _base: "../",
       suggestions: [
         "My AWS bill is drifting. Want to look, or should I shut prod down?",
-        "9 certs and 10+ years: can you prove that, or is it marketing?",
+        "6 active certifications and 10+ years: can you prove that, or is it marketing?",
         "You're hiring? You're in the right place. 👀",
         "kubectl get certifs"
       ],
@@ -132,7 +131,7 @@
         "role       : Senior Cloud Architect",
         "uptime     : 10+ years in IT · 8+ in cloud",
         "base       : Rennes, France · FR native / EN C1",
-        "certifs    : 9 loaded (AWS 6 · Azure 3)",
+        "certifs    : 6 active (AWS 4 · Azure 2)",
         "side-quest : FinOps, Well-Architected, AI agents"
       ],
       facture: [
@@ -144,8 +143,7 @@
         { re: /\b(finops|invoices?|bills?|costs?|budget)/i, target: "parcours", label: "That's FinOps, the core of my DoiT work — see my career?" },
         { re: /\baws\b/i, target: "certs", label: "AWS certifications live here — want to see?" },
         { re: /\bazure\b/i, target: "certs", label: "Azure certifications live here — want to see?" },
-        { re: /\b(certifs?|certs|certifications?|certificates?)\b/i, target: "certs", label: "The 9 certifications are here — see?" },
-        { re: /\b(cka|kubernetes|k8s)\b/i, target: "objectifs", label: "Kubernetes is on the objectives list — see?" },
+        { re: /\b(certifs?|certs|certifications?|certificates?)\b/i, target: "certs", label: "The 6 active certifications are here — see?" },
         { re: /\b(career|journey|background|doit)\b/i, target: "parcours", label: "My career path is here — see?" },
         { re: /\b(cv|resume|curriculum)\b/i, target: "cv", label: "The full resume opens here — see?" },
         { re: /\b(recruit|hiring|candidates?|jobs?|apply|position)/i, target: "contact", label: "To get in touch, it's this way — see?" }
@@ -358,7 +356,6 @@
         setTimeout(function () {
           var el = null;
           if (target === "certs") el = document.getElementById("certs");
-          else if (target === "objectifs") el = document.getElementById("objectifs");
           else if (target === "parcours") el = document.getElementById("parcours");
           else if (target === "project-finops") el = document.getElementById("project-finops");
           else if (target === "projects") el = document.getElementById("projects");
