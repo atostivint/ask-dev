@@ -587,9 +587,8 @@ h1 .grad { color: #fff; }
 /* Career sub-entries: missions/projects nested inside a role card */
 .ab-role-meta { font-size: 12px; color: var(--muted); font-weight: 400; }
 .ab-role-note { font-size: 12.5px; color: var(--muted); margin-top: 12px; line-height: 1.55; }
-.ab-missions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+.ab-missions { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 16px; }
 .ab-mission { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 13px 15px; min-width: 0; }
-.ab-mission:last-child:nth-child(odd) { grid-column: 1 / -1; }
 .ab-mission-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 5px; }
 .ab-mission-client { font-size: 13px; font-weight: 700; line-height: 1.35; }
 .ab-mission-period { font-size: 11px; color: var(--muted); white-space: nowrap; }
