@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concepts — Page À propos</title>
+<style>
+  :root {
+    --bg: #0d1117; --card: #161b22; --border: #30363d;
+    --text: #e6edf3; --muted: #8b949e; --accent: #4f8ff7;
+    --accent-dim: rgba(79,143,247,.12); --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.55; }
+
+  /* Tab nav */
+  .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; background: var(--bg); }
+  .tab { flex: 1; padding: 16px; text-align: center; font-size: 14px; font-weight: 600; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; transition: all .2s; background: none; border-top: none; border-left: none; border-right: none; }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .concept { display: none; padding: 32px 24px; max-width: 1200px; margin: 0 auto; }
+  .concept.active { display: block; }
+  .concept-label { font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); margin-bottom: 6px; }
+  .concept-title { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .concept-desc { font-size: 15px; color: var(--muted); margin-bottom: 32px; max-width: 600px; }
+
+  /* Shared tokens */
+  .section-label { font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); margin-bottom: 14px; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .4px; padding: 3px 8px; border-radius: 999px; }
+  .badge-pro { background: rgba(79,143,247,.15); color: var(--accent); }
+  .badge-spec { background: rgba(139,148,158,.15); color: var(--muted); }
+  .badge-assoc { background: rgba(63,185,80,.12); color: #3fb950; }
+  .badge-expired { background: rgba(248,81,73,.12); color: #f85149; }
+  .badge-next { background: rgba(210,153,34,.12); color: #d29922; }
+  .badge-edu { background: rgba(79,143,247,.12); color: var(--accent); }
+
+  /* ═══════ CONCEPT D — Mix A + C ═══════ */
+  .m-hero { margin-bottom: 24px; }
+  .m-hero h2 { font-size: 30px; font-weight: 800; letter-spacing: -.6px; margin-bottom: 10px; }
+  .m-hero p { font-size: 16px; color: var(--text); max-width: 660px; }
+  .m-stats { display: flex; align-items: center; justify-content: space-between; gap: 36px; padding: 18px 0 0; margin-bottom: 44px; border-top: 1px solid var(--border); }
+  .m-stats-group { flex: 1; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 24px; }
+  .m-stat-num { font-size: 26px; font-weight: 800; color: var(--accent); line-height: 1.1; }
+  .m-stat-label { font-size: 12px; color: var(--muted); }
+
+  .m-split { display: grid; grid-template-columns: minmax(0,1fr) 320px; gap: 48px; align-items: start; }
+
+  /* Left: parcours timeline with rich cards */
+  .m-col-head { font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); margin-bottom: 16px; padding-left: 31px; }
+  .m-timeline { position: relative; padding-left: 31px; }
+  .m-timeline::before { content: ''; position: absolute; left: 7px; top: 16px; bottom: 16px; width: 2px; background: linear-gradient(180deg, var(--accent), var(--border) 60%); border-radius: 1px; }
+  .m-role { position: relative; margin-bottom: 30px; }
+  .m-role::before { content: ''; position: absolute; left: -31px; top: 24px; width: 16px; height: 16px; border-radius: 50%; background: var(--card); border: 2px solid var(--accent); }
+  .m-role:first-child::before { background: var(--accent); box-shadow: 0 0 0 4px rgba(79,143,247,.15); }
+  .m-role:last-child::before { border-color: var(--muted); }
+  .m-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; }
+  .m-role-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .m-role-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--accent); }
+  .m-role-period { font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+  .m-role-company { font-size: 19px; font-weight: 700; margin: 3px 0 8px; }
+  .m-role-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .m-role-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .m-role-tags span { font-size: 11.5px; background: var(--accent-dim); color: var(--accent); padding: 4px 10px; border-radius: 6px; }
+
+  /* Right: sticky credentials rail */
+  .m-rail { position: sticky; top: 70px; display: flex; flex-direction: column; gap: 26px; }
+  .m-rail-block { }
+  .m-cert-list { display: flex; flex-direction: column; gap: 6px; }
+  .m-cert { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 12.5px; padding: 9px 12px; background: var(--card); border: 1px solid var(--border); border-radius: 9px; }
+  .m-cert .nm { font-weight: 600; }
+  .m-cert .dt { font-size: 11px; color: var(--muted); white-space: nowrap; }
+  .m-cert.gone { opacity: .55; }
+  .m-cert.gone .nm, .m-cert.gone .dt { color: #f85149; }
+  .m-cert.wish { border-style: dashed; }
+  .m-cert.wish .nm, .m-cert.wish .dt { color: #d29922; }
+  .m-edu { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 8px; }
+  .m-edu-top { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+  .m-edu-name { font-size: 14px; font-weight: 700; }
+  .m-edu-period { font-size: 11.5px; color: var(--muted); }
+  .m-edu-detail { font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+  .m-talk { display: flex; gap: 11px; align-items: center; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; text-decoration: none; color: var(--text); transition: border-color .15s, transform .15s; }
+  .m-talk:hover { border-color: var(--accent); transform: translateX(2px); }
+  .m-talk-icon { font-size: 19px; flex-shrink: 0; }
+  .m-talk-title { font-size: 13px; font-weight: 600; }
+  .m-talk-meta { font-size: 11.5px; color: var(--muted); }
+
+  /* Full-width projects below */
+  .m-projects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 48px; padding-top: 36px; border-top: 1px solid var(--border); }
+  .m-project { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+  .m-project h4 { font-size: 14.5px; font-weight: 700; margin-bottom: 7px; }
+  .m-project p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  /* ═══════ CONCEPT A — Split Career First ═══════ */
+  .a-split { display: grid; grid-template-columns: 1fr 340px; gap: 40px; align-items: start; }
+  .a-bio { margin-bottom: 36px; }
+  .a-bio p { font-size: 16px; max-width: 580px; }
+  .a-cv-btn { display: inline-block; margin-top: 16px; padding: 10px 22px; background: var(--accent); color: #fff; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; }
+  .a-timeline { position: relative; padding-left: 28px; }
+  .a-timeline::before { content: ''; position: absolute; left: 8px; top: 8px; bottom: 8px; width: 2px; background: var(--border); border-radius: 1px; }
+  .a-entry { position: relative; margin-bottom: 32px; }
+  .a-entry::before { content: ''; position: absolute; left: -24px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg); }
+  .a-entry:last-child::before { background: var(--muted); }
+  .a-entry-role { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--accent); margin-bottom: 2px; }
+  .a-entry-company { font-size: 18px; font-weight: 700; }
+  .a-entry-period { font-size: 12.5px; color: var(--muted); margin-bottom: 8px; }
+  .a-entry-desc { font-size: 14px; color: var(--muted); line-height: 1.6; max-width: 560px; }
+  .a-entry-highlights { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .a-entry-highlights span { font-size: 11.5px; background: var(--accent-dim); color: var(--accent); padding: 4px 10px; border-radius: 6px; }
+
+  /* sidebar */
+  .a-sidebar { display: flex; flex-direction: column; gap: 28px; }
+  .a-cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .a-cert { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; }
+  .a-cert-name { font-size: 12px; font-weight: 600; line-height: 1.3; }
+  .a-cert-date { font-size: 11px; color: var(--muted); }
+  .a-cert-date.expired { color: #f85149; }
+  .a-edu-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+  .a-edu-name { font-size: 15px; font-weight: 700; }
+  .a-edu-detail { font-size: 12.5px; color: var(--muted); }
+  .a-edu-period { font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+  .a-talk { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+  .a-talk-icon { font-size: 20px; }
+  .a-talk-title { font-size: 13px; font-weight: 600; }
+  .a-talk-meta { font-size: 11.5px; color: var(--muted); }
+
+  /* ═══════ CONCEPT B — Bento Grid ═══════ */
+  .b-bento { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto auto auto auto; gap: 12px; }
+  .b-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+  .b-bio { grid-column: 1 / 3; display: flex; flex-direction: column; justify-content: center; }
+  .b-bio p { font-size: 15px; max-width: 480px; }
+  .b-stats { grid-column: 3 / 4; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 4px; }
+  .b-stat-num { font-size: 32px; font-weight: 800; color: var(--accent); }
+  .b-stat-label { font-size: 12px; color: var(--muted); }
+  .b-stats-row { display: flex; gap: 24px; }
+  .b-stats-row > div { text-align: center; }
+  .b-career1 { grid-column: 1 / 2; min-height: 180px; }
+  .b-career2 { grid-column: 2 / 3; min-height: 180px; }
+  .b-certs { grid-column: 3 / 4; grid-row: 3 / 5; }
+  .b-career3 { grid-column: 1 / 3; }
+  .b-bottom { grid-column: 1 / 3; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .b-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .b-card .role { font-size: 12px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 2px; }
+  .b-card .period { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+  .b-card .desc { font-size: 13.5px; color: var(--muted); line-height: 1.55; }
+  .b-cert-list { display: flex; flex-direction: column; gap: 8px; }
+  .b-cert-item { font-size: 12.5px; padding: 8px 12px; background: rgba(255,255,255,.03); border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+  .b-cert-item .name { font-weight: 600; }
+  .b-cert-item .date { color: var(--muted); font-size: 11px; }
+
+  /* ═══════ CONCEPT C — Vertical Story ═══════ */
+  .c-hero { text-align: center; padding: 20px 0 36px; }
+  .c-hero h2 { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
+  .c-hero p { font-size: 16px; color: var(--muted); max-width: 520px; margin: 0 auto 20px; }
+  .c-stats-row { display: flex; justify-content: center; gap: 40px; margin-bottom: 10px; }
+  .c-stat { text-align: center; }
+  .c-stat-num { font-size: 28px; font-weight: 800; color: var(--accent); }
+  .c-stat-label { font-size: 12px; color: var(--muted); }
+  .c-career { display: flex; flex-direction: column; gap: 16px; margin-bottom: 36px; }
+  .c-career-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start; }
+  .c-career-card .left h4 { font-size: 18px; font-weight: 700; }
+  .c-career-card .left .role { font-size: 13px; font-weight: 600; color: var(--accent); margin-bottom: 6px; }
+  .c-career-card .left .desc { font-size: 14px; color: var(--muted); line-height: 1.6; margin-top: 8px; }
+  .c-career-card .right { text-align: right; }
+  .c-career-card .period { font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .c-credentials { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 36px; }
+  .c-cred-section h4 { font-size: 14px; font-weight: 700; margin-bottom: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .c-cred-list { display: flex; flex-direction: column; gap: 6px; }
+  .c-cred-item { font-size: 13px; padding: 8px 12px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; }
+  .c-cred-item .name { font-weight: 600; }
+  .c-cred-item .meta { font-size: 11.5px; color: var(--muted); }
+  .c-projects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .c-project { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
+  .c-project h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .c-project p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  /* Mobile */
+  @media (max-width: 860px) {
+    .m-hero { grid-template-columns: 1fr; gap: 16px; }
+    .m-stats { flex-direction: column; align-items: flex-start; gap: 22px; }
+    .m-stats-group { width: 100%; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
+    .m-split { grid-template-columns: 1fr; gap: 32px; }
+    .m-rail { position: static; }
+    .m-projects { grid-template-columns: 1fr; }
+    .a-split { grid-template-columns: 1fr; }
+    .a-cert-grid { grid-template-columns: 1fr 1fr; }
+    .b-bento { grid-template-columns: 1fr; }
+    .b-bio, .b-stats, .b-career1, .b-career2, .b-certs, .b-career3, .b-bottom { grid-column: 1 / -1; }
+    .b-bottom { grid-template-columns: 1fr; }
+    .c-credentials { grid-template-columns: 1fr; }
+    .c-career-card { grid-template-columns: 1fr; }
+    .c-career-card .right { text-align: left; }
+    .c-projects { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="tabs">
+  <button class="tab active" onclick="show(0)">D — Mix A+C ⭐</button>
+  <button class="tab" onclick="show(1)">A — Split</button>
+  <button class="tab" onclick="show(2)">B — Bento</button>
+  <button class="tab" onclick="show(3)">C — Vertical</button>
+</nav>
+
+<!-- ═══════════════════ CONCEPT D — MIX A + C ═══════════════════ -->
+<div class="concept active" id="c0">
+  <div class="concept-label">Concept D — Mix</div>
+  <div class="concept-title">Split + Cartes riches</div>
+  <div class="concept-desc">La structure de A (parcours en colonne principale, credentials en rail collant à droite) avec la densité de C : cartes détaillées par poste, stats, tags de compétences. Le rail reste visible pendant qu'on lit le parcours.</div>
+
+  <div class="m-hero">
+    <div>
+      <h2>Alexandre Tostivint</h2>
+      <p>Architecte cloud senior, Rennes. Dix ans d'IT dont huit dans le cloud. J'ai accompagné plus de 300 environnements clients entre Cloudreach et DoiT International : avant-vente, Well-Architected reviews, FinOps et gouvernance à l'échelle.</p>
+    </div>
+  </div>
+
+  <div class="m-stats">
+    <div class="m-stats-group">
+      <div><div class="m-stat-num">300+</div><div class="m-stat-label">clients accompagnés</div></div>
+      <div><div class="m-stat-num">10 ans</div><div class="m-stat-label">d'expérience IT</div></div>
+      <div><div class="m-stat-num">9</div><div class="m-stat-label">certifications actives</div></div>
+      <div><div class="m-stat-num">3</div><div class="m-stat-label">clouds pratiqués</div></div>
+    </div>
+    <a class="a-cv-btn" href="#" style="margin-top:0">Voir le CV</a>
+  </div>
+
+  <div class="m-split">
+    <!-- LEFT : parcours -->
+    <div>
+      <div class="m-col-head">Parcours</div>
+      <div class="m-timeline">
+        <div class="m-role">
+          <div class="m-card">
+            <div class="m-role-head">
+              <div class="m-role-title">Senior Cloud Architect</div>
+              <div class="m-role-period">Nov 2020 – Mai 2025</div>
+            </div>
+            <div class="m-role-company">DoiT International</div>
+            <div class="m-role-desc">Plus de 300 environnements clients en consulting et avant-vente. Référent AWS MAP SME pour la France et l'EMEA : Well-Architected reviews, plans de migration, optimisation FinOps. Propriétaire de la plateforme Reseller, onboarding automatisé et gouvernance as code sur un parc de 2 000 comptes.</div>
+            <div class="m-role-tags">
+              <span>FinOps</span><span>Well-Architected</span><span>AWS MAP SME</span><span>Pre-sales</span><span>IaC</span><span>Gouvernance multi-comptes</span>
+            </div>
+          </div>
+        </div>
+        <div class="m-role">
+          <div class="m-card">
+            <div class="m-role-head">
+              <div class="m-role-title">Cloud Systems Developer</div>
+              <div class="m-role-period">Oct 2017 – Nov 2020</div>
+            </div>
+            <div class="m-role-company">Cloudreach</div>
+            <div class="m-role-desc">Projets multi-cloud AWS, Azure et GCP. Landing zones, plateforme CI/CD sur Google Kubernetes Engine, datalake serverless pour un client du secteur de l'énergie. Avant-vente technique : ateliers d'architecture et modélisation de coûts pour les prospects stratégiques.</div>
+            <div class="m-role-tags">
+              <span>GKE</span><span>Landing Zones</span><span>Datalake serverless</span><span>Pre-sales</span><span>Multi-cloud</span>
+            </div>
+          </div>
+        </div>
+        <div class="m-role">
+          <div class="m-card">
+            <div class="m-role-head">
+              <div class="m-role-title">Intégration réseaux et systèmes</div>
+              <div class="m-role-period">2014 – 2017</div>
+            </div>
+            <div class="m-role-company">Exaprobe-Econocom</div>
+            <div class="m-role-desc">Alternance. Déploiement et supervision réseau sur plus de dix sites clients : configuration d'équipements, monitoring, scripts d'automatisation et support de niveau 2.</div>
+            <div class="m-role-tags">
+              <span>Réseau</span><span>Monitoring</span><span>Automatisation</span><span>Support N2</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT : rail collant -->
+    <aside class="m-rail">
+      <div>
+        <div class="section-label">Certifications</div>
+        <div class="m-cert-list">
+          <div class="m-cert"><span class="nm">AWS Solutions Architect – Pro</span><span class="dt">2022–2028</span></div>
+          <div class="m-cert"><span class="nm">AWS DevOps Engineer – Pro</span><span class="dt">2022–2028</span></div>
+          <div class="m-cert"><span class="nm">AWS Developer – Associate</span><span class="dt">2025–2028</span></div>
+          <div class="m-cert"><span class="nm">AWS AI Practitioner</span><span class="dt">2024–2027</span></div>
+          <div class="m-cert"><span class="nm">Azure Solutions Architect</span><span class="dt">2020–2026</span></div>
+          <div class="m-cert"><span class="nm">Azure DevOps Engineer</span><span class="dt">2020–2027</span></div>
+          <div class="m-cert"><span class="nm">Azure Security Engineer</span><span class="dt">2020–2027</span></div>
+          <div class="m-cert gone"><span class="nm">AWS Security – Specialty</span><span class="dt">expirée</span></div>
+          <div class="m-cert gone"><span class="nm">AWS Advanced Networking</span><span class="dt">expirée</span></div>
+          <div class="m-cert wish"><span class="nm">CKA Kubernetes</span><span class="dt">en cours</span></div>
+          <div class="m-cert wish"><span class="nm">AWS Data Engineer</span><span class="dt">en cours</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label">Formation</div>
+        <div class="m-edu">
+          <div class="m-edu-top"><span class="m-edu-name">ENSSAT</span><span class="m-edu-period">2014–2017</span></div>
+          <div class="m-edu-detail">Ingénieur, Informatique Multimédia et Réseaux</div>
+        </div>
+        <div class="m-edu">
+          <div class="m-edu-top"><span class="m-edu-name">DUT Réseaux et Télécoms</span><span class="m-edu-period">2012–2014</span></div>
+          <div class="m-edu-detail">IUT de Saint-Malo</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label">Talks</div>
+        <a class="m-talk" href="#">
+          <span class="m-talk-icon">🎙️</span>
+          <div><div class="m-talk-title">Mastering multicloud</div><div class="m-talk-meta">Webinar DoiT, fin 2023</div></div>
+        </a>
+        <a class="m-talk" href="#">
+          <span class="m-talk-icon">🎤</span>
+          <div><div class="m-talk-title">Datalake serverless, SageMaker et IA</div><div class="m-talk-meta">Talk Cloudreach, 2019</div></div>
+        </a>
+      </div>
+    </aside>
+  </div>
+
+  <div class="section-label" style="margin-top:0">Projets livrés</div>
+  <div class="m-projects">
+    <div class="m-project">
+      <h4>Plateforme Reseller DoiT</h4>
+      <p>Parc de 2 000 comptes maintenu en équipe. Onboarding automatisé, politiques globales et conformité as code.</p>
+    </div>
+    <div class="m-project">
+      <h4>CI/CD sur GKE</h4>
+      <p>Plateforme de livraison sur Google Kubernetes Engine : authentification SAML, images Docker, Terraform et autoscaling.</p>
+    </div>
+    <div class="m-project">
+      <h4>Landing Zone et Datalake AWS</h4>
+      <p>En équipe de quatre, pour un groupe énergie multinational : landing zone AWS, datalake as code et onboarding automatisé.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ CONCEPT A ═══════════════════ -->
+<div class="concept" id="c1">
+  <div class="concept-label">Concept A</div>
+  <div class="concept-title">Split "Career First"</div>
+  <div class="concept-desc">Le parcours prend la colonne principale (gauche, ~65%). Les certifs, formation et talks passent en sidebar compacte à droite. Le recruteur voit le parcours sans scroller.</div>
+
+  <div class="a-split">
+    <div class="a-main">
+      <div class="a-bio">
+        <p>Architecte cloud senior basé à Rennes. 10+ ans en IT, 8+ en cloud. J'orchestre des architectures AWS, Azure et GCP, et j'aime autant optimiser une facture FinOps que faire passer une équipe au Well-Architected.</p>
+        <a class="a-cv-btn" href="#">Voir le CV</a>
+      </div>
+
+      <div class="section-label">Parcours</div>
+      <div class="a-timeline">
+        <div class="a-entry">
+          <div class="a-entry-role">Senior Cloud Architect</div>
+          <div class="a-entry-company">DoiT International</div>
+          <div class="a-entry-period">Nov 2020 – Mai 2025</div>
+          <div class="a-entry-desc">300+ environnements clients en consulting et avant-vente. Rôle d'AWS MAP SME France/EMEA. Propriétaire de la plateforme Reseller (2 000+ comptes, onboarding automatisé, governance IaC).</div>
+          <div class="a-entry-highlights">
+            <span>FinOps</span><span>Well-Architected</span><span>AWS MAP SME</span><span>Reseller 2K+</span><span>Pre-sales</span>
+          </div>
+        </div>
+        <div class="a-entry">
+          <div class="a-entry-role">Cloud Systems Developer</div>
+          <div class="a-entry-company">Cloudreach</div>
+          <div class="a-entry-period">Oct 2017 – Nov 2020</div>
+          <div class="a-entry-desc">Multi-cloud (AWS, Azure, GCP) : landing zones, CI/CD sur GKE, datalake serverless. Pre-sales technique — ateliers d'architecture et cost modeling pour prospects stratégiques.</div>
+          <div class="a-entry-highlights">
+            <span>GKE</span><span>Landing Zones</span><span>Datalake Serverless</span><span>Pre-sales</span>
+          </div>
+        </div>
+        <div class="a-entry">
+          <div class="a-entry-role">Intégration réseaux & systèmes</div>
+          <div class="a-entry-company">Exaprobe-Econocom</div>
+          <div class="a-entry-period">2014 – 2017</div>
+          <div class="a-entry-desc">Alternance : déploiement et supervision réseau sur 10+ sites clients. Monitoring, scripts d'automatisation, support N2.</div>
+          <div class="a-entry-highlights">
+            <span>Réseau</span><span>Monitoring</span><span>Alternance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="a-sidebar">
+      <div>
+        <div class="section-label">Certifications</div>
+        <div class="a-cert-grid">
+          <div class="a-cert"><span class="badge badge-pro">PRO</span><span class="a-cert-name">AWS Solutions Architect</span><span class="a-cert-date">Mar 2022 – Fév 2028</span></div>
+          <div class="a-cert"><span class="badge badge-pro">PRO</span><span class="a-cert-name">AWS DevOps Engineer</span><span class="a-cert-date">May 2022 – Mar 2028</span></div>
+          <div class="a-cert"><span class="badge badge-spec">SPEC</span><span class="a-cert-name">AWS Security Specialty</span><span class="a-cert-date expired">Aoû 2023 – Aoû 2026 (expirée)</span></div>
+          <div class="a-cert"><span class="badge badge-spec">SPEC</span><span class="a-cert-name">AWS Advanced Networking</span><span class="a-cert-date expired">Mai 2023 – Mai 2026 (expirée)</span></div>
+          <div class="a-cert"><span class="badge badge-assoc">ASSOC</span><span class="a-cert-name">AWS Developer</span><span class="a-cert-date">Jan 2025 – Mar 2028</span></div>
+          <div class="a-cert"><span class="badge badge-assoc">ASSOC</span><span class="a-cert-name">AWS AI Practitioner</span><span class="a-cert-date">Sep 2024 – Sep 2027</span></div>
+          <div class="a-cert"><span class="badge badge-pro">PRO</span><span class="a-cert-name">Azure Solutions Architect</span><span class="a-cert-date">Aoû 2020 – Aoû 2026</span></div>
+          <div class="a-cert"><span class="badge badge-pro">PRO</span><span class="a-cert-name">Azure DevOps Engineer</span><span class="a-cert-date">Fév 2020 – Fév 2027</span></div>
+          <div class="a-cert"><span class="badge badge-assoc">ASSOC</span><span class="a-cert-name">Azure Security Engineer</span><span class="a-cert-date">Mar 2020 – Mar 2027</span></div>
+          <div class="a-cert"><span class="badge badge-next">NEXT</span><span class="a-cert-name">CKA – Kubernetes Admin</span><span class="a-cert-date">En cours</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Formation</div>
+        <div class="a-edu-card" style="margin-bottom:8px">
+          <div class="a-edu-name">ENSSAT</div>
+          <div class="a-edu-detail">Ingénieur · Informatique Multimédia et Réseaux</div>
+          <div class="a-edu-period">2014 – 2017</div>
+        </div>
+        <div class="a-edu-card">
+          <div class="a-edu-name">DUT Réseaux et Télécoms</div>
+          <div class="a-edu-detail">IUT de Saint-Malo</div>
+          <div class="a-edu-period">2012 – 2014</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Talks</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <a class="a-talk" href="#"><span class="a-talk-icon">🎙️</span><div><div class="a-talk-title">Mastering multicloud</div><div class="a-talk-meta">Webinar DoiT · fin 2023</div></div></a>
+          <a class="a-talk" href="#"><span class="a-talk-icon">🎤</span><div><div class="a-talk-title">Data lake serverless, SageMaker & IA</div><div class="a-talk-meta">Talk Cloudreach · 2019</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ CONCEPT B ═══════════════════ -->
+<div class="concept" id="c2">
+  <div class="concept-label">Concept B</div>
+  <div class="concept-title">Bento Grid</div>
+  <div class="concept-desc">Dashboard architecte : chaque tile a une taille différentes selon l'importance. Le parcours occupe 3 tiles sur 6. Look moderne, LinkedIn premium.</div>
+
+  <div class="b-bento">
+    <div class="b-card b-bio">
+      <div class="section-label">Bio</div>
+      <p>Architecte cloud senior basé à Rennes. 10+ ans en IT, 8+ en cloud : d'abord réseaux et supervision, puis Cloudreach et DoiT International — 300+ clients accompagnés en consulting et avant-vente.</p>
+      <a class="a-cv-btn" href="#" style="margin-top:14px;display:inline-block">Voir le CV</a>
+    </div>
+    <div class="b-card b-stats">
+      <div class="b-stats-row">
+        <div><div class="b-stat-num">300+</div><div class="b-stat-label">clients</div></div>
+        <div><div class="b-stat-num">10+</div><div class="b-stat-label">ans</div></div>
+        <div><div class="b-stat-num">9</div><div class="b-stat-label">certifs</div></div>
+        <div><div class="b-stat-num">3</div><div class="b-stat-label">clouds</div></div>
+      </div>
+    </div>
+
+    <div class="b-card b-career1">
+      <div class="role">Senior Cloud Architect</div>
+      <h4>DoiT International</h4>
+      <div class="period">Nov 2020 – Mai 2025</div>
+      <div class="desc">300+ environnements clients. AWS MAP SME France/EMEA. Propriétaire Reseller (2K+ comptes, IaC).</div>
+    </div>
+    <div class="b-card b-career2">
+      <div class="role">Cloud Systems Developer</div>
+      <h4>Cloudreach</h4>
+      <div class="period">Oct 2017 – Nov 2020</div>
+      <div class="desc">Multi-cloud : landing zones, CI/CD GKE, datalake serverless. Pre-sales technique.</div>
+    </div>
+
+    <div class="b-card b-certs">
+      <div class="section-label">Certifications</div>
+      <div class="b-cert-list">
+        <div class="b-cert-item"><span class="name">AWS SA Pro</span><span class="date">2022–2028</span></div>
+        <div class="b-cert-item"><span class="name">AWS DevOps Pro</span><span class="date">2022–2028</span></div>
+        <div class="b-cert-item"><span class="name">Azure SA Expert</span><span class="date">2020–2026</span></div>
+        <div class="b-cert-item"><span class="name">Azure DevOps</span><span class="date">2020–2027</span></div>
+        <div class="b-cert-item"><span class="name">Azure Security</span><span class="date">2020–2027</span></div>
+        <div class="b-cert-item"><span class="name">AWS Developer</span><span class="date">2025–2028</span></div>
+        <div class="b-cert-item"><span class="name">AWS AI Pract.</span><span class="date">2024–2027</span></div>
+        <div class="b-cert-item"><span class="name" style="color:#f85149">AWS Security</span><span class="date" style="color:#f85149">expirée</span></div>
+        <div class="b-cert-item"><span class="name" style="color:#f85149">AWS Networking</span><span class="date" style="color:#f85149">expirée</span></div>
+        <div class="b-cert-item"><span class="name" style="color:#d29922">CKA</span><span class="date" style="color:#d29922">en cours</span></div>
+      </div>
+    </div>
+
+    <div class="b-card b-career3">
+      <div class="role">Intégration réseaux & systèmes</div>
+      <h4>Exaprobe-Econocom</h4>
+      <div class="period">2014 – 2017</div>
+      <div class="desc">Alternance : déploiement et supervision réseau sur 10+ sites clients. Monitoring, automatisation, support N2.</div>
+    </div>
+
+    <div class="b-bottom">
+      <div class="b-card">
+        <div class="section-label">Formation</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="b-cert-item"><span class="name">ENSSAT — Ingénieur</span><span class="date">2014–2017</span></div>
+          <div class="b-cert-item"><span class="name">DUT Réseaux & Télécoms</span><span class="date">2012–2014</span></div>
+        </div>
+      </div>
+      <div class="b-card">
+        <div class="section-label">Talks</div>
+        <a class="a-talk" href="#" style="margin-bottom:8px"><span class="a-talk-icon">🎙️</span><div><div class="a-talk-title">Mastering multicloud</div><div class="a-talk-meta">DoiT · fin 2023</div></div></a>
+        <a class="a-talk" href="#"><span class="a-talk-icon">🎤</span><div><div class="a-talk-title">Data lake serverless</div><div class="a-talk-meta">Cloudreach · 2019</div></div></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ CONCEPT C ═══════════════════ -->
+<div class="concept" id="c3">
+  <div class="concept-label">Concept C</div>
+  <div class="concept-title">Vertical "Story"</div>
+  <div class="concept-desc">Pleine largeur pour chaque poste = maximum de détails. Les certifs, formation et talks sont en row compact en bas de page. Simple, efficace, pas de split.</div>
+
+  <div class="c-hero">
+    <h2>Alexandre Tostivint</h2>
+    <p>Architecte cloud senior. 10+ ans en IT, 300+ clients, 9 certifications, 3 clouds.</p>
+    <div class="c-stats-row">
+      <div class="c-stat"><div class="c-stat-num">300+</div><div class="c-stat-label">clients</div></div>
+      <div class="c-stat"><div class="c-stat-num">10+</div><div class="c-stat-label">ans en IT</div></div>
+      <div class="c-stat"><div class="c-stat-num">9</div><div class="c-stat-label">certifications</div></div>
+      <div class="c-stat"><div class="c-stat-num">3</div><div class="c-stat-label">clouds</div></div>
+    </div>
+    <a class="a-cv-btn" href="#" style="margin-top:10px">Voir le CV</a>
+  </div>
+
+  <div class="section-label">Parcours</div>
+  <div class="c-career">
+    <div class="c-career-card">
+      <div class="left">
+        <div class="role">Senior Cloud Architect</div>
+        <h4>DoiT International</h4>
+        <div class="desc">300+ environnements clients en consulting et avant-vente. Rôle d'AWS MAP SME France/EMEA — Well-Architected reviews, migration planning, optimisation FinOps. Propriétaire de la plateforme Reseller (2 000+ comptes, onboarding automatisé, governance IaC).</div>
+        <div class="a-entry-highlights" style="margin-top:10px">
+          <span>FinOps</span><span>Well-Architected</span><span>AWS MAP SME</span><span>Reseller 2K+</span><span>Pre-sales</span>
+        </div>
+      </div>
+      <div class="right"><span class="period">Nov 2020 – Mai 2025</span></div>
+    </div>
+    <div class="c-career-card">
+      <div class="left">
+        <div class="role">Cloud Systems Developer</div>
+        <h4>Cloudreach</h4>
+        <div class="desc">Multi-cloud (AWS, Azure, GCP) : landing zones, CI/CD sur GKE, datalake serverless pour client énergie. Pre-sales technique — ateliers d'architecture et cost modeling pour prospects stratégiques.</div>
+        <div class="a-entry-highlights" style="margin-top:10px">
+          <span>GKE</span><span>Landing Zones</span><span>Datalake Serverless</span><span>Pre-sales</span>
+        </div>
+      </div>
+      <div class="right"><span class="period">Oct 2017 – Nov 2020</span></div>
+    </div>
+    <div class="c-career-card">
+      <div class="left">
+        <div class="role">Intégration réseaux & systèmes</div>
+        <h4>Exaprobe-Econocom</h4>
+        <div class="desc">Alternance : déploiement et supervision réseau sur 10+ sites clients. Premiers pas en infra prod — monitoring, scripts d'automatisation, support N2.</div>
+        <div class="a-entry-highlights" style="margin-top:10px">
+          <span>Réseau</span><span>Monitoring</span><span>Alternance</span>
+        </div>
+      </div>
+      <div class="right"><span class="period">2014 – 2017</span></div>
+    </div>
+  </div>
+
+  <div class="c-credentials">
+    <div class="c-cred-section">
+      <h4>Certifications</h4>
+      <div class="c-cred-list">
+        <div class="c-cred-item"><div class="name">AWS SA – Professional</div><div class="meta">2022 – 2028</div></div>
+        <div class="c-cred-item"><div class="name">AWS DevOps – Professional</div><div class="meta">2022 – 2028</div></div>
+        <div class="c-cred-item"><div class="name">Azure Solutions Architect</div><div class="meta">2020 – 2026</div></div>
+        <div class="c-cred-item"><div class="name">Azure DevOps Engineer</div><div class="meta">2020 – 2027</div></div>
+        <div class="c-cred-item"><div class="name">Azure Security Engineer</div><div class="meta">2020 – 2027</div></div>
+        <div class="c-cred-item"><div class="name">AWS Developer – Associate</div><div class="meta">2025 – 2028</div></div>
+        <div class="c-cred-item"><div class="name">AWS AI Practitioner</div><div class="meta">2024 – 2027</div></div>
+        <div class="c-cred-item"><div class="name" style="color:#f85149">AWS Security (expirée)</div><div class="meta">2023 – 2026</div></div>
+        <div class="c-cred-item"><div class="name" style="color:#f85149">AWS Networking (expirée)</div><div class="meta">2023 – 2026</div></div>
+      </div>
+    </div>
+    <div class="c-cred-section">
+      <h4>Formation</h4>
+      <div class="c-cred-list">
+        <div class="c-cred-item"><div class="name">ENSSAT — Ingénieur</div><div class="meta">Informatique Multimédia et Réseaux · 2014 – 2017</div></div>
+        <div class="c-cred-item"><div class="name">DUT Réseaux & Télécoms</div><div class="meta">IUT de Saint-Malo · 2012 – 2014</div></div>
+      </div>
+    </div>
+    <div class="c-cred-section">
+      <h4>Talks</h4>
+      <div class="c-cred-list">
+        <a class="c-cred-item" href="#" style="text-decoration:none;color:var(--text)"><div class="name">🎙️ Mastering multicloud</div><div class="meta">Webinar DoiT · fin 2023</div></a>
+        <a class="c-cred-item" href="#" style="text-decoration:none;color:var(--text)"><div class="name">🎤 Data lake serverless & IA</div><div class="meta">Talk Cloudreach · 2019</div></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Projets livrés</div>
+  <div class="c-projects">
+    <div class="c-project">
+      <h4>DoiT Reseller Platform</h4>
+      <p>2 000+ comptes maintenus sur la plateforme (équipe), dont 70+ onboardés personnellement : IaC secure-by-design, politiques globales, conformité automatisée.</p>
+    </div>
+    <div class="c-project">
+      <h4>CI/CD on GKE</h4>
+      <p>Plateforme Jenkins sur Google Kubernetes Engine : auth SAML, livraison automatisée d'images Docker, Terraform et autoscaling.</p>
+    </div>
+    <div class="c-project">
+      <h4>AWS Landing Zone & Datalake</h4>
+      <p>En équipe de 4 : landing zone AWS pour un client énergie multinational, datalake as code, onboarding automatisé (Lambda, Step Functions, SSM, Okta).</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function show(i) {
+  document.querySelectorAll('.concept').forEach((c,j) => c.classList.toggle('active', j===i));
+  document.querySelectorAll('.tab').forEach((t,j) => t.classList.toggle('active', j===i));
+}
+</script>
+</body>
+</html>
