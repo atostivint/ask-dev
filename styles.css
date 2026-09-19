@@ -531,7 +531,12 @@ h1 .grad { color: #fff; }
 .ab-cv-btn { flex-shrink: 0; white-space: nowrap; }
 
 /* Split: career (main) + sticky credentials rail */
-.ab-split { display: block; }
+.ab-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 48px;
+  align-items: start;
+}
 .ab-main { min-width: 0; }
 
 /* Left: parcours timeline with rich cards */
@@ -598,13 +603,11 @@ h1 .grad { color: #fff; }
 
 /* Right: credentials rail */
 .ab-rail {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 26px;
-  margin-top: 52px;
-  padding-top: 36px;
-  border-top: 1px solid var(--border);
-  align-items: start;
+  position: sticky;
+  top: 88px;
 }
 .ab-rail-block { min-width: 0; }
 
@@ -693,7 +696,8 @@ a.ab-hist-card:hover { border-color: var(--accent); transform: translateY(-2px);
    de base ne peut pas les surcharger. */
 @media (max-width: 720px) {
   .ab-main { min-width: 0; }
-  .ab-rail { grid-template-columns: 1fr; gap: 22px; }
+  .ab-split { grid-template-columns: 1fr; gap: 32px; }
+  .ab-rail { width: 100%; position: static; margin-top: 52px; padding-top: 36px; border-top: 1px solid var(--border); }
   .ab-stats { flex-direction: column; align-items: flex-start; gap: 16px; }
   .ab-stats-group { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
   .ab-hist-grid { grid-template-columns: 1fr; }
