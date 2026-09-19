@@ -531,12 +531,7 @@ h1 .grad { color: #fff; }
 .ab-cv-btn { flex-shrink: 0; white-space: nowrap; }
 
 /* Split: career (main) + sticky credentials rail */
-.ab-split {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 320px;
-  gap: 48px;
-  align-items: start;
-}
+.ab-split { display: block; }
 .ab-main { min-width: 0; }
 
 /* Left: parcours timeline with rich cards */
@@ -567,9 +562,30 @@ h1 .grad { color: #fff; }
 .ab-role-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
 .ab-role-tags span { font-size: 11.5px; background: rgba(79,143,247,.12); color: var(--accent); padding: 4px 10px; border-radius: 6px; }
 
+/* Career sub-entries: missions/projects nested inside a role card */
+.ab-role-meta { font-size: 12px; color: var(--muted); font-weight: 400; }
+.ab-role-note { font-size: 12.5px; color: var(--muted); margin-top: 12px; line-height: 1.55; }
+.ab-missions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+.ab-mission { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 13px 15px; min-width: 0; }
+.ab-mission:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.ab-mission-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 5px; }
+.ab-mission-client { font-size: 13px; font-weight: 700; line-height: 1.35; }
+.ab-mission-period { font-size: 11px; color: var(--muted); white-space: nowrap; }
+.ab-mission-text { font-size: 12.5px; color: var(--muted); line-height: 1.55; }
+.ab-mission-tech { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+.ab-mission-tech span { font-size: 10.5px; color: var(--muted); border: 1px solid var(--border); padding: 2px 7px; border-radius: 5px; }
+
 /* Right: credentials rail */
-.ab-rail { display: flex; flex-direction: column; gap: 26px; }
-.ab-rail-block { } /* group inside the rail; the rail already provides flex column + gap */
+.ab-rail {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+  margin-top: 52px;
+  padding-top: 36px;
+  border-top: 1px solid var(--border);
+  align-items: start;
+}
+.ab-rail-block { min-width: 0; }
 
 /* (a) Active certification rows — links with a logo + name/date */
 .ab-certs { display: flex; flex-direction: column; gap: 6px; }
@@ -655,10 +671,11 @@ a.ab-hist-card:hover { border-color: var(--accent); transform: translateY(-2px);
    c'est l'ordre du fichier qui tranche. Un media query déclaré avant les règles
    de base ne peut pas les surcharger. */
 @media (max-width: 720px) {
-  .ab-split { grid-template-columns: 1fr; gap: 32px; }
   .ab-main { min-width: 0; }
-  .ab-rail { width: 100%; }
+  .ab-rail { grid-template-columns: 1fr; gap: 22px; }
   .ab-stats { flex-direction: column; align-items: flex-start; gap: 16px; }
   .ab-stats-group { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
   .ab-hist-grid { grid-template-columns: 1fr; }
+  .ab-missions { grid-template-columns: 1fr; gap: 10px; }
+  .ab-timeline { padding-left: 24px; }
 }
