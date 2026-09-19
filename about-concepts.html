@@ -73,6 +73,8 @@
   .m-cert.gone .nm, .m-cert.gone .dt { color: #f85149; }
   .m-cert.wish { border-style: dashed; }
   .m-cert.wish .nm, .m-cert.wish .dt { color: #d29922; }
+  .m-more { display: block; margin-top: 10px; font-size: 12px; color: var(--accent); text-decoration: none; }
+  .m-more:hover { text-decoration: underline; }
   .m-edu { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 8px; }
   .m-edu-top { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
   .m-edu-name { font-size: 14px; font-weight: 700; }
@@ -89,6 +91,18 @@
   .m-project { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
   .m-project h4 { font-size: 14.5px; font-weight: 700; margin-bottom: 7px; }
   .m-project p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  /* Cert history — full width below the split */
+  .m-hist { margin-top: 48px; padding-top: 36px; border-top: 1px solid var(--border); }
+  .m-hist-head { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 18px; }
+  .m-hist-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; }
+  .m-hist-card { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 13px 14px; }
+  .m-hist-card .nm { font-size: 13px; font-weight: 600; line-height: 1.35; padding-right: 62px; display: block; }
+  .m-hist-card .mt { font-size: 11.5px; color: var(--muted); margin-top: 5px; }
+  .m-hist-card .rep { font-size: 10.5px; color: var(--accent); background: var(--accent-dim); padding: 2px 6px; border-radius: 4px; margin-left: 6px; white-space: nowrap; }
+  .m-stamp { position: absolute; top: 11px; right: 11px; font-size: 9px; font-weight: 800; letter-spacing: .7px; text-transform: uppercase; color: #f85149; border: 1px solid rgba(248,81,73,.45); background: rgba(248,81,73,.08); padding: 2px 6px; border-radius: 4px; }
+  .m-hist-card.cf { border-style: dashed; }
+  .m-stamp.cf { color: #d29922; border-color: rgba(210,153,34,.45); background: rgba(210,153,34,.08); }
 
   /* ═══════ CONCEPT A — Split Career First ═══════ */
   .a-split { display: grid; grid-template-columns: 1fr 340px; gap: 40px; align-items: start; }
@@ -181,6 +195,7 @@
     .m-split { grid-template-columns: 1fr; gap: 32px; }
     .m-rail { position: static; }
     .m-projects { grid-template-columns: 1fr; }
+    .m-hist-grid { grid-template-columns: 1fr; }
     .a-split { grid-template-columns: 1fr; }
     .a-cert-grid { grid-template-columns: 1fr 1fr; }
     .b-bento { grid-template-columns: 1fr; }
@@ -206,7 +221,7 @@
 <div class="concept active" id="c0">
   <div class="concept-label">Concept D — Mix</div>
   <div class="concept-title">Split + Cartes riches</div>
-  <div class="concept-desc">La structure de A (parcours en colonne principale, credentials en rail collant à droite) avec la densité de C : cartes détaillées par poste, stats, tags de compétences. Le rail reste visible pendant qu'on lit le parcours.</div>
+  <div class="concept-desc">La structure de A (parcours en colonne principale, credentials en rail à droite) avec la densité de C : cartes détaillées par poste, stats, tags de compétences. Les deux colonnes font quasiment la même hauteur, donc la page se termine proprement sans trou à droite. Les certifications expirées descendent dans une section pleine largeur, avec un cachet sur chacune.</div>
 
   <div class="m-hero">
     <div>
@@ -219,7 +234,7 @@
     <div class="m-stats-group">
       <div><div class="m-stat-num">300+</div><div class="m-stat-label">clients accompagnés</div></div>
       <div><div class="m-stat-num">10 ans</div><div class="m-stat-label">d'expérience IT</div></div>
-      <div><div class="m-stat-num">9</div><div class="m-stat-label">certifications actives</div></div>
+      <div><div class="m-stat-num">16</div><div class="m-stat-label">certifications obtenues</div></div>
       <div><div class="m-stat-num">3</div><div class="m-stat-label">clouds pratiqués</div></div>
     </div>
     <a class="a-cv-btn" href="#" style="margin-top:0">Voir le CV</a>
@@ -275,20 +290,14 @@
     <!-- RIGHT : rail collant -->
     <aside class="m-rail">
       <div>
-        <div class="section-label">Certifications</div>
+        <div class="section-label">Certifications actives</div>
         <div class="m-cert-list">
           <div class="m-cert"><span class="nm">AWS Solutions Architect – Pro</span><span class="dt">2022–2028</span></div>
           <div class="m-cert"><span class="nm">AWS DevOps Engineer – Pro</span><span class="dt">2022–2028</span></div>
           <div class="m-cert"><span class="nm">AWS Developer – Associate</span><span class="dt">2025–2028</span></div>
           <div class="m-cert"><span class="nm">AWS AI Practitioner</span><span class="dt">2024–2027</span></div>
-          <div class="m-cert"><span class="nm">Azure Solutions Architect</span><span class="dt">2020–2026</span></div>
-          <div class="m-cert"><span class="nm">Azure DevOps Engineer</span><span class="dt">2020–2027</span></div>
-          <div class="m-cert"><span class="nm">Azure Security Engineer</span><span class="dt">2020–2027</span></div>
-          <div class="m-cert gone"><span class="nm">AWS Security – Specialty</span><span class="dt">expirée</span></div>
-          <div class="m-cert gone"><span class="nm">AWS Advanced Networking</span><span class="dt">expirée</span></div>
-          <div class="m-cert wish"><span class="nm">CKA Kubernetes</span><span class="dt">en cours</span></div>
-          <div class="m-cert wish"><span class="nm">AWS Data Engineer</span><span class="dt">en cours</span></div>
         </div>
+        <a class="m-more" href="#m-certs">Voir les 12 autres certifications obtenues, aujourd'hui expirées ↓</a>
       </div>
 
       <div>
@@ -316,6 +325,27 @@
       </div>
     </aside>
   </div>
+
+  <section class="m-hist" id="m-certs">
+    <div class="m-hist-head">
+      <div class="m-col-head" style="padding-left:0;margin:0">Certifications obtenues</div>
+      <div style="font-size:12.5px;color:var(--muted)">16 certifications obtenues depuis 2017. Quatre sont encore actives. Les douze autres ont expiré, mais restent au palmarès : elles ont toutes été passées.</div>
+    </div>
+    <div class="m-hist-grid">
+      <div class="m-hist-card cf"><span class="m-stamp cf">à confirmer</span><span class="nm">Microsoft Certified: Azure DevOps Engineer Expert</span><span class="mt">Microsoft · Fév 2020 – Fév 2026</span></div>
+      <div class="m-hist-card cf"><span class="m-stamp cf">à confirmer</span><span class="nm">Microsoft Certified: Azure Security Engineer Associate</span><span class="mt">Microsoft · Mar 2020 – Mar 2026</span></div>
+      <div class="m-hist-card"><span class="m-stamp">Expirée</span><span class="nm">AWS Certified Security – Specialty <span class="rep">2e passage</span></span><span class="mt">AWS · Aoû 2023 – Aoû 2026</span></div>
+      <div class="m-hist-card"><span class="m-stamp">Expirée</span><span class="nm">Microsoft Certified: Azure Solutions Architect Expert</span><span class="mt">Microsoft · Aoû 2020 – Aoû 2026</span></div>
+      <div class="m-hist-card"><span class="m-stamp">Expirée</span><span class="nm">AWS Certified Advanced Networking – Specialty <span class="rep">2e passage</span></span><span class="mt">AWS · Mai 2023 – Mai 2026</span></div>
+      <div class="m-hist-card"><span class="m-stamp">Expirée</span><span class="nm">FinOps Certified Practitioner</span><span class="mt">FinOps Foundation · Aoû 2023 – Aoû 2025</span></div>
+      <div class="m-hist-card"><span class="m-stamp">Expirée</span><span class="nm">Microsoft Certified: Azure Developer Associate</span><span class="mt">Microsoft · Mai 2020 – Mai 2025</span></div>
+      <div class="m-hist-card"><span class="m-stamp">Expirée</span><span class="nm">Microsoft Certified: Azure IoT Developer Specialty</span><span class="mt">Microsoft · Mai 2020 – Mai 2025 (legacy)</span></div>
+      <div class="m-hist-card"><span class="m-stamp">Expirée</span><span class="nm">Microsoft Certified: Azure Administrator Associate</span><span class="mt">Microsoft · Juil 2019 – Juil 2024</span></div>
+      <div class="m-hist-card"><span class="m-stamp">Expirée</span><span class="nm">Google Certified Professional – Cloud Architect <span class="rep">2e passage</span></span><span class="mt">Google Cloud · Jan 2021 – Fév 2023</span></div>
+      <div class="m-hist-card"><span class="m-stamp">Expirée</span><span class="nm">AWS Certified Solutions Architect – Associate</span><span class="mt">AWS · Nov 2017 – Jan 2022</span></div>
+      <div class="m-hist-card"><span class="m-stamp">Expirée</span><span class="nm">AWS Certified SysOps Administrator – Associate</span><span class="mt">AWS · Fév 2018 – Fév 2021</span></div>
+    </div>
+  </section>
 
   <div class="section-label" style="margin-top:0">Projets livrés</div>
   <div class="m-projects">
