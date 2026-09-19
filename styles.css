@@ -560,7 +560,7 @@ h1 .grad { color: #fff; }
 .ab-role-ghost .ab-role-desc { margin-top: 8px; }
 .ab-role-ghost:first-child::before {
   background: var(--bg);
-  border: 2px dashed var(--accent);
+  border: 2px solid rgba(79,143,247,.55);
   box-shadow: none;
 }
 @media (prefers-reduced-motion: no-preference) {
