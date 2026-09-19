@@ -327,68 +327,10 @@ h1 .grad { color: #fff; }
 .bio b { color: #fff; font-weight: 600; }
 .section-label { font-size: 15px; color: var(--muted); margin: 34px 0 14px; text-transform: uppercase; letter-spacing: 1px; }
 
-/* Certification two-column layout */
-.cert-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: start; }
-.cert-group-title { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: var(--text); }
 
-/* Certification cards */
-.certs { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
-.cert {
-  position: relative;
-  display: flex; flex-direction: column; gap: 8px;
-  background: var(--card); border: 1px solid var(--border);
-  border-left: 4px solid var(--border);
-  border-radius: 14px; padding: 18px; text-decoration: none;
-  color: var(--text);
-  transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
-}
-.cert:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(79,143,247,.14); }
-.cert-aws { border-left-color: var(--aws); }
-.cert-azure { border-left-color: var(--azure); }
-.cert-logo img { width: 34px; height: 34px; object-fit: contain; }
-.cert-name { font-size: 15px; font-weight: 600; line-height: 1.35; }
-.cert-valid { font-size: 12.5px; color: var(--muted); margin-top: auto; }
-.cert-valid.expired { color: #f85149; opacity: .85; }
-.cert-badge {
-  position: absolute; top: 12px; right: 12px;
-  font-size: 10.5px; font-weight: 700; letter-spacing: .4px;
-  padding: 3px 8px; border-radius: 999px; text-transform: uppercase;
-  color: #0d1117;
-}
 .badge-pro { background: #d2a8ff; }
-.badge-associate { background: #7ee787; }
-.badge-specialty { background: #ffd27d; }
-.badge-vise { background: var(--accent); color: #fff; }
 
-/* Blueprint (objectifs) cards */
-.cert.blueprint {
-  border: 1px dashed rgba(79,143,247,.5);
-  background: #0c121c;
-  border-left: 4px dashed var(--accent);
-}
-.cert.blueprint:hover { border-color: var(--accent); box-shadow: 0 12px 30px rgba(79,143,247,.18); }
-.cert-target { font-size: 22px; }
 
-/* Companies (mission) row */
-.companies { display: flex; flex-wrap: wrap; gap: 28px; }
-.company {
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 14px; padding: 20px 26px; min-width: 200px;
-}
-.company.mission { align-items: flex-start; text-align: left; flex: 1 1 280px; gap: 6px; }
-.company img { height: 44px; width: auto; object-fit: contain; }
-.company-name { font-size: 15px; font-weight: 600; }
-.company-role { font-size: 14px; font-weight: 600; color: var(--accent); }
-.company-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
-.company-period { font-size: 12.5px; color: var(--muted); margin-top: auto; }
-
-/* Stats strip */
-.stats-strip {
-  display: flex; flex-wrap: wrap; gap: 14px; margin-top: 26px;
-  border-top: 1px solid var(--border); padding-top: 20px;
-}
-.stats-strip span { font-size: 15px; font-weight: 600; color: var(--text); }
 
 /* Projects (projets réalisés) */
 .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
@@ -430,36 +372,6 @@ h1 .grad { color: #fff; }
 }
 .model-name { font-size: 24px; letter-spacing: -.5px; margin-bottom: 6px; }
 
-/* ---------- Education & Talks ---------- */
-.edu-talks { display: flex; flex-direction: column; gap: 24px; }
-.edu-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
-.edu-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 14px; padding: 18px 20px;
-  display: flex; flex-direction: column; gap: 6px;
-}
-.edu-badge {
-  display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .5px;
-  color: var(--accent); background: rgba(79,143,247,.12);
-  padding: 3px 10px; border-radius: 999px; align-self: flex-start;
-}
-.edu-name { font-size: 16px; font-weight: 700; margin: 0; }
-.edu-detail { font-size: 13.5px; color: var(--muted); margin: 0; }
-.edu-period { font-size: 12.5px; color: var(--muted); margin-top: auto; }
-
-.talks-label { font-size: 14px; color: var(--muted); margin-bottom: 8px; }
-.talk-cards { display: flex; flex-direction: column; gap: 10px; }
-.talk-card {
-  display: flex; align-items: center; gap: 14px;
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 12px; padding: 14px 18px;
-  text-decoration: none; color: var(--text);
-  transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
-}
-.talk-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(79,143,247,.14); }
-.talk-icon { font-size: 24px; flex-shrink: 0; }
-.talk-title { font-size: 15px; font-weight: 600; display: block; }
-.talk-meta { font-size: 12.5px; color: var(--muted); display: block; margin-top: 2px; }
 
 /* ---------- Contact ---------- */
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
@@ -577,11 +489,6 @@ h1 .grad { color: #fff; }
   .prompt-box { margin-left: auto; margin-right: auto; }
   .suggestions { flex-direction: column; }
   .suggestion { width: 100%; text-align: center; padding: 12px 16px; }
-  .cert-cols { grid-template-columns: 1fr; gap: 18px; }
-  .certs { grid-template-columns: 1fr; }
-  .cert { padding: 14px; }
-  .cert-logo img { width: 28px; height: 28px; }
-  .edu-cards { grid-template-columns: 1fr; }
 }
 
 /* Écrans étroits (≤ 389 px) : les 4 liens ne tiennent plus sur une ligne sans
@@ -589,4 +496,169 @@ h1 .grad { color: #fff; }
 @media (max-width: 389px) {
   .nav-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; width: 100%; }
   .nav-links li { display: flex; justify-content: center; }
+}
+
+/* ============ ABOUT PAGE (Concept D) ============ */
+
+/* Stats bar */
+.ab-stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 36px;
+  padding: 18px 0 0;
+  margin-bottom: 44px;
+  border-top: 1px solid var(--border);
+}
+.ab-stats-group {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+}
+.ab-stat b {
+  display: block;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1.1;
+}
+.ab-stat span {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+}
+.ab-cv-btn { flex-shrink: 0; white-space: nowrap; }
+
+/* Split: career (main) + sticky credentials rail */
+.ab-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 48px;
+  align-items: start;
+}
+.ab-main { min-width: 0; }
+
+/* Left: parcours timeline with rich cards */
+.ab-timeline { position: relative; padding-left: 31px; }
+.ab-timeline::before {
+  content: ''; position: absolute; left: 7px; top: 16px; bottom: 16px;
+  width: 2px; background: linear-gradient(180deg, var(--accent), var(--border) 60%);
+  border-radius: 1px;
+}
+.ab-role { position: relative; margin-bottom: 30px; }
+.ab-role::before {
+  content: ''; position: absolute; left: -31px; top: 24px;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--card); border: 2px solid var(--accent);
+}
+.ab-role:first-child::before { background: var(--accent); box-shadow: 0 0 0 4px rgba(79,143,247,.15); }
+.ab-role:last-child::before { border-color: var(--muted); }
+.ab-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px 22px;
+}
+.ab-role-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.ab-role-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--accent); }
+.ab-role-period { font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+.ab-role-company { display: flex; align-items: center; gap: 8px; font-size: 19px; font-weight: 700; margin: 3px 0 8px; }
+.ab-role-company img { height: 22px; width: auto; object-fit: contain; }
+.ab-role-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+.ab-role-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.ab-role-tags span { font-size: 11.5px; background: rgba(79,143,247,.12); color: var(--accent); padding: 4px 10px; border-radius: 6px; }
+
+/* Right: credentials rail */
+.ab-rail { display: flex; flex-direction: column; gap: 26px; }
+.ab-rail-block { } /* group inside the rail; the rail already provides flex column + gap */
+
+/* (a) Active certification rows — links with a logo + name/date */
+.ab-certs { display: flex; flex-direction: column; gap: 6px; }
+.ab-cert {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 9px;
+  text-decoration: none; color: inherit;
+  transition: border-color .15s ease, transform .15s ease;
+}
+.ab-cert:hover { border-color: var(--accent); transform: translateY(-1px); }
+.ab-cert img { width: 22px; height: 22px; flex-shrink: 0; object-fit: contain; }
+.ab-cert-body { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.ab-cert-name { font-size: 12.5px; font-weight: 600; }
+.ab-cert-date { font-size: 11px; color: var(--muted); }
+
+.ab-more {
+  display: block; margin-top: 10px;
+  font-size: 12px; color: var(--accent); text-decoration: none;
+}
+.ab-more:hover { text-decoration: underline; }
+
+/* Education block */
+.ab-edu {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 14px 16px; margin-bottom: 8px;
+}
+.ab-edu-top { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.ab-edu-name { font-size: 14px; font-weight: 700; }
+.ab-edu-period { font-size: 11.5px; color: var(--muted); }
+.ab-edu-detail { font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+
+/* (b) Talk rows — links with an icon + title/meta */
+.ab-talk {
+  display: flex; gap: 11px; align-items: center;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 14px; margin-bottom: 8px;
+  text-decoration: none; color: var(--text);
+  transition: border-color .15s ease, transform .15s ease;
+}
+.ab-talk:hover { border-color: var(--accent); transform: translateX(2px); }
+.ab-talk-icon { font-size: 19px; flex-shrink: 0; }
+.ab-talk-body { display: flex; flex-direction: column; gap: 1px; }
+.ab-talk-title { font-size: 13px; font-weight: 600; }
+.ab-talk-meta { font-size: 11.5px; color: var(--muted); }
+
+/* (e) Repeated-certification pill (discreet, outlined) */
+.ab-rep {
+  display: inline-block; font-size: 10px; font-weight: 600;
+  color: var(--accent); border: 1px solid rgba(79,143,247,.5);
+  padding: 1px 6px; border-radius: 999px; margin-left: 6px; white-space: nowrap;
+}
+
+/* Cert history — full width below the split */
+.ab-hist { margin-top: 48px; padding-top: 36px; border-top: 1px solid var(--border); }
+.ab-hist-head { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 18px; }
+.ab-hist-head .section-label { margin: 0; }
+.ab-hist-head p { font-size: 12.5px; color: var(--muted); max-width: 520px; }
+.ab-hist-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.ab-hist-card {
+  position: relative;
+  display: block;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 13px 14px; padding-right: 62px;
+  text-decoration: none; color: var(--text);
+  transition: border-color .15s ease, transform .15s ease;
+}
+a.ab-hist-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.ab-hist-name { display: block; font-size: 13px; font-weight: 600; line-height: 1.35; }
+.ab-hist-meta { display: block; font-size: 11.5px; color: var(--muted); margin-top: 5px; }
+
+/* (d) Expired stamp — top-right corner, never covers the name (card reserves padding-right) */
+.ab-stamp {
+  position: absolute; top: 11px; right: 11px;
+  font-size: 9px; font-weight: 800; letter-spacing: .7px; text-transform: uppercase;
+  color: #f85149; border: 1px solid rgba(248,81,73,.45);
+  background: rgba(248,81,73,.08); padding: 2px 6px; border-radius: 4px;
+}
+
+/* ============ ABOUT PAGE (Concept D) — RESPONSIVE ============ */
+/* Volontairement placé APRÈS le bloc `.ab-*` ci-dessus : à spécificité égale,
+   c'est l'ordre du fichier qui tranche. Un media query déclaré avant les règles
+   de base ne peut pas les surcharger. */
+@media (max-width: 720px) {
+  .ab-split { grid-template-columns: 1fr; gap: 32px; }
+  .ab-main { min-width: 0; }
+  .ab-rail { width: 100%; }
+  .ab-stats { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .ab-stats-group { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .ab-hist-grid { grid-template-columns: 1fr; }
 }

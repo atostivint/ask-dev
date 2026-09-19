@@ -106,8 +106,8 @@
   <section class="view about" x-show="view==='about'"
            x-transition:enter="fade-up" x-transition:enter-start="fade-up-start" x-transition:enter-end="fade-up-end"
            x-transition:leave="fade-out" x-transition:leave-start="fade-up-end" x-transition:leave-end="fade-out-end">
-
     <h2 class="view-title">About</h2>
+
     <p class="bio">
       I am Alexandre Tostivint, a senior cloud architect based in Rennes, France.
       10+ years in IT, 8+ in cloud: first networks and monitoring (ETIAM,
@@ -117,176 +117,230 @@
       optimizing a FinOps bill as much as guiding a team through
       Well-Architected. French native, English C1.
     </p>
-    <p style="margin-top:18px"><a class="btn btn-primary" href="https://cv.alexandre.tostivint.bzh" target="_blank" rel="noopener">View the CV</a></p>
 
-    <h3 class="section-label">Certifications</h3>
-    <div class="cert-cols" id="certs">
-      <!-- (A) Earned -->
-      <div class="cert-group">
-        <h4 class="cert-group-title">Certifications</h4>
-        <div class="certs">
-          <a class="cert cert-aws" href="https://cp.certmetrics.com/amazon/en/public/verify/credential/21Y63B62CN4EQ2WE" target="_blank" rel="noopener">
-            <span class="cert-badge badge-pro">Pro</span>
-            <span class="cert-logo"><img src="../assets/logos/aws.svg" alt="AWS" loading="lazy"></span>
-            <span class="cert-name">AWS Certified Solutions Architect – Professional</span>
-            <span class="cert-valid">Since Mar 2022, valid until Feb 2028</span>
-          </a>
-          <a class="cert cert-aws" href="https://cp.certmetrics.com/amazon/en/public/verify/credential/0QCVWRNLFM141Z5D" target="_blank" rel="noopener">
-            <span class="cert-badge badge-pro">Pro</span>
-            <span class="cert-logo"><img src="../assets/logos/aws.svg" alt="AWS" loading="lazy"></span>
-            <span class="cert-name">AWS Certified DevOps Engineer – Professional</span>
-            <span class="cert-valid">Since May 2022, valid until Mar 2028</span>
-          </a>
-          <a class="cert cert-aws" href="https://cp.certmetrics.com/amazon/en/public/verify/credential/VRZ4RKX1M2R41NWG" target="_blank" rel="noopener">
-            <span class="cert-badge badge-specialty">Specialty</span>
-            <span class="cert-logo"><img src="../assets/logos/aws.svg" alt="AWS" loading="lazy"></span>
-            <span class="cert-name">AWS Certified Security – Specialty</span>
-            <span class="cert-valid expired">Aug 2023 – Aug 2026 (expired)</span>
-          </a>
-          <a class="cert cert-aws" href="https://cp.certmetrics.com/amazon/en/public/verify/credential/MPTVQZV2EJV1QB57" target="_blank" rel="noopener">
-            <span class="cert-badge badge-specialty">Specialty</span>
-            <span class="cert-logo"><img src="../assets/logos/aws.svg" alt="AWS" loading="lazy"></span>
-            <span class="cert-name">AWS Certified Advanced Networking – Specialty</span>
-            <span class="cert-valid expired">May 2023 – May 2026 (expired)</span>
-          </a>
-          <a class="cert cert-aws" href="https://cp.certmetrics.com/amazon/en/public/verify/credential/C1KCZ8T2KBRQ1H97" target="_blank" rel="noopener">
-            <span class="cert-badge badge-associate">Associate</span>
-            <span class="cert-logo"><img src="../assets/logos/aws.svg" alt="AWS" loading="lazy"></span>
-            <span class="cert-name">AWS Certified Developer – Associate</span>
-            <span class="cert-valid">Since Jan 2025, valid until Mar 2028</span>
-          </a>
-          <a class="cert cert-aws" href="https://cp.certmetrics.com/amazon/en/public/verify/credential/9f99ed898f704784b63ffdaff54bc3ab" target="_blank" rel="noopener">
-            <span class="cert-badge badge-associate">Associate</span>
-            <span class="cert-logo"><img src="../assets/logos/aws.svg" alt="AWS" loading="lazy"></span>
-            <span class="cert-name">AWS Certified AI – Practitioner</span>
-            <span class="cert-valid">Since Sep 2024, valid until Sep 2027</span>
-          </a>
-          <a class="cert cert-azure" href="https://learn.microsoft.com/api/credentials/share/fr-fr/atostivint/77C74539156AF86D?sharingId=AA1D7245678CBBD5" target="_blank" rel="noopener">
-            <span class="cert-badge badge-pro">Pro</span>
-            <span class="cert-logo"><img src="../assets/logos/azure.svg" alt="Azure" loading="lazy"></span>
-            <span class="cert-name">Microsoft Certified: Azure Solutions Architect Expert</span>
-            <span class="cert-valid">Since Aug 2020, valid until Aug 2026</span>
-          </a>
-          <a class="cert cert-azure" href="https://learn.microsoft.com/fr-fr/users/atostivint/credentials/aa018fbfbd69c281" target="_blank" rel="noopener">
-            <span class="cert-badge badge-pro">Pro</span>
-            <span class="cert-logo"><img src="../assets/logos/azure.svg" alt="Azure" loading="lazy"></span>
-            <span class="cert-name">Microsoft Certified: Azure DevOps Engineer Expert</span>
-            <span class="cert-valid">Since Feb 2020, valid until Feb 2027</span>
-          </a>
-          <a class="cert cert-azure" href="https://learn.microsoft.com/api/credentials/share/fr-fr/atostivint/AE1E15066B027E25?sharingId=AA1D7245678CBBD5" target="_blank" rel="noopener">
-            <span class="cert-badge badge-associate">Associate</span>
-            <span class="cert-logo"><img src="../assets/logos/azure.svg" alt="Azure" loading="lazy"></span>
-            <span class="cert-name">Microsoft Certified: Azure Security Engineer Associate</span>
-            <span class="cert-valid">Since Mar 2020, valid until Mar 2027</span>
-          </a>
-        </div>
+    <div class="ab-stats">
+      <div class="ab-stats-group">
+        <div class="ab-stat"><b class="count" data-target="300">300</b><span>+ customers supported</span></div>
+        <div class="ab-stat"><b class="count" data-target="10">10</b><span>years in IT</span></div>
+        <div class="ab-stat"><b class="count" data-target="6">6</b><span>active certifications</span></div>
+        <div class="ab-stat"><b class="count" data-target="3">3</b><span>clouds practised</span></div>
       </div>
+      <a class="btn btn-primary ab-cv-btn" href="https://cv.alexandre.tostivint.bzh" target="_blank" rel="noopener">View the CV</a>
+    </div>
 
-      <!-- (B) Objectives -->
-      <div class="cert-group" id="objectifs">
-        <h4 class="cert-group-title">Objectives</h4>
-        <div class="certs">
-          <div class="cert blueprint">
-            <span class="cert-badge badge-vise">Next</span>
-            <span class="cert-target">🎯</span>
-            <span class="cert-name">CKA, Certified Kubernetes Administrator</span>
-            <span class="cert-valid">In progress / targeted</span>
+    <div class="ab-split">
+      <!-- ===== Main column: career ===== -->
+      <div class="ab-main">
+        <h3 class="section-label">Career</h3>
+        <div class="ab-timeline" id="parcours">
+          <div class="ab-role">
+            <div class="ab-card">
+              <div class="ab-role-head">
+                <span class="ab-role-title">Senior Cloud Architect</span>
+                <span class="ab-role-period">Nov 2020 – May 2025</span>
+              </div>
+              <div class="ab-role-company">
+                <img src="../assets/logos/doit.png" alt="" loading="lazy">
+                <span>DoiT International</span>
+              </div>
+              <p class="ab-role-desc">Over 300 customer environments in consulting and pre-sales. AWS MAP SME for France and EMEA: Well-Architected reviews, migration plans, FinOps optimisation. Owner of the Reseller platform, automated onboarding and governance as code across a fleet of 2,000 accounts.</p>
+              <div class="ab-role-tags">
+                <span>FinOps</span><span>Well-Architected</span><span>AWS MAP SME</span><span>Pre-sales</span><span>IaC</span><span>Multi-account governance</span>
+              </div>
+            </div>
           </div>
-          <div class="cert blueprint">
-            <span class="cert-badge badge-vise">Next</span>
-            <span class="cert-target">🎯</span>
-            <span class="cert-name">AWS Certified Data Engineer – Associate (DEA-C01)</span>
-            <span class="cert-valid">In progress / targeted</span>
+          <div class="ab-role">
+            <div class="ab-card">
+              <div class="ab-role-head">
+                <span class="ab-role-title">Cloud Systems Developer</span>
+                <span class="ab-role-period">Oct 2017 – Nov 2020</span>
+              </div>
+              <div class="ab-role-company">
+                <img src="../assets/logos/cloudreach.png" alt="" loading="lazy">
+                <span>Cloudreach</span>
+              </div>
+              <p class="ab-role-desc">Multi-cloud projects on AWS, Azure and GCP. Landing zones, CI/CD platform on Google Kubernetes Engine, serverless datalake for an energy sector client. Technical pre-sales: architecture workshops and cost modelling for strategic prospects.</p>
+              <div class="ab-role-tags">
+                <span>GKE</span><span>Landing Zones</span><span>Serverless datalake</span><span>Pre-sales</span><span>Multi-cloud</span>
+              </div>
+            </div>
           </div>
-          <div class="cert blueprint">
-            <span class="cert-badge badge-vise">Next</span>
-            <span class="cert-target">🎯</span>
-            <span class="cert-name">AWS Certified Machine Learning – Specialty</span>
-            <span class="cert-valid">In progress / targeted</span>
+          <div class="ab-role">
+            <div class="ab-card">
+              <div class="ab-role-head">
+                <span class="ab-role-title">Network &amp; Systems Integration</span>
+                <span class="ab-role-period">2014 – 2017</span>
+              </div>
+              <div class="ab-role-company">
+                <img src="../assets/logos/exaprobe.png" alt="" loading="lazy">
+                <span>Exaprobe-Econocom</span>
+              </div>
+              <p class="ab-role-desc">Apprenticeship. Network deployment and monitoring across more than ten customer sites: equipment configuration, monitoring, automation scripts and level 2 support.</p>
+              <div class="ab-role-tags">
+                <span>Networking</span><span>Monitoring</span><span>Automation</span><span>L2 Support</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- ===== Rail: credentials ===== -->
+      <aside class="ab-rail">
+        <div class="ab-rail-block" id="certs">
+          <h3 class="section-label">Active certifications</h3>
+          <div class="ab-certs">
+            <a class="ab-cert" href="https://cp.certmetrics.com/amazon/en/public/verify/credential/21Y63B62CN4EQ2WE" target="_blank" rel="noopener">
+              <img src="../assets/logos/aws.svg" alt="" loading="lazy">
+              <span class="ab-cert-body">
+                <span class="ab-cert-name">AWS Certified Solutions Architect – Professional</span>
+                <span class="ab-cert-date">Mar 2022 – Feb 2028</span>
+              </span>
+            </a>
+            <a class="ab-cert" href="https://cp.certmetrics.com/amazon/en/public/verify/credential/0QCVWRNLFM141Z5D" target="_blank" rel="noopener">
+              <img src="../assets/logos/aws.svg" alt="" loading="lazy">
+              <span class="ab-cert-body">
+                <span class="ab-cert-name">AWS Certified DevOps Engineer – Professional</span>
+                <span class="ab-cert-date">May 2022 – Mar 2028</span>
+              </span>
+            </a>
+            <a class="ab-cert" href="https://cp.certmetrics.com/amazon/en/public/verify/credential/C1KCZ8T2KBRQ1H97" target="_blank" rel="noopener">
+              <img src="../assets/logos/aws.svg" alt="" loading="lazy">
+              <span class="ab-cert-body">
+                <span class="ab-cert-name">AWS Certified Developer – Associate</span>
+                <span class="ab-cert-date">Jan 2025 – Mar 2028</span>
+              </span>
+            </a>
+            <a class="ab-cert" href="https://cp.certmetrics.com/amazon/en/public/verify/credential/9f99ed898f704784b63ffdaff54bc3ab" target="_blank" rel="noopener">
+              <img src="../assets/logos/aws.svg" alt="" loading="lazy">
+              <span class="ab-cert-body">
+                <span class="ab-cert-name">AWS Certified AI – Practitioner</span>
+                <span class="ab-cert-date">Sep 2024 – Sep 2027</span>
+              </span>
+            </a>
+            <a class="ab-cert" href="https://learn.microsoft.com/fr-fr/users/atostivint/credentials/aa018fbfbd69c281" target="_blank" rel="noopener">
+              <img src="../assets/logos/azure.svg" alt="" loading="lazy">
+              <span class="ab-cert-body">
+                <span class="ab-cert-name">Microsoft Certified: DevOps Engineer Expert</span>
+                <span class="ab-cert-date">Feb 2020 – Feb 2027</span>
+              </span>
+            </a>
+            <a class="ab-cert" href="https://learn.microsoft.com/api/credentials/share/fr-fr/atostivint/AE1E15066B027E25?sharingId=AA1D7245678CBBD5" target="_blank" rel="noopener">
+              <img src="../assets/logos/azure.svg" alt="" loading="lazy">
+              <span class="ab-cert-body">
+                <span class="ab-cert-name">Microsoft Certified: Azure Security Engineer Associate</span>
+                <span class="ab-cert-date">Mar 2020 – Mar 2027</span>
+              </span>
+            </a>
+          </div>
+          <a class="ab-more" href="#ab-hist">See the 10 other certifications earned ↓</a>
+        </div>
+
+        <div class="ab-rail-block">
+          <h3 class="section-label">Education</h3>
+          <div class="ab-edu">
+            <div class="ab-edu-top"><span class="ab-edu-name">ENSSAT</span><span class="ab-edu-period">2014 – 2017</span></div>
+            <div class="ab-edu-detail">Engineering degree, Computer Science, Multimedia and Networks</div>
+          </div>
+          <div class="ab-edu">
+            <div class="ab-edu-top"><span class="ab-edu-name">DUT Networks and Telecoms</span><span class="ab-edu-period">2012 – 2014</span></div>
+            <div class="ab-edu-detail">IUT de Saint-Malo</div>
+          </div>
+        </div>
+
+        <div class="ab-rail-block">
+          <h3 class="section-label">Talks &amp; webinars</h3>
+          <a class="ab-talk" href="https://www.youtube.com/watch?v=NQdDsHzIfdo" target="_blank" rel="noopener">
+            <span class="ab-talk-icon">🎙️</span>
+            <span class="ab-talk-body">
+              <span class="ab-talk-title">Mastering multicloud</span>
+              <span class="ab-talk-meta">DoiT webinar · late 2023</span>
+            </span>
+          </a>
+          <a class="ab-talk" href="https://www.youtube.com/watch?v=fvYX5Cz54VA" target="_blank" rel="noopener">
+            <span class="ab-talk-icon">🎤</span>
+            <span class="ab-talk-body">
+              <span class="ab-talk-title">Data lake serverless, SageMaker &amp; AI</span>
+              <span class="ab-talk-meta">Cloudreach talk · 2019</span>
+            </span>
+          </a>
+        </div>
+      </aside>
     </div>
 
-    <h3 class="section-label">Career</h3>
-    <div class="companies" id="parcours">
-      <div class="company mission">
-        <img src="../assets/logos/exaprobe.png" alt="Exaprobe-Econocom" loading="lazy">
-        <span class="company-name">Exaprobe-Econocom</span>
-        <span class="company-role">Network &amp; systems integration</span>
-        <span class="company-desc">Apprenticeship: network deployment and monitoring across 10+ client sites. First steps in production infrastructure — monitoring, automation scripts, L2 support.</span>
-        <span class="company-period">2014 – 2017</span>
+    <!-- ===== Certification history ===== -->
+    <section class="ab-hist" id="ab-hist">
+      <div class="ab-hist-head">
+        <h3 class="section-label">Certifications earned</h3>
+        <p>Ten certifications earned in the past, now expired. They remain on the record: they were all passed.</p>
       </div>
-      <div class="company mission">
-        <img src="../assets/logos/cloudreach.png" alt="Cloudreach" loading="lazy">
-        <span class="company-name">Cloudreach</span>
-        <span class="company-role">Cloud Systems Developer</span>
-        <span class="company-desc">Multi-cloud (AWS, Azure, GCP): landing zones, CI/CD on GKE, serverless data lake for energy customer. Technical pre-sales — architecture workshops and cost modeling for strategic prospects.</span>
-        <span class="company-period">Oct 2017 – Nov 2020</span>
+      <div class="ab-hist-grid">
+        <div class="ab-hist-card">
+          <span class="ab-stamp">Expired</span>
+          <span class="ab-hist-name">Microsoft Certified: Azure Solutions Architect Expert <span class="ab-rep">twice</span></span>
+          <span class="ab-hist-meta">Microsoft · Aug 2020 – Aug 2026</span>
+        </div>
+        <a class="ab-hist-card" href="https://cp.certmetrics.com/amazon/en/public/verify/credential/VRZ4RKX1M2R41NWG" target="_blank" rel="noopener">
+          <span class="ab-stamp">Expired</span>
+          <span class="ab-hist-name">AWS Certified Security – Specialty <span class="ab-rep">twice</span></span>
+          <span class="ab-hist-meta">AWS · Aug 2023 – Aug 2026</span>
+        </a>
+        <a class="ab-hist-card" href="https://cp.certmetrics.com/amazon/en/public/verify/credential/MPTVQZV2EJV1QB57" target="_blank" rel="noopener">
+          <span class="ab-stamp">Expired</span>
+          <span class="ab-hist-name">AWS Certified Advanced Networking – Specialty <span class="ab-rep">twice</span></span>
+          <span class="ab-hist-meta">AWS · May 2023 – May 2026</span>
+        </a>
+        <div class="ab-hist-card">
+          <span class="ab-stamp">Expired</span>
+          <span class="ab-hist-name">FinOps Certified Practitioner</span>
+          <span class="ab-hist-meta">FinOps Foundation · Aug 2023 – Aug 2025</span>
+        </div>
+        <div class="ab-hist-card">
+          <span class="ab-stamp">Expired</span>
+          <span class="ab-hist-name">Microsoft Certified: Azure Developer Associate</span>
+          <span class="ab-hist-meta">Microsoft · May 2020 – May 2025</span>
+        </div>
+        <div class="ab-hist-card">
+          <span class="ab-stamp">Expired</span>
+          <span class="ab-hist-name">Microsoft Certified: Azure IoT Developer Specialty</span>
+          <span class="ab-hist-meta">Microsoft · May 2020 – May 2025 (legacy)</span>
+        </div>
+        <div class="ab-hist-card">
+          <span class="ab-stamp">Expired</span>
+          <span class="ab-hist-name">Microsoft Certified: Azure Administrator Associate</span>
+          <span class="ab-hist-meta">Microsoft · Jul 2019 – Jul 2024</span>
+        </div>
+        <div class="ab-hist-card">
+          <span class="ab-stamp">Expired</span>
+          <span class="ab-hist-name">Google Certified Professional – Cloud Architect <span class="ab-rep">twice</span></span>
+          <span class="ab-hist-meta">Google Cloud · Jan 2021 – Feb 2023</span>
+        </div>
+        <div class="ab-hist-card">
+          <span class="ab-stamp">Expired</span>
+          <span class="ab-hist-name">AWS Certified Solutions Architect – Associate</span>
+          <span class="ab-hist-meta">AWS · Nov 2017 – Jan 2022</span>
+        </div>
+        <div class="ab-hist-card">
+          <span class="ab-stamp">Expired</span>
+          <span class="ab-hist-name">AWS Certified SysOps Administrator – Associate</span>
+          <span class="ab-hist-meta">AWS · Feb 2018 – Feb 2021</span>
+        </div>
       </div>
-      <div class="company mission">
-        <img src="../assets/logos/doit.png" alt="DoiT International" loading="lazy">
-        <span class="company-name">DoiT International</span>
-        <span class="company-role">Senior Cloud Architect</span>
-        <span class="company-desc">300+ customer environments in consulting and pre-sales. AWS MAP SME for France/EMEA — Well-Architected reviews, migration planning, FinOps optimization. Owner of the Reseller platform (2,000+ accounts, automated onboarding, IaC governance).</span>
-        <span class="company-period">Nov 2020 – May 2025</span>
-      </div>
-    </div>
+    </section>
 
-    <div class="stats-strip">
-      <span><b class="count" data-target="300">300</b>+ customers</span><span><b class="count" data-target="10">10</b> years</span><span><b class="count" data-target="9">9</b> certs</span><span><b class="count" data-target="3">3</b> clouds</span>
-    </div>
-
-    <h3 class="section-label">Projects delivered</h3>
+    <!-- ===== Projects ===== -->
+    <h3 class="section-label">Projects</h3>
     <div class="projects" id="projects">
       <div class="project" id="project-finops">
-        <h4 class="project-name">DoiT Reseller Platform</h4>
-        <p class="project-desc">2,000+ customer accounts maintained on the platform (team), incl. 70+ personally onboarded: secure-by-design IaC, global policy controls, automated compliance (Python CDK, Terraform, Pulumi, GitHub Actions).</p>
+        <h4 class="project-name">DoiT Reseller platform</h4>
+        <p class="project-desc">2,000+ customer accounts maintained on the platform (team), 70+ onboarded personally: secure-by-design IaC, global policy controls, automated compliance (Python CDK, Terraform, Pulumi, GitHub Actions).</p>
       </div>
       <div class="project" id="project-retail">
-        <h4 class="project-name">CI/CD on GKE – Cloudreach</h4>
+        <h4 class="project-name">CI/CD on GKE — Cloudreach</h4>
         <p class="project-desc">Jenkins platform on Google Kubernetes Engine: SAML authentication, automated Docker image delivery, Terraform and autoscaling to keep costs and release cycles under control.</p>
       </div>
       <div class="project" id="project-data">
-        <h4 class="project-name">AWS landing zone &amp; datalake – Cloudreach</h4>
-        <p class="project-desc">As a 4-person team, an AWS landing zone for a multinational energy customer: network, security, governance and datalake as code; automated onboarding (Lambda, Step Functions, SSM, Okta).</p>
-      </div>
-    </div>
-
-    <h3 class="section-label">Education &amp; talks</h3>
-    <div class="edu-talks" id="formation">
-      <div class="edu-cards">
-        <div class="edu-card">
-          <span class="edu-badge">Engineering Degree</span>
-          <h4 class="edu-name">ENSSAT</h4>
-          <p class="edu-detail">Computer Science, Multimedia &amp; Networks · Apprenticeship</p>
-          <span class="edu-period">2014 – 2017</span>
-        </div>
-        <div class="edu-card">
-          <span class="edu-badge">Bac+2</span>
-          <h4 class="edu-name">DUT Réseaux et Télécommunications</h4>
-          <p class="edu-detail">IUT de Saint-Malo</p>
-          <span class="edu-period">2012 – 2014</span>
-        </div>
-      </div>
-      <div class="talks">
-        <p class="talks-label">Talks &amp; webinars</p>
-        <div class="talk-cards">
-          <a class="talk-card" href="https://www.youtube.com/watch?v=NQdDsHzIfdo" target="_blank" rel="noopener">
-            <span class="talk-icon">🎙️</span>
-            <div>
-              <span class="talk-title">Mastering multicloud</span>
-              <span class="talk-meta">DoiT webinar · late 2023</span>
-            </div>
-          </a>
-          <a class="talk-card" href="https://www.youtube.com/watch?v=fvYX5Cz54VA" target="_blank" rel="noopener">
-            <span class="talk-icon">🎤</span>
-            <div>
-              <span class="talk-title">Serverless data lake, SageMaker &amp; AI</span>
-              <span class="talk-meta">Cloudreach talk · 2019 — presented by Alexandre Tostivint</span>
-            </div>
-          </a>
-        </div>
+        <h4 class="project-name">AWS landing zone &amp; datalake — Cloudreach</h4>
+        <p class="project-desc">In a team of 4, an AWS landing zone for a multinational energy client: networking, security, governance and datalake as IaC; automated onboarding (Lambda, Step Functions, SSM, Okta).</p>
       </div>
     </div>
   </section>
