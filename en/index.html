@@ -530,27 +530,47 @@
     <h2 class="view-title">Contact</h2>
     <p class="view-lead">Simplest: write to me. Most formal: LinkedIn or a video call slot.</p>
 
-    <div class="grid">
+    <!-- Chat: primary action -->
+    <div class="contact-chat">
       <div class="card card-primary">
-        <h3>💬 Chat</h3>
+        <h3>Chat</h3>
         <p>Answer within a few hours. A technical question, a job application, a project?</p>
-        <p style="margin-top:14px"><button class="btn btn-primary" type="button" @click="openChatBtn()">Open chat</button></p>
+        <p class="contact-card-actions"><button class="btn btn-primary" type="button" @click="openChatBtn()">Open chat</button></p>
         <p class="q-warning" role="alert">
-          ⚠️ Chat is blocked by your browser.
+          Chat is blocked by your browser.
           <a href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">Use LinkedIn instead</a>.
         </p>
       </div>
-      <div class="card">
-        <h3>🔗 LinkedIn</h3>
-        <p>The detailed profile, recommendations and articles. For a first formal contact.</p>
-        <p style="margin-top:14px"><a class="btn btn-ghost" href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">View profile</a></p>
+    </div>
+
+    <!-- Other ways + Direct contact -->
+    <div class="contact-grid">
+      <div class="contact-group">
+        <h3 class="contact-group-title">Other ways</h3>
+        <a class="contact-row" href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">
+          <span class="contact-row-label">LinkedIn</span>
+          <span class="contact-row-desc">Profile, recommendations, articles.</span>
+        </a>
+        <a class="contact-row" href="https://calendar.app.google/bvAn3Tc2iEFjc5uX7" target="_blank" rel="noopener">
+          <span class="contact-row-label">Book a call</span>
+          <span class="contact-row-desc">Video slot, no email back-and-forth.</span>
+        </a>
       </div>
-      <div class="card">
-        <h3>📅 Book a call</h3>
-        <p>A video call slot, no email back-and-forth. My calendar is open.</p>
-        <p style="margin-top:14px"><a class="btn btn-ghost" href="https://calendar.app.google/bvAn3Tc2iEFjc5uX7" target="_blank" rel="noopener">Book a slot</a></p>
+      <div class="contact-group">
+        <h3 class="contact-group-title">Direct contact</h3>
+        <div class="contact-row">
+          <span class="contact-row-label">Email</span>
+          <a class="contact-row-value" href="mailto:alexandre@tostivint.bzh">alexandre@tostivint.bzh</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row-label">XMPP</span>
+          <span class="contact-row-value" id="xmpp-addr">alexandre@tostivint.bzh</span>
+          <button class="contact-copy" type="button" data-copy="alexandre@tostivint.bzh" aria-label="Copy XMPP address">Copy</button>
+        </div>
       </div>
     </div>
+
+    <p class="contact-cv"><a href="https://cv.alexandre.tostivint.bzh" target="_blank" rel="noopener">View full CV</a></p>
   </section>
 
 </main>

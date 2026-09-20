@@ -386,6 +386,53 @@ h1 .grad { color: #fff; }
   background: linear-gradient(135deg, rgba(79,143,247,.10), rgba(22,27,34,.6));
 }
 
+/* Contact: "Conversation first" layout */
+.contact-chat .card-primary { max-width: none; margin-bottom: 20px; }
+.contact-card-actions { margin-top: 14px; }
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+.contact-group {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 18px 20px;
+}
+.contact-group-title {
+  font-size: 13px; text-transform: uppercase; letter-spacing: .8px;
+  color: var(--muted); margin-bottom: 12px; font-weight: 600;
+}
+.contact-row {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+  text-decoration: none; color: inherit;
+  transition: background .15s ease;
+}
+a.contact-row:hover { background: rgba(79,143,247,.06); border-radius: 8px; }
+a.contact-row:last-child, .contact-row:last-child { border-bottom: none; }
+.contact-row-label {
+  font-size: 14px; font-weight: 600; color: var(--text);
+  min-width: 60px;
+}
+.contact-row-desc {
+  font-size: 13.5px; color: var(--muted);
+}
+.contact-row-value {
+  font-size: 13.5px; color: var(--accent); word-break: break-all;
+}
+.contact-copy {
+  font-size: 12px; font-weight: 600; color: var(--accent);
+  background: rgba(79,143,247,.12); border: 1px solid rgba(79,143,247,.45);
+  border-radius: 6px; padding: 4px 10px; cursor: pointer;
+  font-family: inherit; white-space: nowrap;
+  transition: background .15s ease, color .15s ease;
+}
+.contact-copy:hover { background: rgba(79,143,247,.25); }
+.contact-copy.copied { color: var(--green); border-color: rgba(63,185,80,.45); background: rgba(63,185,80,.12); }
+.contact-cv {
+  margin-top: 20px; font-size: 14px;
+}
+.contact-cv a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+.contact-cv a:hover { color: var(--text); }
+
 /* ---------- Footer ---------- */
 .footer { padding: 40px 24px 64px; color: var(--muted); font-size: 13.5px; border-top: 1px solid var(--border); margin-top: 24px; }
 .footer-note { margin-top: 8px; font-style: italic; }
@@ -703,4 +750,6 @@ a.ab-hist-card:hover { border-color: var(--accent); transform: translateY(-2px);
   .ab-hist-grid { grid-template-columns: 1fr; }
   .ab-missions { grid-template-columns: 1fr; gap: 10px; }
   .ab-timeline { padding-left: 24px; }
+  /* Contact: single column on mobile */
+  .contact-grid { grid-template-columns: 1fr; gap: 14px; }
 }

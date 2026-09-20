@@ -169,6 +169,26 @@
           if (e.target && e.target.id === "q-input") autoGrow(e.target);
         }, true);
 
+        /* XMPP / email copy buttons (delegated, language-aware) */
+        (function () {
+          var isEn = document.documentElement.lang === "en";
+          var labelCopy = isEn ? "Copy" : "Copier";
+          var labelCopied = isEn ? "Copied" : "Copié";
+          document.addEventListener("click", function (e) {
+            var btn = e.target.closest(".contact-copy");
+            if (!btn) return;
+            var text = btn.getAttribute("data-copy");
+            if (!text) return;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(text).then(function () {
+                btn.textContent = labelCopied;
+                btn.classList.add("copied");
+                setTimeout(function () { btn.textContent = labelCopy; btn.classList.remove("copied"); }, 2000);
+              });
+            }
+          });
+        })();
+
         /* Extras : routage mots-clés + terminal (compteurs via setView) */
         this._wireExtras();
 
