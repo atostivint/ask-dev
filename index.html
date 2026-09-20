@@ -526,45 +526,39 @@
            x-transition:leave="fade-out" x-transition:leave-start="fade-up-end" x-transition:leave-end="fade-out-end">
 
     <h2 class="view-title">Contact</h2>
-    <p class="view-lead">Le plus simple : écrivez-moi. Le plus formel : LinkedIn ou un créneau en visio.</p>
+    <p class="view-lead">Le plus simple : écrivez-moi directement. Le plus formel : LinkedIn ou un créneau en visio.</p>
 
-    <!-- Chat : action principale -->
-    <div class="contact-chat">
-      <div class="card card-primary">
-        <h3>Chat</h3>
-        <p>Réponse sous quelques heures. Une question technique, une candidature, un projet&nbsp;?</p>
+    <!-- Box Crisp : action principale -->
+    <div class="crisp-box">
+      <div class="crisp-box-inner">
+        <h3 class="crisp-box-title">Chat</h3>
+        <p class="crisp-box-desc">Une question technique, une candidature, un projet&nbsp;? Réponse sous quelques heures.</p>
         <p class="contact-card-actions"><button class="btn btn-primary" type="button" @click="openChatBtn()">Ouvrir le chat</button></p>
-        <p class="q-warning" role="alert">
-          Le chat est bloqué par votre navigateur.
-          <a href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">Passez par LinkedIn</a>.
-        </p>
       </div>
+      <p class="q-warning" role="alert">
+        Le chat est bloqué par votre navigateur.
+        <a href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">Passez par LinkedIn</a>.
+      </p>
     </div>
 
-    <!-- Autres moyens + Contact direct -->
-    <div class="contact-grid">
-      <div class="contact-group">
-        <h3 class="contact-group-title">Autres moyens</h3>
-        <a class="contact-row" href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">
-          <span class="contact-row-label">LinkedIn</span>
-          <span class="contact-row-desc">Profil, recommandations, articles.</span>
-        </a>
-        <a class="contact-row" href="https://calendar.app.google/bvAn3Tc2iEFjc5uX7" target="_blank" rel="noopener">
-          <span class="contact-row-label">Prendre RDV</span>
-          <span class="contact-row-desc">Créneau en visio, sans aller-retour.</span>
-        </a>
+    <!-- Autres canaux -->
+    <div class="contact-channels">
+      <a class="contact-row" href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">
+        <span class="contact-row-label">LinkedIn</span>
+        <span class="contact-row-desc">Profil, recommandations, articles.</span>
+      </a>
+      <a class="contact-row" href="https://calendar.app.google/bvAn3Tc2iEFjc5uX7" target="_blank" rel="noopener">
+        <span class="contact-row-label">Prendre RDV</span>
+        <span class="contact-row-desc">Créneau en visio, sans aller-retour.</span>
+      </a>
+      <div class="contact-row">
+        <span class="contact-row-label">Email</span>
+        <a class="contact-row-value" href="mailto:alexandre@tostivint.bzh">alexandre@tostivint.bzh</a>
       </div>
-      <div class="contact-group">
-        <h3 class="contact-group-title">Contact direct</h3>
-        <div class="contact-row">
-          <span class="contact-row-label">Email</span>
-          <a class="contact-row-value" href="mailto:alexandre@tostivint.bzh">alexandre@tostivint.bzh</a>
-        </div>
-        <div class="contact-row">
-          <span class="contact-row-label">XMPP</span>
-          <span class="contact-row-value" id="xmpp-addr">alexandre@tostivint.bzh</span>
-          <button class="contact-copy" type="button" data-copy="alexandre@tostivint.bzh" aria-label="Copier l'adresse XMPP">Copier</button>
-        </div>
+      <div class="contact-row">
+        <span class="contact-row-label">XMPP</span>
+        <span class="contact-row-value" id="xmpp-addr">alexandre@tostivint.bzh</span>
+        <button class="contact-copy" type="button" data-copy="alexandre@tostivint.bzh" aria-label="Copier l'adresse XMPP">Copier</button>
       </div>
     </div>
 

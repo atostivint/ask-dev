@@ -373,62 +373,80 @@ h1 .grad { color: #fff; }
 .model-name { font-size: 24px; letter-spacing: -.5px; margin-bottom: 6px; }
 
 
-/* ---------- Contact ---------- */
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-.card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 14px; padding: 22px;
+/* ---------- Contact: editorial directory ---------- */
+/* Crisp box — visually dominant, single accent point */
+.crisp-box {
+  background: var(--card);
+  border: 1px solid rgba(79,143,247,.35);
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin-bottom: 28px;
 }
-.card h3 { font-size: 17px; margin-bottom: 8px; }
-.card p { color: var(--muted); font-size: 14.5px; }
-.card-primary {
-  border-color: rgba(79,143,247,.5);
-  background: linear-gradient(135deg, rgba(79,143,247,.10), rgba(22,27,34,.6));
+.crisp-box-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
 }
+.crisp-box-desc {
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.contact-card-actions { margin-top: 16px; }
+.crisp-box .q-warning { margin-top: 10px; }
 
-/* Contact: "Conversation first" layout */
-.contact-chat .card-primary { max-width: none; margin-bottom: 20px; }
-.contact-card-actions { margin-top: 14px; }
-.contact-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-}
-.contact-group {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 14px; padding: 18px 20px;
-}
-.contact-group-title {
-  font-size: 13px; text-transform: uppercase; letter-spacing: .8px;
-  color: var(--muted); margin-bottom: 12px; font-weight: 600;
+/* Channel list — clean vertical stack, no group boxes */
+.contact-channels {
+  display: flex;
+  flex-direction: column;
 }
 .contact-row {
-  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
-  padding: 10px 0; border-bottom: 1px solid var(--border);
-  text-decoration: none; color: inherit;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
   transition: background .15s ease;
 }
 a.contact-row:hover { background: rgba(79,143,247,.06); border-radius: 8px; }
 a.contact-row:last-child, .contact-row:last-child { border-bottom: none; }
 .contact-row-label {
-  font-size: 14px; font-weight: 600; color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
   min-width: 60px;
 }
 .contact-row-desc {
-  font-size: 13.5px; color: var(--muted);
+  font-size: 13.5px;
+  color: var(--muted);
 }
 .contact-row-value {
-  font-size: 13.5px; color: var(--accent); word-break: break-all;
+  font-size: 13.5px;
+  color: var(--accent);
+  word-break: break-all;
 }
 .contact-copy {
-  font-size: 12px; font-weight: 600; color: var(--accent);
-  background: rgba(79,143,247,.12); border: 1px solid rgba(79,143,247,.45);
-  border-radius: 6px; padding: 4px 10px; cursor: pointer;
-  font-family: inherit; white-space: nowrap;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  background: rgba(79,143,247,.12);
+  border: 1px solid rgba(79,143,247,.45);
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  min-height: 32px;
   transition: background .15s ease, color .15s ease;
 }
 .contact-copy:hover { background: rgba(79,143,247,.25); }
 .contact-copy.copied { color: var(--green); border-color: rgba(63,185,80,.45); background: rgba(63,185,80,.12); }
 .contact-cv {
-  margin-top: 20px; font-size: 14px;
+  margin-top: 24px;
+  font-size: 14px;
 }
 .contact-cv a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
 .contact-cv a:hover { color: var(--text); }
@@ -750,6 +768,5 @@ a.ab-hist-card:hover { border-color: var(--accent); transform: translateY(-2px);
   .ab-hist-grid { grid-template-columns: 1fr; }
   .ab-missions { grid-template-columns: 1fr; gap: 10px; }
   .ab-timeline { padding-left: 24px; }
-  /* Contact: single column on mobile */
-  .contact-grid { grid-template-columns: 1fr; gap: 14px; }
+  /* Contact: already single column via flexbox — no override needed */
 }
