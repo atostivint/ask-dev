@@ -515,6 +515,59 @@ a.contact-row:last-child, .contact-row:last-child { border-bottom: none; }
 .terminal-out .t-prompt { color: var(--green); font-weight: 700; display: block; }
 .terminal-out .t-line { display: block; white-space: pre; }
 
+/* ---------- Availability terminal banner ---------- */
+.availability-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #010409;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 14px;
+  margin-top: 18px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--green);
+  max-width: 100%;
+}
+.ab-prompt {
+  color: var(--muted);
+  flex-shrink: 0;
+  user-select: none;
+}
+.ab-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ab-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: var(--green);
+  flex-shrink: 0;
+  animation: blink-cursor 1s step-end infinite;
+}
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+@media (max-width: 720px) {
+  .availability-banner {
+    font-size: 11.5px;
+    padding: 7px 11px;
+  }
+  .ab-text {
+    white-space: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ab-cursor { animation: none; }
+}
+
 /* ---------- Attribut hidden ---------- */
 /* Un `display` déclaré en CSS écrase l'attribut hidden : sans cette règle,
    #terminal-out (display:block) s'affichait en barre noire vide sous le champ. */
