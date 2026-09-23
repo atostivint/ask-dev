@@ -88,21 +88,6 @@
       hintHover: "Survolez-moi.",
       hintTouch: "Touchez-moi.",
       sentToast: "Message transmis. Alexandre répond sous quelques heures.",
-      eggTried: "essais : whoami · kubectl get certifs · kubectl get nodes",
-      eggFooter: "— easter egg, pas une IA. Pour une vraie réponse : le chat. 🙂",
-      whoami: [
-        "alexandre-tostivint",
-        "rôle       : Senior Cloud Architect",
-        "uptime     : 10+ ans en IT · 8+ en cloud",
-        "base       : Rennes, France · FR natif / EN C1",
-        "certifs    : 6 actives (AWS 4 · Azure 2)",
-        "side-quest : FinOps, Well-Architected, agents IA"
-      ],
-      facture: [
-        "[sudo] mot de passe : accepté",
-        "audit FinOps terminé → plan d'économies livré",
-        "300+ clients déjà servis"
-      ],
       keyroutes: [
         { re: /\b(finops|factures?|co[uû]ts?|budget)/i, target: "parcours", label: "FinOps : le cœur du boulot chez DoiT — voir le parcours ?" },
         { re: /\baws\b/i, target: "certs", label: "Les certifs AWS sont ici — voir ?" },
@@ -124,21 +109,6 @@
       hintHover: "Hover me.",
       hintTouch: "Tap me.",
       sentToast: "Message sent. Alexandre replies within a few hours.",
-      eggTried: "try: whoami · kubectl get certifs · kubectl get nodes",
-      eggFooter: "- easter egg, not an AI. For a real answer: the chat. 🙂",
-      whoami: [
-        "alexandre-tostivint",
-        "role       : Senior Cloud Architect",
-        "uptime     : 10+ years in IT · 8+ in cloud",
-        "base       : Rennes, France · FR native / EN C1",
-        "certifs    : 6 active (AWS 4 · Azure 2)",
-        "side-quest : FinOps, Well-Architected, AI agents"
-      ],
-      facture: [
-        "[sudo] password: accepted",
-        "FinOps audit done → savings plan delivered",
-        "300+ customers served so far"
-      ],
       keyroutes: [
         { re: /\b(finops|invoices?|bills?|costs?|budget)/i, target: "parcours", label: "That's FinOps, the core of my DoiT work — see my career?" },
         { re: /\baws\b/i, target: "certs", label: "AWS certifications live here — want to see?" },
@@ -300,10 +270,9 @@
       },
 
       /* ---------------------------------------------------------------- */
-      /* Extras — 3 ajouts, tous honnêtes (aucune fausse IA) :            */
+      /* Extras — 2 ajouts, tous honnêtes (aucune fausse IA) :            */
       /* 1. Routage mots-clés : pastille propose le saut vers la section. */
       /* 2. Compteurs : chiffres montent de 0 au premier affichage.       */
-      /* 3. Easter egg terminal : commandes en local, rien à Crisp.       */
       /* ---------------------------------------------------------------- */
       KEYROUTES: T.keyroutes,
 
@@ -409,56 +378,6 @@
         requestAnimationFrame(tick);
       },
 
-      _showTerminal: function (cmd) {
-        var out = document.querySelector(".terminal-out");
-        if (!out) return;
-        var c = cmd.toLowerCase();
-        var lines;
-        if (/^whoami$/.test(c)) {
-          lines = T.whoami;
-        } else if (/^kubectl get certifs/.test(c)) {
-          lines = [
-            "NAME                                  AGE",
-            "aws-solutions-architect-pro           4y",
-            "aws-devops-engineer-pro               4y",
-            "aws-security-specialty                3y",
-            "aws-networking-specialty              3y",
-            "aws-developer-associate               1y",
-            "aws-ai-practitioner                   2y",
-            "azure-solutions-architect-expert      6y",
-            "azure-devops-engineer-expert          6y",
-            "azure-security-engineer-associate     6y"
-          ];
-        } else if (/^kubectl get nodes/.test(c)) {
-          lines = [
-            "NAME         STATUS   AGE",
-            "exaprobe     Ready    3y",
-            "cloudreach   Ready    3y",
-            "doit         Ready    4y"
-          ];
-        } else if (/^sudo (make|optimize) (une )?facture/.test(c)) {
-          lines = T.facture;
-        } else {
-          lines = [
-            "command not found: " + cmd.split(" ")[0],
-            T.eggTried
-          ];
-        }
-        lines.push(T.eggFooter);
-        out.textContent = "";
-        var head = document.createElement("span");
-        head.className = "t-prompt";
-        head.textContent = "$ " + cmd;
-        out.appendChild(head);
-        lines.forEach(function (l) {
-          var d = document.createElement("span");
-          d.className = "t-line";
-          d.textContent = l;
-          out.appendChild(d);
-        });
-        out.hidden = false;
-      },
-
       deliver: function (text) {
         if (crispReady) {
           try { $crisp.push(["do", "message:send", ["text", text]]); } catch (e) {}
@@ -472,14 +391,6 @@
         var text = (this.input || "").trim();
         if (!text) {
           if (ref && this.$refs[ref]) this.$refs[ref].focus();
-          return;
-        }
-        /* Easter egg terminal : réponse locale, rien n'est envoyé à Crisp */
-        if (/^(sudo|kubectl|whoami)\b/i.test(text)) {
-          this._showTerminal(text);
-          this.input = "";
-          var taEgg = document.getElementById("q-input");
-          if (taEgg) autoGrow(taEgg);
           return;
         }
         if (crispBlocked) {

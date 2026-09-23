@@ -53,58 +53,60 @@
            x-transition:leave="fade-out" x-transition:leave-start="fade-up-end" x-transition:leave-end="fade-out-end">
 
     <div class="hero">
+
+      <!-- Availability banner -->
+      <div class="availability-banner" role="note" aria-label="Availability">
+        <span class="ab-text">Open for a few targeted engagements in cloud architecture, FinOps and pre-sales.</span>
+      </div>
+
+      <!-- Identity / Profile -->
       <div class="portrait">
         <div class="portrait-frame" id="portrait-frame">
           <div class="portrait-inner">
             <img id="img-real" src="../alexandre-coucou-aligne.jpg" alt="Alexandre Tostivint, waving hello" width="600" height="600" style="display:none">
             <img id="img-ai" src="../avatar-ai.png" alt="AI-generated avatar of the Toasty-20-A model" width="600" height="600" style="display:none">
-            <span class="portrait-model" aria-hidden="true">Toasty-20-A</span>
           </div>
         </div>
         <p class="portrait-hint is-hidden" id="portrait-hint"></p>
       </div>
 
       <div class="hero-id">
-        <h1><span class="grad">Alexandre Tostivint</span> is available.</h1>
-        <p class="sub">Senior cloud architect, ex-DoiT. AWS, Azure, GCP. 300+ customers, 9 certifications, 10+ years. A question? Ask it here, I answer myself.</p>
-
-        <div class="availability-banner" role="note" aria-label="Availability">
-          <span class="ab-prompt" aria-hidden="true">&gt;</span>
-          <span class="ab-text">Open for a few targeted engagements in cloud architecture, FinOps and pre-sales.</span>
-          <span class="ab-cursor" aria-hidden="true"></span>
-        </div>
-
-        <div class="prompt-box">
-          <div class="input-row">
-            <textarea id="q-input" x-ref="qInput" x-model="input" rows="1"
-                      aria-label="Your question"
-                      @keydown.enter.prevent="!$event.shiftKey && submit('qInput')"
-                      placeholder="Ask your question…"></textarea>
-            <!-- Send arrow icon: Feather "arrow-up" (MIT), inline to avoid a dependency -->
-            <button class="btn-send" :class="{ 'is-empty': !input.trim() }" type="button"
-                    @click="submit('qInput')" aria-label="Send the question">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="12" y1="19" x2="12" y2="5"></line>
-                <polyline points="5 12 12 5 19 12"></polyline>
-              </svg>
-            </button>
-          </div>
-          <p class="sent-confirm" aria-live="polite"></p>
-          <button id="route-hint" class="route-hint" type="button" role="status" aria-live="polite"></button>
-          <pre id="terminal-out" class="terminal-out" role="log" aria-live="polite" hidden></pre>
-          <p class="q-warning" role="alert">
-            ⚠️ Our chat tool is blocked by your browser.
-            <a href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">Use LinkedIn instead</a>.
-          </p>
-        </div>
-
-        <div class="suggestions" role="group" aria-label="Question suggestions">
-          <template x-for="s in suggestions" :key="s">
-            <button class="suggestion" type="button" @click="useSuggestion(s)" x-text="s"></button>
-          </template>
-        </div>
+        <span class="model-badge" aria-label="Model">Toasty-20-A</span>
+        <h1><span class="grad">Alexandre Tostivint</span></h1>
+        <p class="sub">Senior cloud architect, ex-DoiT. AWS, Azure, GCP. 300+ customers, 9 certifications, 10+ years.</p>
       </div>
+
+      <!-- Question zone -->
+      <div class="prompt-box">
+        <div class="input-row">
+          <textarea id="q-input" x-ref="qInput" x-model="input" rows="1"
+                    aria-label="Your question"
+                    @keydown.enter.prevent="!$event.shiftKey && submit('qInput')"
+                    placeholder="Ask Alexandre a question…"></textarea>
+          <!-- Send arrow icon: Feather "arrow-up" (MIT), inline to avoid a dependency -->
+          <button class="btn-send" :class="{ 'is-empty': !input.trim() }" type="button"
+                  @click="submit('qInput')" aria-label="Send the question">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="12" y1="19" x2="12" y2="5"></line>
+              <polyline points="5 12 12 5 19 12"></polyline>
+            </svg>
+          </button>
+        </div>
+        <p class="sent-confirm" aria-live="polite"></p>
+        <button id="route-hint" class="route-hint" type="button" role="status" aria-live="polite"></button>
+        <p class="q-warning" role="alert">
+          ⚠️ Our chat tool is blocked by your browser.
+          <a href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">Use LinkedIn instead</a>.
+        </p>
+      </div>
+
+      <div class="suggestions" role="group" aria-label="Question suggestions">
+        <template x-for="s in suggestions" :key="s">
+          <button class="suggestion" type="button" @click="useSuggestion(s)" x-text="s"></button>
+        </template>
+      </div>
+
     </div>
   </section>
 
