@@ -83,7 +83,7 @@
         "Ma facture AWS dérive. Tu regardes ou j'arrête la prod ?",
         "6 certifs actives et 10 ans de prod : ça se prouve ou c'est du marketing ?",
         "Vous recrutez ? Vous êtes au bon endroit. 👀",
-        "kubectl get certifs"
+        "Quelles certifications cloud ai-je obtenues ?"
       ],
       hintHover: "Survolez-moi.",
       hintTouch: "Touchez-moi.",
@@ -104,7 +104,7 @@
         "My AWS bill is drifting. Want to look, or should I shut prod down?",
         "6 active certifications and 10+ years: can you prove that, or is it marketing?",
         "You're hiring? You're in the right place. 👀",
-        "kubectl get certifs"
+        "What cloud certifications do I hold?"
       ],
       hintHover: "Hover me.",
       hintTouch: "Tap me.",
