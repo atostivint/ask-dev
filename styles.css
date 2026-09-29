@@ -106,7 +106,9 @@ h1 .grad { color: #fff; }
 /* ---------- Portrait + halo + AI filter ---------- */
 .portrait { position: relative; justify-self: center; }
 .portrait-frame {
-  width: 160px; aspect-ratio: 1; border-radius: 24px; padding: 3px;
+  /* Hauteur explicite : `aspect-ratio` + `padding` (box-sizing:border-box)
+     donne 132x138 sous WebKit alors que Chromium rend 132x132. */
+  width: 160px; height: 160px; border-radius: 24px; padding: 3px;
   background: linear-gradient(135deg, var(--accent), var(--accent2));
 }
 .portrait-frame::before {
@@ -555,7 +557,7 @@ a.contact-row:last-child, .contact-row:last-child { border-bottom: none; }
   /* Hero compact : la question et ses suggestions tiennent dans le premier écran. */
   .view { padding: 28px 0 36px; }
   .hero { grid-template-columns: 1fr; text-align: center; gap: 14px; padding-top: 20px; }
-  .portrait-frame { width: 132px; }
+  .portrait-frame { width: 132px; height: 132px; }
   .portrait-frame::before { inset: -12px; }
   .sub { margin-left: auto; margin-right: auto; }
   .prompt-box { margin-left: auto; margin-right: auto; }
