@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Aperçu accueil compact · Alexandre Tostivint</title>
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="network.js" defer></script>
+  <script src="preview.js" defer></script>
+</head>
+<body class="compact-preview">
+  <div class="bg-glow" aria-hidden="true"></div>
+  <canvas id="bg-network" aria-hidden="true"></canvas>
+  <a class="preview-skip" href="#conversation">Aller à la conversation</a>
+  <header class="preview-header preview-shell">
+    <a class="preview-brand" href="./" aria-label="AT, Alexandre Tostivint">AT<span aria-hidden="true">.</span></a>
+    <nav aria-label="Navigation principale">
+      <a href="../../">Version actuelle</a>
+      <a href="https://cv.alexandre.tostivint.bzh" target="_blank" rel="noopener">Voir le CV <span aria-hidden="true">↗</span></a>
+      <a class="preview-language" href="en/" lang="en" hreflang="en" aria-label="Switch to English">EN</a>
+    </nav>
+  </header>
+  <main class="preview-main preview-shell">
+    <div class="compact-identity">
+      <picture class="identity-photo">
+        <source srcset="../../alexandre-portrait-a.webp" type="image/webp">
+        <img src="../../alexandre-portrait-a.jpg" alt="Alexandre Tostivint" width="600" height="600" fetchpriority="high" decoding="async">
+      </picture>
+      <div class="identity-copy">
+        <h1>Alexandre Tostivint<span aria-hidden="true">.</span></h1>
+        <p class="identity-role">Architecte cloud senior</p>
+        <p class="identity-clouds">AWS, Azure, GCP</p>
+      </div>
+    </div>
+    <p class="compact-availability">Ouvert aux opportunités de poste et aux missions ciblées.</p>
+    <section class="preview-conversation" aria-labelledby="conversation" tabindex="-1">
+      <h2 id="conversation">Le plus simple pour me connaître ?<br>Me poser une question.</h2>
+      <p class="conversation-intro" id="conversation-intro">Je suis Alexandre, architecte cloud. Une question technique, un projet ou un poste à proposer ? Écrivez-moi ici : je vous réponds personnellement.</p>
+      <p class="conversation-expectation" id="conversation-expectation">Une vraie conversation, avec une réponse en différé.</p>
+      <form class="composer" id="preview-form">
+        <label class="sr-only" for="preview-message">Votre question ou message</label>
+        <textarea id="preview-message" name="message" placeholder="Posez votre question…" rows="3" aria-describedby="conversation-expectation preview-note preview-status" disabled></textarea>
+        <div class="compose-footer"><span class="compose-hint">Vous écrivez à Alexandre.</span><button class="compose-send" type="submit" disabled>Envoyer à Alexandre <span aria-hidden="true">↑</span></button></div>
+      </form>
+      <p class="preview-status" id="preview-status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div class="preview-suggestions" role="group" aria-label="Suggestions de messages">
+        <button type="button" data-draft="Je souhaite discuter d'un poste." disabled>Vous recrutez ?</button>
+        <button type="button" data-draft="Je souhaite discuter d'un projet cloud." disabled>Parlons de votre projet</button>
+      </div>
+      <div class="preview-direct"><a href="https://cv.alexandre.tostivint.bzh" target="_blank" rel="noopener">Voir le CV <span aria-hidden="true">↗</span></a><a href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a><a href="mailto:alexandre@tostivint.bzh">Email <span aria-hidden="true">↗</span></a></div>
+      <p class="preview-note" id="preview-note">Aperçu interactif : aucun message n’est transmis.</p>
+      <noscript><p class="preview-note">L’aperçu interactif nécessite JavaScript. Les liens directs restent disponibles.</p></noscript>
+    </section>
+  </main>
+  <footer class="preview-footer preview-shell"><p>Alexandre Tostivint</p><button type="button" class="network-control" id="network-control" aria-pressed="false" hidden>Arrêter les animations</button></footer>
+</body>
+</html>

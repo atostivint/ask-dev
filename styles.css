@@ -270,7 +270,7 @@ h1 .grad { color: #fff; }
   border: 1px solid transparent; font-family: inherit;
   transition: transform .15s ease, filter .15s ease, border-color .15s ease;
 }
-.btn-primary { color: #fff; background: var(--accent); }
+.btn-primary { color: var(--bg-2); background: var(--accent); }
 .btn-primary:hover { background: #5f9bf8; transform: translateY(-2px); }
 .btn-ghost { color: var(--text); background: var(--card); border-color: var(--border); }
 .btn-ghost:hover { border-color: var(--muted); transform: translateY(-2px); }
@@ -823,3 +823,115 @@ a.ab-hist-card:hover { border-color: var(--accent); transform: translateY(-2px);
   .ab-timeline { padding-left: 24px; }
   /* Contact: already single column via flexbox — no override needed */
 }
+
+/* ============ Compact conversational home ============ */
+.compact-home {
+  --home-muted: #a2abb6;
+  max-width: 744px;
+  margin-inline: auto;
+  padding-top: clamp(48px, 8vh, 80px);
+  padding-bottom: 60px;
+}
+.compact-home .compact-identity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+}
+.compact-home .identity-photo { display: block; flex: 0 0 84px; width: 84px; }
+.compact-home .identity-photo img {
+  display: block; width: 100%; aspect-ratio: 1; height: auto; object-fit: cover;
+  border-radius: 18px; border: 1px solid rgb(79 143 247 / .55);
+}
+.compact-home .identity-copy { min-width: 0; text-align: left; }
+.compact-home .identity-copy h1 { font-size: clamp(25px, 3vw, 32px); line-height: 1.15; letter-spacing: -.65px; font-weight: 700; }
+.compact-home .identity-role { font-size: 17px; margin-top: 7px; }
+.compact-home .identity-clouds { font-size: 13px; color: var(--home-muted); margin-top: 3px; }
+.compact-home .compact-availability { font-size: 13px; color: var(--home-muted); text-align: center; margin-top: 20px; }
+.compact-home .home-conversation { margin-top: 42px; text-align: center; }
+.compact-home .home-conversation h2 { font-size: clamp(26px, 4vw, 36px); line-height: 1.2; letter-spacing: -.7px; text-wrap: balance; }
+.compact-home .conversation-intro { max-width: 580px; margin: 16px auto 0; color: var(--home-muted); font-size: 15px; line-height: 1.6; text-wrap: pretty; }
+.compact-home .conversation-expectation { color: var(--home-muted); font-size: 12px; line-height: 1.5; margin-top: 12px; }
+.compact-home .home-composer { border: 1px solid #667281; border-radius: 18px; background: var(--card); margin-top: 26px; text-align: left; box-shadow: 0 12px 36px rgb(0 0 0 / .15); }
+.compact-home .home-composer:focus-within { border-color: var(--accent); }
+.compact-home .home-composer textarea { display: block; width: 100%; min-height: 88px; max-height: 240px; resize: vertical; padding: 20px 22px 10px; border: 0; border-radius: 18px 18px 0 0; background: transparent; color: var(--text); font: inherit; font-size: 16px; line-height: 1.6; }
+.compact-home .home-composer textarea::placeholder { color: var(--home-muted); opacity: 1; }
+.compact-home .home-composer textarea:focus-visible { outline-offset: -5px; }
+.compact-home .home-compose-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 14px 14px 22px; }
+.compact-home .home-compose-hint { font-size: 12px; color: var(--home-muted); }
+.compact-home .home-send { display: inline-flex; gap: 14px; align-items: center; justify-content: center; min-height: 44px; padding: 11px 16px; border: 0; border-radius: 10px; font: inherit; font-size: 13px; font-weight: 650; background: var(--accent); color: var(--bg-2); cursor: pointer; white-space: nowrap; }
+.compact-home .home-send:hover:not(:disabled) { background: #76a8fa; }
+.compact-home .home-send:disabled { opacity: .55; cursor: not-allowed; }
+.compact-home .home-send > span { font-size: 19px; line-height: 1; }
+.compact-home .home-status { color: var(--home-muted); font-size: 13px; margin-top: 12px; text-wrap: pretty; }
+.compact-home .home-status:empty { margin: 0; }
+.compact-home .home-suggestions { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.compact-home .home-suggestions button { min-height: 44px; padding: 10px 18px; border-radius: 999px; border: 1px solid var(--border); background: var(--card); color: var(--text); font: inherit; font-size: 13px; cursor: pointer; }
+.compact-home .home-suggestions button:hover { border-color: var(--accent); }
+.compact-home .home-direct { display: flex; justify-content: center; flex-wrap: wrap; gap: 24px; margin-top: 24px; }
+.compact-home .home-direct a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; color: var(--home-muted); text-decoration: none; font-size: 13px; gap: 5px; }
+.compact-home .home-direct a:hover { color: var(--text); }
+.home-motion-toggle { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 0; color: var(--muted); background: transparent; border: 0; font: inherit; font-size: 12px; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+.home-motion-toggle:hover { color: var(--text); }
+
+@media (max-width: 720px) {
+  .compact-home { padding-top: 44px; padding-bottom: 42px; }
+  .compact-home .compact-identity { gap: 16px; justify-content: flex-start; }
+  .compact-home .identity-photo { width: 72px; flex-basis: 72px; }
+  .compact-home .identity-photo img { border-radius: 14px; }
+  .compact-home .identity-copy h1 { font-size: 27px; }
+  .compact-home .identity-role { font-size: 15px; }
+  .compact-home .compact-availability { text-align: left; margin-top: 18px; }
+  .compact-home .home-conversation { margin-top: 32px; }
+  .compact-home .conversation-intro { font-size: 14px; }
+  .compact-home .home-composer { margin-top: 22px; }
+  .compact-home .home-composer textarea { padding-inline: 16px; min-height: 104px; }
+  .compact-home .home-compose-footer { padding: 8px 12px 12px 16px; gap: 12px; }
+  .compact-home .home-compose-hint { display: none; }
+  .compact-home .home-send { margin-left: auto; }
+  .compact-home .home-suggestions { gap: 8px; }
+  .compact-home .home-suggestions button { padding-inline: 14px; font-size: 12px; }
+  .compact-home .home-direct { gap: 22px; margin-top: 18px; }
+}
+@media (max-width: 359px) {
+  .compact-home .identity-photo { width: 64px; flex-basis: 64px; }
+  .compact-home .compact-identity { gap: 14px; }
+  .compact-home .identity-copy h1 { font-size: 25px; }
+  .compact-home .identity-role { font-size: 14px; }
+  .compact-home .home-suggestions { flex-direction: column; }
+  .compact-home .home-suggestions button { width: 100%; }
+}
+
+/* Shared contact composer, aligned with the home conversation. */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.nav-links a.nav-view { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 14px; border-radius: 9px; color: var(--muted); text-decoration: none; font-size: 15px; transition: color .18s, background .18s; }
+.nav-links a.nav-view:hover { color: var(--text); }
+.nav-links a.nav-view.active { color: var(--text); background: rgba(79,143,247,.12); }
+.contact-composer { margin-top: 16px; border: 1px solid #667281; border-radius: 14px; background: var(--bg); padding: 12px; }
+.contact-composer:focus-within { border-color: var(--accent); }
+.contact-composer textarea { display: block; width: 100%; min-height: 88px; max-height: 240px; resize: vertical; padding: 12px; border: 0; border-radius: 8px; background: transparent; color: var(--text); font: inherit; font-size: 16px; line-height: 1.55; }
+.contact-composer textarea::placeholder { color: var(--muted); opacity: 1; }
+.contact-expectation, .contact-send-status { margin-top: 8px; color: var(--muted); font-size: 12px; }
+.contact-send-status:empty { display: none; }
+.contact-send { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; margin-top: 8px; padding: 10px 16px; border: 0; border-radius: 9px; background: var(--accent); color: var(--bg-2); font: inherit; font-size: 13px; font-weight: 650; cursor: pointer; }
+.contact-send:disabled { opacity: .55; cursor: not-allowed; }
+@media (max-width: 720px) {
+  .nav-links a.nav-view { padding: 12px 12px; font-size: 14px; }
+}
+
+/* Keep the compact home background quiet and preserve accessible nav targets. */
+body.view-home #bg-network { opacity: .45; }
+body.view-home .bg-glow { opacity: .5; }
+.brand { min-width: 44px; min-height: 44px; justify-content: center; }
+.lang-link { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; }
+.contact-card-actions button:disabled { opacity: .6; cursor: wait; }
+
+/* Preserve usable touch areas on the existing secondary views. */
+.ab-more { display: inline-flex; align-items: center; min-height: 44px; }
+.testi-note a { display: inline-flex; align-items: center; min-height: 44px; }
+.contact-row-value { display: inline-flex; align-items: center; min-height: 44px; }
+.contact-copy { min-height: 44px; }
+.contact-cv a { display: inline-flex; align-items: center; min-height: 44px; }
+.home-recovery { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; margin-top: 8px; padding: 8px 14px; border: 1px solid var(--border); border-radius: 9px; background: transparent; color: var(--text); font: inherit; font-size: 13px; cursor: pointer; }
+.home-recovery:hover:not(:disabled) { border-color: var(--accent); background: rgba(79,143,247,.08); }
+.home-recovery:disabled { opacity: .55; cursor: wait; }

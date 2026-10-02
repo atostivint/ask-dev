@@ -14,11 +14,10 @@
 <meta property="og:image" content="https://ask.alexandre.tostivint.bzh/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Alexandre Tostivint, architecte cloud senior, Toasty-20-A">
+<meta property="og:image:alt" content="Alexandre Tostivint, architecte cloud senior">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥖</text></svg>">
-<link rel="preconnect" href="https://client.crisp.chat" crossorigin>
 <link rel="preconnect" href="https://calendar.app.google" crossorigin>
 <link rel="alternate" hreflang="fr" href="https://ask.alexandre.tostivint.bzh/">
 <link rel="alternate" hreflang="en" href="https://ask.alexandre.tostivint.bzh/en/">
@@ -28,87 +27,68 @@
 <script src="bg-network.js" defer></script>
 <script src="vendor/alpine.min.js" defer></script>
 </head>
-<body x-data="portfolio()" x-init="init()" :class="'view-' + view">
+<body x-data="portfolio()" :class="'view-' + view">
 
 <div class="bg-glow" aria-hidden="true"></div>
 <canvas id="bg-network" aria-hidden="true"></canvas>
 
 <nav class="nav wrap" aria-label="Navigation principale">
-  <a class="brand" href="#" @click.prevent="setView('home')">AT<span class="brand-dot">.</span><span class="brand-toast" title="Toasty-20-A">🍞</span></a>
+  <a class="brand" href="#home" @click.prevent="setView('home')">AT<span class="brand-dot">.</span></a>
   <ul class="nav-links">
-    <li><button :class="{active: view==='home'}" @click="setView('home')">Accueil</button></li>
-    <li><button :class="{active: view==='about'}" @click="setView('about')">À propos</button></li>
-    <li><button :class="{active: view==='testimonials'}" @click="setView('testimonials')">Témoignages</button></li>
-    <li><button :class="{active: view==='contact'}" @click="setView('contact')">Contact</button></li>
-    <li><a class="lang-link" href="en/" lang="en" hreflang="en" aria-label="Switch to English">EN</a></li>
+    <li><a class="nav-view" href="#home" :class="{active: view==='home'}" @click.prevent="setView('home')">Accueil</a></li>
+    <li><a class="nav-view" href="#about" :class="{active: view==='about'}" @click.prevent="setView('about')">À propos</a></li>
+    <li><a class="nav-view" href="#testimonials" :class="{active: view==='testimonials'}" @click.prevent="setView('testimonials')">Témoignages</a></li>
+    <li><a class="nav-view" href="#contact" :class="{active: view==='contact'}" @click.prevent="setView('contact')">Contact</a></li>
+    <li><a class="lang-link" href="en/" :href="languageHref" lang="en" hreflang="en" aria-label="Switch to English">EN</a></li>
   </ul>
 </nav>
 
 <main class="wrap">
 
   <!-- ============ ACCUEIL ============ -->
-  <section class="view home" x-show="view==='home'"
+  <section id="home" data-view-focus="home" tabindex="-1" class="view home compact-home" x-show="view==='home'"
            x-transition:enter="fade-up" x-transition:enter-start="fade-up-start" x-transition:enter-end="fade-up-end"
            x-transition:leave="fade-out" x-transition:leave-start="fade-up-end" x-transition:leave-end="fade-out-end">
-
-    <div class="hero">
-      <div class="portrait">
-        <div class="portrait-frame" id="portrait-frame">
-          <div class="portrait-inner">
-            <img id="img-real" src="alexandre-coucou-aligne.jpg" alt="Alexandre Tostivint au naturel, en train de faire coucou" width="600" height="600" style="display:none">
-            <img id="img-ai" src="avatar-ai.png" alt="Avatar généré par IA du modèle Toasty-20-A" width="600" height="600" style="display:none">
-            <span class="portrait-model" aria-hidden="true">Toasty-20-A</span>
-          </div>
-        </div>
-        <p class="portrait-hint is-hidden" id="portrait-hint"></p>
-      </div>
-
-      <div class="hero-id">
-        <h1><span class="grad">Alexandre Tostivint</span> est disponible.</h1>
-        <p class="sub">Architecte cloud senior, ex-DoiT. AWS, Azure, GCP. 300+ clients, 9 certifs, 10+ ans. Une question ? Pose-la ici, j'y réponds moi-même.</p>
-
-        <div class="availability-banner" role="note" aria-label="Disponibilité">
-          <span class="ab-prompt" aria-hidden="true">&gt;</span>
-          <span class="ab-text">Disponible pour quelques missions ciblées en architecture cloud, FinOps et pre-sales.</span>
-          <span class="ab-cursor" aria-hidden="true"></span>
-        </div>
-
-        <div class="prompt-box">
-          <div class="input-row">
-            <textarea id="q-input" x-ref="qInput" x-model="input" rows="1"
-                      aria-label="Votre question"
-                      @keydown.enter.prevent="!$event.shiftKey && submit('qInput')"
-                      placeholder="Posez votre question…"></textarea>
-            <!-- Icône flèche : Feather "arrow-up" (MIT), rendue inline pour éviter une dépendance -->
-            <button class="btn-send" :class="{ 'is-empty': !input.trim() }" type="button"
-                    @click="submit('qInput')" aria-label="Envoyer la question">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="12" y1="19" x2="12" y2="5"></line>
-                <polyline points="5 12 12 5 19 12"></polyline>
-              </svg>
-            </button>
-          </div>
-          <p class="sent-confirm" aria-live="polite"></p>
-          <button id="route-hint" class="route-hint" type="button" role="status" aria-live="polite"></button>
-          <pre id="terminal-out" class="terminal-out" role="log" aria-live="polite" hidden></pre>
-          <p class="q-warning" role="alert">
-            ⚠️ Notre outil de chat est bloqué par votre navigateur.
-            <a href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">Passez par LinkedIn</a>.
-          </p>
-        </div>
-
-        <div class="suggestions" role="group" aria-label="Suggestions de questions">
-          <template x-for="s in suggestions" :key="s">
-            <button class="suggestion" type="button" @click="useSuggestion(s)" x-text="s"></button>
-          </template>
-        </div>
+    <div class="compact-identity">
+      <picture class="identity-photo">
+        <source srcset="alexandre-portrait-a.webp" type="image/webp">
+        <img src="alexandre-portrait-a.jpg" alt="Alexandre Tostivint" width="600" height="600" fetchpriority="high" decoding="async">
+      </picture>
+      <div class="identity-copy">
+        <h1>Alexandre Tostivint</h1>
+        <p class="identity-role">Architecte cloud senior</p>
+        <p class="identity-clouds">AWS, Azure, GCP</p>
       </div>
     </div>
+    <p class="compact-availability">Ouvert aux opportunités de poste et aux missions ciblées.</p>
+    <section class="home-conversation" aria-labelledby="home-headline">
+      <h2 id="home-headline">Le plus simple pour me connaître ?<br>Me poser une question.</h2>
+      <p class="conversation-intro">Je suis Alexandre, architecte cloud. Une question technique, un projet ou un poste à proposer ? Écrivez-moi ici : je vous réponds personnellement.</p>
+      <p class="conversation-expectation" id="home-expectation">Une vraie conversation, avec une réponse en différé.</p>
+      <div class="home-composer">
+        <label class="sr-only" for="q-input">Votre question ou message</label>
+        <textarea id="q-input" name="message" x-ref="qInput" x-model="input" disabled :disabled="false" placeholder="Posez votre question…" rows="3" aria-describedby="home-expectation home-compose-hint"></textarea>
+        <div class="home-compose-footer">
+          <span class="home-compose-hint" id="home-compose-hint">Vous écrivez à Alexandre.</span>
+          <button class="home-send" type="button" disabled @click="submit('qInput')" :disabled="sending || !input.trim()">Envoyer à Alexandre <span aria-hidden="true">↑</span></button>
+        </div>
+      </div>
+      <p class="home-status" role="status" aria-live="polite" aria-atomic="true" x-text="sendStatus"></p>
+      <button class="home-recovery" type="button" disabled x-cloak x-show="sendState === 'uncertain'" :disabled="sending" @click="openChatBtn()">Ouvrir le chat</button>
+      <div class="home-suggestions" role="group" aria-label="Suggestions de messages">
+        <button type="button" disabled :disabled="sending" @click="useSuggestion($el.dataset.draft)" data-draft="Je souhaite discuter d&#39;un poste.">Vous recrutez ?</button>
+        <button type="button" disabled :disabled="sending" @click="useSuggestion($el.dataset.draft)" data-draft="Je souhaite discuter d&#39;un projet cloud.">Parlons de votre projet</button>
+      </div>
+      <nav class="home-direct" aria-label="Liens directs">
+        <a href="https://cv.alexandre.tostivint.bzh" target="_blank" rel="noopener">Voir le CV <span aria-hidden="true">↗</span></a>
+        <a href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+        <a href="mailto:alexandre@tostivint.bzh">Email <span aria-hidden="true">↗</span></a>
+      </nav>
+    </section>
   </section>
 
   <!-- ============ À PROPOS ============ -->
-  <section class="view about" x-show="view==='about'"
+  <section id="about" data-view-focus="about" tabindex="-1" class="view about" x-show="view==='about'"
            x-transition:enter="fade-up" x-transition:enter-start="fade-up-start" x-transition:enter-end="fade-up-end"
            x-transition:leave="fade-out" x-transition:leave-start="fade-up-end" x-transition:leave-end="fade-out-end">
     <h2 class="view-title">À propos</h2>
@@ -116,7 +96,7 @@
     <p class="bio">
       Je suis Alexandre Tostivint, architecte cloud senior basé à Rennes.
       10+ ans en IT, 8+ en cloud : d'abord réseaux et supervision (ETIAM,
-      Exaprobe-Econocom), puis Cloudreach et DoiT International — 300+ clients
+      Exaprobe-Econocom), puis Cloudreach et DoiT International: 300+ clients
       accompagnés en consulting et avant-vente, dont le rôle d'AWS MAP SME
       France/EMEA. J'orchestre des architectures AWS, Azure et GCP, et j'aime
       autant optimiser une facture FinOps que faire passer une équipe au
@@ -191,7 +171,7 @@
                     <span class="ab-mission-client">FinOps &amp; modélisation de coûts</span>
                     <span class="ab-mission-period">2020 – 2025</span>
                   </div>
-                  <p class="ab-mission-text">Analyses de coûts rapides et actionnables pour appuyer les poursuites stratégiques — dont une étude réalisée pour une startup bancaire, afin de démontrer les capacités multi-cloud de DoiT.</p>
+                  <p class="ab-mission-text">Analyses de coûts rapides et actionnables pour appuyer les poursuites stratégiques: dont une étude réalisée pour une startup bancaire, afin de démontrer les capacités multi-cloud de DoiT.</p>
                   <div class="ab-mission-tech"><span>FinOps</span><span>Optimisation de coûts</span></div>
                 </div>
                 <div class="ab-mission">
@@ -226,7 +206,7 @@
               <div class="ab-missions">
                 <div class="ab-mission">
                   <div class="ab-mission-head">
-                    <span class="ab-mission-client">Multinationale de la sécurité — Migration cloud</span>
+                    <span class="ab-mission-client">Multinationale de la sécurité: Migration cloud</span>
                     <span class="ab-mission-period">Déc 2017 – Fév 2018</span>
                   </div>
                   <p class="ab-mission-text">Premier projet cloud personnel, mené en binôme. Couches réseau VPC en Infrastructure as Code, migration d'instances RedHat RHEL avec AWS DMS, fonctions Lambda de gouvernance et d'automatisation de la sécurité.</p>
@@ -234,7 +214,7 @@
                 </div>
                 <div class="ab-mission">
                   <div class="ab-mission-head">
-                    <span class="ab-mission-client">Groupe énergétique français — Landing Zone AWS &amp; gouvernance d'un datalake</span>
+                    <span class="ab-mission-client">Groupe énergétique français: Landing Zone AWS &amp; gouvernance d'un datalake</span>
                     <span class="ab-mission-period">Avr 2018 – Juil 2019</span>
                   </div>
                   <p class="ab-mission-text">Sur une équipe de 4 : Landing Zone AWS et programme d'adoption cloud à l'échelle de l'entreprise. Réseau, sécurité, gouvernance et couche datalake posés en Infrastructure as Code. Déploiement d'AWS Workspaces pour des environnements de développement sécurisés et conformes. Accompagnement des équipes métier et techniques : CI/CD, migration des données on-premise vers le datalake, IoT sur AWS, cadres d'identité. Support des équipes internationales au Royaume-Uni et aux États-Unis.</p>
@@ -242,7 +222,7 @@
                 </div>
                 <div class="ab-mission">
                   <div class="ab-mission-head">
-                    <span class="ab-mission-client">Groupe chimique européen — Plateforme CI/CD sur Kubernetes &amp; GCP</span>
+                    <span class="ab-mission-client">Groupe chimique européen: Plateforme CI/CD sur Kubernetes &amp; GCP</span>
                     <span class="ab-mission-period">Sept 2019</span>
                   </div>
                   <p class="ab-mission-text">Conception et livraison d'une solution CI/CD Jenkins sur Google Kubernetes Engine : authentification SAML sécurisée, workflows de livraison automatisés des images Docker, ajustement automatique de la capacité pour maîtriser les coûts. Cycles de release accélérés sans bouleverser les habitudes des développeurs.</p>
@@ -298,7 +278,7 @@
           <div class="ab-role">
             <div class="ab-card">
               <div class="ab-role-head">
-                <span class="ab-role-title">Stages — supervision &amp; messagerie interne</span>
+                <span class="ab-role-title">Stages: supervision &amp; messagerie interne</span>
                 <span class="ab-role-period">Avr 2014 – Août 2014</span>
               </div>
               <div class="ab-role-company">
@@ -331,7 +311,7 @@
           <div class="ab-role">
             <div class="ab-card">
               <div class="ab-role-head">
-                <span class="ab-role-title">Formateur informatique — stage</span>
+                <span class="ab-role-title">Formateur informatique: stage</span>
                 <span class="ab-role-period">Août 2013</span>
               </div>
               <div class="ab-role-company">
@@ -495,18 +475,18 @@
         <p class="project-desc">2 000+ comptes clients maintenus sur la plateforme (équipe), dont 70+ onboardés personnellement : IaC secure-by-design, contrôles de policy globaux, conformité automatisée (Python CDK, Terraform, Pulumi, GitHub Actions).</p>
       </div>
       <div class="project" id="project-retail">
-        <h4 class="project-name">CI/CD sur GKE — Cloudreach</h4>
+        <h4 class="project-name">CI/CD sur GKE: Cloudreach</h4>
         <p class="project-desc">Plateforme Jenkins sur Google Kubernetes Engine : authentification SAML, livraison d'images Docker automatisée, Terraform et autoscaling pour maîtriser coûts et cycles de release.</p>
       </div>
       <div class="project" id="project-data">
-        <h4 class="project-name">Landing zone AWS &amp; datalake — Cloudreach</h4>
+        <h4 class="project-name">Landing zone AWS &amp; datalake: Cloudreach</h4>
         <p class="project-desc">À 4, landing zone AWS pour un client multinational de l'énergie : réseau, sécurité, gouvernance et datalake en IaC ; onboarding automatisé (Lambda, Step Functions, SSM, Okta).</p>
       </div>
     </div>
   </section>
 
   <!-- ============ TÉMOIGNAGES ============ -->
-  <section class="view testimonials" x-show="view==='testimonials'"
+  <section id="testimonials" data-view-focus="testimonials" tabindex="-1" class="view testimonials" x-show="view==='testimonials'"
            x-transition:enter="fade-up" x-transition:enter-start="fade-up-start" x-transition:enter-end="fade-up-end"
            x-transition:leave="fade-out" x-transition:leave-start="fade-up-end" x-transition:leave-end="fade-out-end">
 
@@ -527,7 +507,7 @@
   </section>
 
   <!-- ============ CONTACT ============ -->
-  <section class="view contact" x-show="view==='contact'"
+  <section id="contact" data-view-focus="contact" tabindex="-1" class="view contact" x-show="view==='contact'"
            x-transition:enter="fade-up" x-transition:enter-start="fade-up-start" x-transition:enter-end="fade-up-end"
            x-transition:leave="fade-out" x-transition:leave-start="fade-up-end" x-transition:leave-end="fade-out-end">
 
@@ -538,8 +518,15 @@
     <div class="crisp-box">
       <div class="crisp-box-inner">
         <h3 class="crisp-box-title">Chat</h3>
-        <p class="crisp-box-desc">Une question technique, une candidature, un projet&nbsp;? Réponse sous quelques heures.</p>
-        <p class="contact-card-actions"><button class="btn btn-primary" type="button" @click="openChatBtn()">Ouvrir le chat</button></p>
+        <p class="crisp-box-desc">Une question technique, une candidature, un projet&nbsp;? Écrivez-moi ici : je vous réponds personnellement.</p>
+        <div class="contact-composer">
+          <label class="sr-only" for="contact-input">Votre question ou message</label>
+          <textarea id="contact-input" name="message" x-ref="contactInput" x-model="input" disabled :disabled="false" placeholder="Posez votre question…" rows="3" aria-describedby="contact-expectation"></textarea>
+          <p class="contact-expectation" id="contact-expectation">Une vraie conversation, avec une réponse en différé.</p>
+          <button class="contact-send" type="button" disabled @click="submit('contactInput')" :disabled="sending || !input.trim()">Envoyer à Alexandre</button>
+          <p class="contact-send-status" role="status" aria-live="polite" aria-atomic="true" x-text="sendStatus"></p>
+        </div>
+        <p class="contact-card-actions"><button class="btn btn-primary" type="button" disabled :disabled="sending" :class="{ 'is-loading': sending }" @click="openChatBtn()">Ouvrir le chat</button></p>
       </div>
       <p class="q-warning" role="alert">
         Le chat est bloqué par votre navigateur.
@@ -575,8 +562,7 @@
 
 <footer class="wrap footer">
   <p>© <span id="year"></span> Alexandre Tostivint · ask.alexandre.tostivint.bzh</p>
-  <p class="footer-note">Page co-construite avec Atlas, mon assistant IA.</p>
-  <p class="footer-note subtle">Page statique, sans framework lourd, sans tracker. Le seul cookie ici est celui que vous mangerez en lisant cette page. 🥖</p>
+  <button class="home-motion-toggle" type="button" disabled :disabled="false" @click="toggleAnimations()" :aria-pressed="networkPaused" x-text="networkPaused ? 'Reprendre les animations' : 'Arrêter les animations'">Arrêter les animations</button>
 </footer>
 
 <script>

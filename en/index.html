@@ -14,12 +14,11 @@
 <meta property="og:image" content="https://ask.alexandre.tostivint.bzh/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Alexandre Tostivint, Senior Cloud Architect, Toasty-20-A">
+<meta property="og:image:alt" content="Alexandre Tostivint, Senior Cloud Architect">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥖</text></svg>">
-<link rel="preconnect" href="https://client.crisp.chat" crossorigin>
 <link rel="preconnect" href="https://calendar.app.google" crossorigin>
 <link rel="alternate" hreflang="fr" href="https://ask.alexandre.tostivint.bzh/">
 <link rel="alternate" hreflang="en" href="https://ask.alexandre.tostivint.bzh/en/">
@@ -29,87 +28,68 @@
 <script src="../bg-network.js" defer></script>
 <script src="../vendor/alpine.min.js" defer></script>
 </head>
-<body x-data="portfolio()" x-init="init()" :class="'view-' + view">
+<body x-data="portfolio()" :class="'view-' + view">
 
 <div class="bg-glow" aria-hidden="true"></div>
 <canvas id="bg-network" aria-hidden="true"></canvas>
 
 <nav class="nav wrap" aria-label="Main navigation">
-  <a class="brand" href="../" @click.prevent="setView('home')">AT<span class="brand-dot">.</span><span class="brand-toast" title="Toasty-20-A">🍞</span></a>
+  <a class="brand" href="#home" @click.prevent="setView('home')">AT<span class="brand-dot">.</span></a>
   <ul class="nav-links">
-    <li><button :class="{active: view==='home'}" @click="setView('home')">Home</button></li>
-    <li><button :class="{active: view==='about'}" @click="setView('about')">About</button></li>
-    <li><button :class="{active: view==='testimonials'}" @click="setView('testimonials')">Testimonials</button></li>
-    <li><button :class="{active: view==='contact'}" @click="setView('contact')">Contact</button></li>
-    <li><a class="lang-link" href="../" lang="fr" hreflang="fr" aria-label="Passer au français">FR</a></li>
+    <li><a class="nav-view" href="#home" :class="{active: view==='home'}" @click.prevent="setView('home')">Home</a></li>
+    <li><a class="nav-view" href="#about" :class="{active: view==='about'}" @click.prevent="setView('about')">About</a></li>
+    <li><a class="nav-view" href="#testimonials" :class="{active: view==='testimonials'}" @click.prevent="setView('testimonials')">Testimonials</a></li>
+    <li><a class="nav-view" href="#contact" :class="{active: view==='contact'}" @click.prevent="setView('contact')">Contact</a></li>
+    <li><a class="lang-link" href="../" :href="languageHref" lang="fr" hreflang="fr" aria-label="Passer au français">FR</a></li>
   </ul>
 </nav>
 
 <main class="wrap">
 
   <!-- ============ HOME ============ -->
-  <section class="view home" x-show="view==='home'"
+  <section id="home" data-view-focus="home" tabindex="-1" class="view home compact-home" x-show="view==='home'"
            x-transition:enter="fade-up" x-transition:enter-start="fade-up-start" x-transition:enter-end="fade-up-end"
            x-transition:leave="fade-out" x-transition:leave-start="fade-up-end" x-transition:leave-end="fade-out-end">
-
-    <div class="hero">
-      <div class="portrait">
-        <div class="portrait-frame" id="portrait-frame">
-          <div class="portrait-inner">
-            <img id="img-real" src="../alexandre-coucou-aligne.jpg" alt="Alexandre Tostivint, waving hello" width="600" height="600" style="display:none">
-            <img id="img-ai" src="../avatar-ai.png" alt="AI-generated avatar of the Toasty-20-A model" width="600" height="600" style="display:none">
-            <span class="portrait-model" aria-hidden="true">Toasty-20-A</span>
-          </div>
-        </div>
-        <p class="portrait-hint is-hidden" id="portrait-hint"></p>
-      </div>
-
-      <div class="hero-id">
-        <h1><span class="grad">Alexandre Tostivint</span> is available.</h1>
-        <p class="sub">Senior cloud architect, ex-DoiT. AWS, Azure, GCP. 300+ customers, 9 certifications, 10+ years. A question? Ask it here, I answer myself.</p>
-
-        <div class="availability-banner" role="note" aria-label="Availability">
-          <span class="ab-prompt" aria-hidden="true">&gt;</span>
-          <span class="ab-text">Open for a few targeted engagements in cloud architecture, FinOps and pre-sales.</span>
-          <span class="ab-cursor" aria-hidden="true"></span>
-        </div>
-
-        <div class="prompt-box">
-          <div class="input-row">
-            <textarea id="q-input" x-ref="qInput" x-model="input" rows="1"
-                      aria-label="Your question"
-                      @keydown.enter.prevent="!$event.shiftKey && submit('qInput')"
-                      placeholder="Ask your question…"></textarea>
-            <!-- Send arrow icon: Feather "arrow-up" (MIT), inline to avoid a dependency -->
-            <button class="btn-send" :class="{ 'is-empty': !input.trim() }" type="button"
-                    @click="submit('qInput')" aria-label="Send the question">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="12" y1="19" x2="12" y2="5"></line>
-                <polyline points="5 12 12 5 19 12"></polyline>
-              </svg>
-            </button>
-          </div>
-          <p class="sent-confirm" aria-live="polite"></p>
-          <button id="route-hint" class="route-hint" type="button" role="status" aria-live="polite"></button>
-          <pre id="terminal-out" class="terminal-out" role="log" aria-live="polite" hidden></pre>
-          <p class="q-warning" role="alert">
-            ⚠️ Our chat tool is blocked by your browser.
-            <a href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">Use LinkedIn instead</a>.
-          </p>
-        </div>
-
-        <div class="suggestions" role="group" aria-label="Question suggestions">
-          <template x-for="s in suggestions" :key="s">
-            <button class="suggestion" type="button" @click="useSuggestion(s)" x-text="s"></button>
-          </template>
-        </div>
+    <div class="compact-identity">
+      <picture class="identity-photo">
+        <source srcset="../alexandre-portrait-a.webp" type="image/webp">
+        <img src="../alexandre-portrait-a.jpg" alt="Alexandre Tostivint" width="600" height="600" fetchpriority="high" decoding="async">
+      </picture>
+      <div class="identity-copy">
+        <h1>Alexandre Tostivint</h1>
+        <p class="identity-role">Senior cloud architect</p>
+        <p class="identity-clouds">AWS, Azure, GCP</p>
       </div>
     </div>
+    <p class="compact-availability">Open to job opportunities and focused engagements.</p>
+    <section class="home-conversation" aria-labelledby="home-headline">
+      <h2 id="home-headline">The easiest way to get to know me?<br>Ask me a question.</h2>
+      <p class="conversation-intro">I’m Alexandre, a cloud architect. A technical question, a project or a job opportunity? Write to me here: I reply personally.</p>
+      <p class="conversation-expectation" id="home-expectation">A real conversation, with a reply when I’m available.</p>
+      <div class="home-composer">
+        <label class="sr-only" for="q-input">Your question or message</label>
+        <textarea id="q-input" name="message" x-ref="qInput" x-model="input" disabled :disabled="false" placeholder="Ask your question…" rows="3" aria-describedby="home-expectation home-compose-hint"></textarea>
+        <div class="home-compose-footer">
+          <span class="home-compose-hint" id="home-compose-hint">You’re writing to Alexandre.</span>
+          <button class="home-send" type="button" disabled @click="submit('qInput')" :disabled="sending || !input.trim()">Send to Alexandre <span aria-hidden="true">↑</span></button>
+        </div>
+      </div>
+      <p class="home-status" role="status" aria-live="polite" aria-atomic="true" x-text="sendStatus"></p>
+      <button class="home-recovery" type="button" disabled x-cloak x-show="sendState === 'uncertain'" :disabled="sending" @click="openChatBtn()">Open chat</button>
+      <div class="home-suggestions" role="group" aria-label="Message suggestions">
+        <button type="button" disabled :disabled="sending" @click="useSuggestion($el.dataset.draft)" data-draft="I’d like to discuss a role.">Are you hiring?</button>
+        <button type="button" disabled :disabled="sending" @click="useSuggestion($el.dataset.draft)" data-draft="I’d like to discuss a cloud project.">Let’s talk about your project</button>
+      </div>
+      <nav class="home-direct" aria-label="Direct links">
+        <a href="https://cv.alexandre.tostivint.bzh" target="_blank" rel="noopener">View the CV <span aria-hidden="true">↗</span></a>
+        <a href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+        <a href="mailto:alexandre@tostivint.bzh">Email <span aria-hidden="true">↗</span></a>
+      </nav>
+    </section>
   </section>
 
   <!-- ============ ABOUT ============ -->
-  <section class="view about" x-show="view==='about'"
+  <section id="about" data-view-focus="about" tabindex="-1" class="view about" x-show="view==='about'"
            x-transition:enter="fade-up" x-transition:enter-start="fade-up-start" x-transition:enter-end="fade-up-end"
            x-transition:leave="fade-out" x-transition:leave-start="fade-up-end" x-transition:leave-end="fade-out-end">
     <h2 class="view-title">About</h2>
@@ -192,7 +172,7 @@
                     <span class="ab-mission-client">FinOps &amp; cost modelling</span>
                     <span class="ab-mission-period">2020 – 2025</span>
                   </div>
-                  <p class="ab-mission-text">Fast, actionable cost analyses to support strategic pursuits — including a study delivered for a banking startup to demonstrate DoiT's multi-cloud capabilities.</p>
+                  <p class="ab-mission-text">Fast, actionable cost analyses to support strategic pursuits: including a study delivered for a banking startup to demonstrate DoiT's multi-cloud capabilities.</p>
                   <div class="ab-mission-tech"><span>FinOps</span><span>Cost optimisation</span></div>
                 </div>
                 <div class="ab-mission">
@@ -227,7 +207,7 @@
               <div class="ab-missions">
                 <div class="ab-mission">
                   <div class="ab-mission-head">
-                    <span class="ab-mission-client">Global security multinational — Cloud migration</span>
+                    <span class="ab-mission-client">Global security multinational: Cloud migration</span>
                     <span class="ab-mission-period">Dec 2017 – Feb 2018</span>
                   </div>
                   <p class="ab-mission-text">My first personal cloud project, delivered as a pair. VPC network layers as Infrastructure as Code, migration of RedHat RHEL instances with AWS DMS, Lambda functions for governance and security automation.</p>
@@ -235,7 +215,7 @@
                 </div>
                 <div class="ab-mission">
                   <div class="ab-mission-head">
-                    <span class="ab-mission-client">Major French energy company — AWS Landing Zone &amp; datalake governance</span>
+                    <span class="ab-mission-client">Major French energy company: AWS Landing Zone &amp; datalake governance</span>
                     <span class="ab-mission-period">Apr 2018 – Jul 2019</span>
                   </div>
                   <p class="ab-mission-text">Part of a 4-person team delivering a company-wide AWS Landing Zone and cloud adoption program. Networking, security, governance and the datalake layer built as Infrastructure as Code. Deployed AWS Workspaces for secure, compliant development environments. Guided business and technical teams on CI/CD, on-premise to cloud datalake migration, IoT on AWS and identity frameworks. Supported international teams in the UK and the US.</p>
@@ -243,7 +223,7 @@
                 </div>
                 <div class="ab-mission">
                   <div class="ab-mission-head">
-                    <span class="ab-mission-client">European chemical group — CI/CD platform on Kubernetes &amp; GCP</span>
+                    <span class="ab-mission-client">European chemical group: CI/CD platform on Kubernetes &amp; GCP</span>
                     <span class="ab-mission-period">Sep 2019</span>
                   </div>
                   <p class="ab-mission-text">Designed and delivered a Jenkins-based CI/CD solution on Google Kubernetes Engine: secure SAML authentication, automated Docker image delivery workflows, automatic capacity adjustment to keep costs under control. Accelerated release cycles without disrupting existing developer workflows.</p>
@@ -299,7 +279,7 @@
           <div class="ab-role">
             <div class="ab-card">
               <div class="ab-role-head">
-                <span class="ab-role-title">Internships — monitoring &amp; internal messaging</span>
+                <span class="ab-role-title">Internships: monitoring &amp; internal messaging</span>
                 <span class="ab-role-period">Apr 2014 – Aug 2014</span>
               </div>
               <div class="ab-role-company">
@@ -332,7 +312,7 @@
           <div class="ab-role">
             <div class="ab-card">
               <div class="ab-role-head">
-                <span class="ab-role-title">IT Trainer — internship</span>
+                <span class="ab-role-title">IT Trainer: internship</span>
                 <span class="ab-role-period">Aug 2013</span>
               </div>
               <div class="ab-role-company">
@@ -496,11 +476,11 @@
         <p class="project-desc">2,000+ customer accounts maintained on the platform (team), 70+ onboarded personally: secure-by-design IaC, global policy controls, automated compliance (Python CDK, Terraform, Pulumi, GitHub Actions).</p>
       </div>
       <div class="project" id="project-retail">
-        <h4 class="project-name">CI/CD on GKE — Cloudreach</h4>
+        <h4 class="project-name">CI/CD on GKE: Cloudreach</h4>
         <p class="project-desc">Jenkins platform on Google Kubernetes Engine: SAML authentication, automated Docker image delivery, Terraform and autoscaling to keep costs and release cycles under control.</p>
       </div>
       <div class="project" id="project-data">
-        <h4 class="project-name">AWS landing zone &amp; datalake — Cloudreach</h4>
+        <h4 class="project-name">AWS landing zone &amp; datalake: Cloudreach</h4>
         <p class="project-desc">In a team of 4, an AWS landing zone for a multinational energy client: networking, security, governance and datalake as IaC; automated onboarding (Lambda, Step Functions, SSM, Okta).</p>
       </div>
     </div>
@@ -508,7 +488,7 @@
 
 
   <!-- ============ TESTIMONIALS ============ -->
-  <section class="view testimonials" x-show="view==='testimonials'"
+  <section id="testimonials" data-view-focus="testimonials" tabindex="-1" class="view testimonials" x-show="view==='testimonials'"
            x-transition:enter="fade-up" x-transition:enter-start="fade-up-start" x-transition:enter-end="fade-up-end"
            x-transition:leave="fade-out" x-transition:leave-start="fade-up-end" x-transition:leave-end="fade-out-end">
 
@@ -529,7 +509,7 @@
   </section>
 
   <!-- ============ CONTACT ============ -->
-  <section class="view contact" x-show="view==='contact'"
+  <section id="contact" data-view-focus="contact" tabindex="-1" class="view contact" x-show="view==='contact'"
            x-transition:enter="fade-up" x-transition:enter-start="fade-up-start" x-transition:enter-end="fade-up-end"
            x-transition:leave="fade-out" x-transition:leave-start="fade-up-end" x-transition:leave-end="fade-out-end">
 
@@ -540,8 +520,15 @@
     <div class="crisp-box">
       <div class="crisp-box-inner">
         <h3 class="crisp-box-title">Chat</h3>
-        <p class="crisp-box-desc">A technical question, a job application, a project? Answer within a few hours.</p>
-        <p class="contact-card-actions"><button class="btn btn-primary" type="button" @click="openChatBtn()">Open chat</button></p>
+        <p class="crisp-box-desc">A technical question, a job application, a project? Write to me here: I reply personally.</p>
+        <div class="contact-composer">
+          <label class="sr-only" for="contact-input">Your question or message</label>
+          <textarea id="contact-input" name="message" x-ref="contactInput" x-model="input" disabled :disabled="false" placeholder="Ask your question…" rows="3" aria-describedby="contact-expectation"></textarea>
+          <p class="contact-expectation" id="contact-expectation">A real conversation, with a reply when I’m available.</p>
+          <button class="contact-send" type="button" disabled @click="submit('contactInput')" :disabled="sending || !input.trim()">Send to Alexandre</button>
+          <p class="contact-send-status" role="status" aria-live="polite" aria-atomic="true" x-text="sendStatus"></p>
+        </div>
+        <p class="contact-card-actions"><button class="btn btn-primary" type="button" disabled :disabled="sending" :class="{ 'is-loading': sending }" @click="openChatBtn()">Open chat</button></p>
       </div>
       <p class="q-warning" role="alert">
         Chat is blocked by your browser.
@@ -577,8 +564,7 @@
 
 <footer class="wrap footer">
   <p>© <span id="year"></span> Alexandre Tostivint · ask.alexandre.tostivint.bzh</p>
-  <p class="footer-note">Page co-built with Atlas, my AI assistant.</p>
-  <p class="footer-note subtle">Static page, no heavy framework, no tracker. The only cookie here is the one you will eat while reading this page. 🥖</p>
+  <button class="home-motion-toggle" type="button" disabled :disabled="false" @click="toggleAnimations()" :aria-pressed="networkPaused" x-text="networkPaused ? 'Resume animations' : 'Pause animations'">Pause animations</button>
 </footer>
 
 <script>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Compact home preview · Alexandre Tostivint</title>
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../network.js" defer></script>
+  <script src="../preview.js" defer></script>
+</head>
+<body class="compact-preview">
+  <div class="bg-glow" aria-hidden="true"></div>
+  <canvas id="bg-network" aria-hidden="true"></canvas>
+  <a class="preview-skip" href="#conversation">Skip to conversation</a>
+  <header class="preview-header preview-shell">
+    <a class="preview-brand" href="./" aria-label="AT, Alexandre Tostivint">AT<span aria-hidden="true">.</span></a>
+    <nav aria-label="Main navigation">
+      <a href="../../../en/">Current version</a>
+      <a href="https://cv.alexandre.tostivint.bzh" target="_blank" rel="noopener">View résumé <span aria-hidden="true">↗</span></a>
+      <a class="preview-language" href="../" lang="fr" hreflang="fr" aria-label="Passer au français">FR</a>
+    </nav>
+  </header>
+  <main class="preview-main preview-shell">
+    <div class="compact-identity">
+      <picture class="identity-photo">
+        <source srcset="../../../alexandre-portrait-a.webp" type="image/webp">
+        <img src="../../../alexandre-portrait-a.jpg" alt="Alexandre Tostivint" width="600" height="600" fetchpriority="high" decoding="async">
+      </picture>
+      <div class="identity-copy">
+        <h1>Alexandre Tostivint<span aria-hidden="true">.</span></h1>
+        <p class="identity-role">Senior cloud architect</p>
+        <p class="identity-clouds">AWS, Azure, GCP</p>
+      </div>
+    </div>
+    <p class="compact-availability">Open to role opportunities and selected consulting engagements.</p>
+    <section class="preview-conversation" aria-labelledby="conversation" tabindex="-1">
+      <h2 id="conversation">The easiest way to get to know me?<br>Ask me a question.</h2>
+      <p class="conversation-intro" id="conversation-intro">I’m Alexandre, a cloud architect. A technical question, a project or a job opportunity? Write to me here: I reply personally.</p>
+      <p class="conversation-expectation" id="conversation-expectation">A real conversation, with a reply when I’m available.</p>
+      <form class="composer" id="preview-form">
+        <label class="sr-only" for="preview-message">Your question or message</label>
+        <textarea id="preview-message" name="message" placeholder="Ask your question…" rows="3" aria-describedby="conversation-expectation preview-note preview-status" disabled></textarea>
+        <div class="compose-footer"><span class="compose-hint">You’re writing to Alexandre.</span><button class="compose-send" type="submit" disabled>Send to Alexandre <span aria-hidden="true">↑</span></button></div>
+      </form>
+      <p class="preview-status" id="preview-status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div class="preview-suggestions" role="group" aria-label="Message suggestions">
+        <button type="button" data-draft="I'd like to discuss a role." disabled>Hiring for your team?</button>
+        <button type="button" data-draft="I'd like to discuss a cloud project." disabled>Let's discuss your project</button>
+      </div>
+      <div class="preview-direct"><a href="https://cv.alexandre.tostivint.bzh" target="_blank" rel="noopener">View résumé <span aria-hidden="true">↗</span></a><a href="https://www.linkedin.com/in/alexandretostivint/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a><a href="mailto:alexandre@tostivint.bzh">Email <span aria-hidden="true">↗</span></a></div>
+      <p class="preview-note" id="preview-note">Interactive preview: no message is transmitted.</p>
+      <noscript><p class="preview-note">The interactive preview requires JavaScript. Direct links remain available.</p></noscript>
+    </section>
+  </main>
+  <footer class="preview-footer preview-shell"><p>Alexandre Tostivint</p><button type="button" class="network-control" id="network-control" aria-pressed="false" hidden>Stop animations</button></footer>
+</body>
+</html>

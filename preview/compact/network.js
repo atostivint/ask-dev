@@ -20,7 +20,6 @@
   var motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   var reduceMotion = motionQuery.matches;
   var paused = false;
-  var activeView = null;
 
   var particles = [];
   var pointer = { x: -9999, y: -9999, active: false };
@@ -134,10 +133,9 @@
   }
 
   function isHome() {
-    if (activeView !== null) return activeView === "home";
     var route = window.location.hash.slice(1).split("/")[0];
     if (route === "main-content") return !canvas.hidden;
-    return !route || ["projects", "project-finops", "about", "testimonials", "contact", "certs", "parcours", "ab-hist"].indexOf(route) < 0;
+    return !route || ["projects", "about", "contact", "certs", "parcours", "ab-hist"].indexOf(route) < 0;
   }
 
   function step() {
@@ -185,19 +183,13 @@
 
   window.addEventListener("hashchange", function () {
     // The skip link retains the current view.
-    if (window.location.hash !== "#main-content") {
-      activeView = null;
-      sync();
-    }
+    if (window.location.hash !== "#main-content") sync();
   });
   motionQuery.addEventListener("change", function (event) {
     reduceMotion = event.matches;
     sync();
   });
-  window.portfolioNetwork = {
-    setPaused: function (value) { paused = Boolean(value); sync(); },
-    setView: function (value) { activeView = value; sync(); }
-  };
+  window.portfolioNetwork = { setPaused: function (value) { paused = value; sync(); } };
 
   resize();
   spawn();
