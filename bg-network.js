@@ -17,7 +17,9 @@
   var ctx = canvas.getContext("2d");
   if (!ctx) return;
 
-  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var reduceMotion = motionQuery.matches;
+  var paused = false;
 
   var particles = [];
   var pointer = { x: -9999, y: -9999, active: false };
@@ -56,18 +58,17 @@
     }
   }
 
-  function step() {
+  function draw(animate) {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
     var i, j, p, q, dx, dy, dist;
 
     for (i = 0; i < particles.length; i++) {
       p = particles[i];
-      p.x += p.vx;
-      p.y += p.vy;
+      if (animate) { p.x += p.vx; p.y += p.vy; }
 
       /* Interaction curseur : douce répulsion */
-      if (pointer.active) {
+      if (animate && pointer.active) {
         dx = p.x - pointer.x;
         dy = p.y - pointer.y;
         dist = Math.sqrt(dx * dx + dy * dy);
@@ -112,14 +113,14 @@
     }
 
     /* Lien curseur : le pointeur devient un noeud du réseau */
-    if (pointer.active) {
+    if (animate && pointer.active) {
       for (i = 0; i < particles.length; i++) {
         p = particles[i];
         dx = p.x - pointer.x; dy = p.y - pointer.y;
         dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < 170) {
           var a2 = (1 - dist / 170) * 0.28;
-          ctx.strokeStyle = "rgba(124,108,240," + a2.toFixed(3) + ")";
+          ctx.strokeStyle = "rgba(79,143,247," + a2.toFixed(3) + ")";
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(pointer.x, pointer.y);
@@ -129,25 +130,41 @@
       }
     }
 
+  }
+
+  function isHome() {
+    var route = window.location.hash.slice(1).split("/")[0];
+    if (route === "main-content") return !canvas.hidden;
+    return !route || ["projects", "about", "contact", "certs", "parcours", "ab-hist"].indexOf(route) < 0;
+  }
+
+  function step() {
+    rafId = null;
+    if (!running) return;
+    draw(true);
     rafId = requestAnimationFrame(step);
   }
 
-  function start() {
-    if (running) return;
+  function sync() {
+    stop();
+    canvas.hidden = !isHome();
+    if (canvas.hidden || document.hidden) return;
+    draw(false);
+    if (reduceMotion || paused) return;
     running = true;
-    if (reduceMotion) { step(); running = false; return; }
     rafId = requestAnimationFrame(step);
   }
 
   function stop() {
     running = false;
-    if (rafId) cancelAnimationFrame(rafId);
+    if (rafId !== null) cancelAnimationFrame(rafId);
     rafId = null;
   }
 
   window.addEventListener("resize", function () {
     resize();
     spawn();
+    sync();
   }, { passive: true });
 
   window.addEventListener("pointermove", function (e) {
@@ -161,18 +178,20 @@
   });
 
   document.addEventListener("visibilitychange", function () {
-    if (document.hidden) stop(); else start();
+    sync();
   });
 
-  var io = new IntersectionObserver(function (entries) {
-    /* canvas est position:fixed, toujours visible ; garde-fou si un jour inline */
-    entries.forEach(function (en) {
-      if (en.isIntersecting) start(); else stop();
-    });
+  window.addEventListener("hashchange", function () {
+    // The skip link retains the current view.
+    if (window.location.hash !== "#main-content") sync();
   });
-  io.observe(canvas);
+  motionQuery.addEventListener("change", function (event) {
+    reduceMotion = event.matches;
+    sync();
+  });
+  window.portfolioNetwork = { setPaused: function (value) { paused = value; sync(); } };
 
   resize();
   spawn();
-  start();
+  sync();
 })();
